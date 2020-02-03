@@ -11,7 +11,11 @@ The University of Texas at El Paso (UTEP) and LSH are collaborating to develop P
 # Collaborators
 
 Dima AbdelJaber
+
 Ricardo Sanchez
+
 Ana Zepeda
+
 Scott Honaker
+
 Luis Ochoa
