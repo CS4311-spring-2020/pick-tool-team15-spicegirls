@@ -1,6 +1,6 @@
 # Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) tool-team15-spicegirls
 
-##### Table of Contents  
+## Table of Contents  
 * [Product Perspective](#product-perspective)  
 * [Scope of Product](#scope-of-product)  
 * [Collaborators](#collaborators) 
