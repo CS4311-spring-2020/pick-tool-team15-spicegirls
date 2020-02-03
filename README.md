@@ -22,12 +22,12 @@ The University of Texas at El Paso (UTEP) and LSH are collaborating to develop P
 
 ## Collaborators
 
-    Dima AbdelJaber
+  * Dima AbdelJaber
 
-    Ricardo Sanchez
+  * Ricardo Sanchez
 
-    Ana Zepeda
+  * Ana Zepeda
 
-    Scott Honaker
+  * Scott Honaker
 
-    Luis Ochoa
+  * Luis Ochoa
