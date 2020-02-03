@@ -1,88 +1,17 @@
 # Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) tool-team15-spicegirls
 
 ##### Table of Contents  
-[Product Perspective](#headers)  
-[Scope of Product](#headers)  
-[Collaborators](#headers) 
+* [Product Perspective](#product-perspective)  
+* [Scope of Product](#scope-of-product)  
+* [Collaborators](#collaborators) 
   
-<Product Perspective="headers"/>
+<Product Perspective="product-perspective"/>
 
 ## Product Perspective
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) is an interactive system that facilitates correlations between red team’s activities and blue team’s responses and generates graphical representation of events that took place during an adversarial assessment.  
 
-<Scope of Product="headers"/>
+<Scope of Product="scope-of-product"/>
 
 ## Scope of Product
 
