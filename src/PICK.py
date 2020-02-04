@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from src.fileDirectory import UIFileDirectory
 
 class Ui_PICK(object):
     def setupUi(self, PICK):
@@ -279,6 +279,7 @@ class Ui_PICK(object):
         self.gridLayout_3.addWidget(self.BlueTeamToolButton, 5, 3, 1, 1)
         self.RootDirectoryToolButton = QtWidgets.QToolButton(self.DirectoryConfigGroupbox)
         self.RootDirectoryToolButton.setObjectName("RootDirectoryToolButton")
+        self.RootDirectoryToolButton.clicked.connect(self.b15)
         self.gridLayout_3.addWidget(self.RootDirectoryToolButton, 1, 3, 1, 1)
         self.RedTeamToolButton = QtWidgets.QToolButton(self.DirectoryConfigGroupbox)
         self.RedTeamToolButton.setObjectName("RedTeamToolButton")
@@ -3591,6 +3592,10 @@ class Ui_PICK(object):
 
     def b14(self):
         self.StackView.setCurrentIndex(14)
+
+    def b15(self):
+        self.window = UIFileDirectory()
+        self.window.show()
 
 if __name__ == "__main__":
     import sys
