@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from src.fileDirectory import UIFileDirectory
 
 class Ui_PICK(object):
     def setupUi(self, PICK):
@@ -71,21 +71,21 @@ class Ui_PICK(object):
         self.verticalLayout_7.addWidget(self.OV_NodesConfigInGraphButton)
         self.OV_RelationshipConfigButton = QtWidgets.QPushButton(self.OV_GroupBox)
         self.OV_RelationshipConfigButton.setObjectName("OV_RelationshipConfigButton")
-        self.OV_TeamConfigButton.clicked.connect(self.b0)
-        self.OV_EventConfigButton.clicked.connect(self.b1)
-        self.OV_DirectoryConfigButton.clicked.connect(self.b2)
-        self.OV_VectorConfigButton.clicked.connect(self.b3)
-        self.OV_LogFileConfigButton.clicked.connect(self.b4)
-        self.OV_FilterConfigButton.clicked.connect(self.b5)
-        self.OV_LogEntryConfigButton.clicked.connect(self.b6)
-        self.OV_ExportConfigButton.clicked.connect(self.b7)
-        self.OV_ChangeConfigButton.clicked.connect(self.b8)
-        self.OV_VectorDBConfigButton.clicked.connect(self.b9)
-        self.OV_IconConfigButton.clicked.connect(self.b10)
-        self.OV_GraphBuilderConfigButton.clicked.connect(self.b11)
-        self.OV_NodesConfigInTableButton.clicked.connect(self.b12)
-        self.OV_NodesConfigInGraphButton.clicked.connect(self.b13)
-        self.OV_RelationshipConfigButton.clicked.connect(self.b14)
+        self.OV_TeamConfigButton.clicked.connect(lambda: self.btn(0))
+        self.OV_EventConfigButton.clicked.connect(lambda: self.btn(1))
+        self.OV_DirectoryConfigButton.clicked.connect(lambda: self.btn(2))
+        self.OV_VectorConfigButton.clicked.connect(lambda: self.btn(3))
+        self.OV_LogFileConfigButton.clicked.connect(lambda: self.btn(4))
+        self.OV_FilterConfigButton.clicked.connect(lambda: self.btn(5))
+        self.OV_LogEntryConfigButton.clicked.connect(lambda: self.btn(6))
+        self.OV_ExportConfigButton.clicked.connect(lambda: self.btn(7))
+        self.OV_ChangeConfigButton.clicked.connect(lambda: self.btn(8))
+        self.OV_VectorDBConfigButton.clicked.connect(lambda: self.btn(9))
+        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(10))
+        self.OV_GraphBuilderConfigButton.clicked.connect(lambda: self.btn(11))
+        self.OV_NodesConfigInTableButton.clicked.connect(lambda: self.btn(12))
+        self.OV_NodesConfigInGraphButton.clicked.connect(lambda: self.btn(13))
+        self.OV_RelationshipConfigButton.clicked.connect(lambda: self.btn(14))
         self.verticalLayout_7.addWidget(self.OV_RelationshipConfigButton)
         self.gridLayout_4.addWidget(self.OV_GroupBox, 0, 0, 2, 2)
         self.OVMainViewLine = QtWidgets.QFrame(self.OptionView)
@@ -276,18 +276,22 @@ class Ui_PICK(object):
         self.gridLayout_3.addWidget(self.BlueTeamLineEdit, 5, 1, 1, 1)
         self.BlueTeamToolButton = QtWidgets.QToolButton(self.DirectoryConfigGroupbox)
         self.BlueTeamToolButton.setObjectName("BlueTeamToolButton")
+        self.BlueTeamToolButton.clicked.connect(lambda: self.btn(15))
         self.gridLayout_3.addWidget(self.BlueTeamToolButton, 5, 3, 1, 1)
         self.RootDirectoryToolButton = QtWidgets.QToolButton(self.DirectoryConfigGroupbox)
         self.RootDirectoryToolButton.setObjectName("RootDirectoryToolButton")
+        self.RootDirectoryToolButton.clicked.connect(lambda: self.btn(15))
         self.gridLayout_3.addWidget(self.RootDirectoryToolButton, 1, 3, 1, 1)
         self.RedTeamToolButton = QtWidgets.QToolButton(self.DirectoryConfigGroupbox)
         self.RedTeamToolButton.setObjectName("RedTeamToolButton")
+        self.RedTeamToolButton.clicked.connect(lambda: self.btn(15))
         self.gridLayout_3.addWidget(self.RedTeamToolButton, 3, 3, 1, 1)
         self.BlueTeamFolderLabel = QtWidgets.QLabel(self.DirectoryConfigGroupbox)
         self.BlueTeamFolderLabel.setObjectName("BlueTeamFolderLabel")
         self.gridLayout_3.addWidget(self.BlueTeamFolderLabel, 5, 0, 1, 1)
         self.WhiteTeamToolButton = QtWidgets.QToolButton(self.DirectoryConfigGroupbox)
         self.WhiteTeamToolButton.setObjectName("WhiteTeamToolButton")
+        self.WhiteTeamToolButton.clicked.connect(lambda: self.btn(15))
         self.gridLayout_3.addWidget(self.WhiteTeamToolButton, 8, 3, 1, 1)
         spacerItem23 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem23, 9, 1, 1, 1)
@@ -3547,50 +3551,13 @@ class Ui_PICK(object):
         self.RC_ParentUpArrow.setText(_translate("PICK", "▲"))
         self.RC_RelationshipIDUpArrow.setText(_translate("PICK", "▲"))
 
-    def b0(self):
-        self.StackView.setCurrentIndex(0)
+    def btn(self, index):
+        if index < 15:
+            self.StackView.setCurrentIndex(index)
+        elif index == 15:
+            self.window = UIFileDirectory()
+            self.window.show()
 
-    def b1(self):
-        self.StackView.setCurrentIndex(1)
-
-    def b2(self):
-        self.StackView.setCurrentIndex(2)
-
-    def b3(self):
-        self.StackView.setCurrentIndex(3)
-
-    def b4(self):
-        self.StackView.setCurrentIndex(4)
-
-    def b5(self):
-        self.StackView.setCurrentIndex(5)
-
-    def b6(self):
-        self.StackView.setCurrentIndex(6)
-
-    def b7(self):
-        self.StackView.setCurrentIndex(7)
-
-    def b8(self):
-        self.StackView.setCurrentIndex(8)
-
-    def b9(self):
-        self.StackView.setCurrentIndex(9)
-
-    def b10(self):
-        self.StackView.setCurrentIndex(10)
-
-    def b11(self):
-        self.StackView.setCurrentIndex(11)
-
-    def b12(self):
-        self.StackView.setCurrentIndex(12)
-
-    def b13(self):
-        self.StackView.setCurrentIndex(13)
-
-    def b14(self):
-        self.StackView.setCurrentIndex(14)
 
 if __name__ == "__main__":
     import sys
