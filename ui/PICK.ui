@@ -184,7 +184,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>8</number>
+       <number>13</number>
       </property>
       <widget class="QWidget" name="TeamConfigView">
        <layout class="QGridLayout" name="gridLayout_17">
@@ -2879,7 +2879,7 @@
              <row/>
              <column>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
              </column>
              <column>
@@ -3448,7 +3448,7 @@
               </rect>
              </property>
              <property name="currentText">
-              <string> </string>
+              <string/>
              </property>
             </widget>
             <widget class="QFontComboBox" name="LEC_LET_VectorDropDown02">
@@ -3756,7 +3756,7 @@
           </rect>
          </property>
          <property name="currentText">
-          <string> </string>
+          <string/>
          </property>
         </widget>
        </widget>
@@ -3989,7 +3989,7 @@
              <row/>
              <column>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
               <property name="font">
                <font>
@@ -5226,7 +5226,7 @@
              <row/>
              <column>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
              </column>
              <column>
@@ -5945,7 +5945,7 @@
               </rect>
              </property>
              <property name="currentText">
-              <string> </string>
+              <string/>
              </property>
             </widget>
             <widget class="QFontComboBox" name="VDBC_AS_SyncDropDown2">
@@ -6172,7 +6172,7 @@
              <row/>
              <column>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
              </column>
              <column>
@@ -6813,7 +6813,7 @@
              </rect>
             </property>
             <property name="currentText">
-             <string> </string>
+             <string/>
             </property>
            </widget>
            <widget class="QLabel" name="GBC_DescriptionLabel">
@@ -6976,7 +6976,7 @@
              </attribute>
              <row>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
              </row>
              <row>
@@ -7948,7 +7948,7 @@
              </rect>
             </property>
             <property name="currentText">
-             <string> </string>
+             <string/>
             </property>
            </widget>
            <widget class="QLabel" name="NCIGF_IntervalLlabel">
@@ -7972,19 +7972,6 @@
               <width>291</width>
               <height>21</height>
              </rect>
-            </property>
-           </widget>
-           <widget class="QCheckBox" name="NCIGF_VerticalTimelineCheckBox">
-            <property name="geometry">
-             <rect>
-              <x>670</x>
-              <y>130</y>
-              <width>121</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Vertical timeline</string>
             </property>
            </widget>
           </widget>
@@ -8835,7 +8822,7 @@
             <row/>
             <column>
              <property name="text">
-              <string> </string>
+              <string/>
              </property>
             </column>
             <column>
@@ -9460,10 +9447,37 @@
      <x>0</x>
      <y>0</y>
      <width>1281</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
   </widget>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
