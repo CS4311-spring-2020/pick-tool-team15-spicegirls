@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton
 from PyQt5.uic import loadUi
-from src.fileDirectory import UIFileDirectory
+from src.fileDirectory import FileDirectory
 
 
 class Ui(QMainWindow):
@@ -58,7 +58,7 @@ class Ui(QMainWindow):
         if index < 15:
             self.StackView.setCurrentIndex(index)
         elif index == 15:
-            self.window = UIFileDirectory()
+            self.window = FileDirectory()
             self.window.show()
 
 
