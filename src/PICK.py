@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QComboBox, \
+    QTableWidget, QTableWidgetItem
 from PyQt5.uic import loadUi
 from src.fileDirectory import FileDirectory
 
@@ -51,6 +53,20 @@ class Ui(QMainWindow):
         self.RootDirectoryToolButton.clicked.connect(lambda: self.btn(15))
         self.RedTeamToolButton.clicked.connect(lambda: self.btn(15))
         self.WhiteTeamToolButton.clicked.connect(lambda: self.btn(15))
+
+        # Log entry configuration page
+        self.LECtable = self.findChild(QTableWidget, 'LEC_LET_TtableWidget')
+        i = 0
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.LECtable.setItem(i, 0, checkbox)
+            combo = QComboBox()
+            combo.addItems([' ', '1', '2', '3'])
+            self.LECtable.setCellWidget(i, 4, combo)
+            i += 1
+
+
 
         self.show()
 

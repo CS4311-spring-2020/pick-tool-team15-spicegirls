@@ -184,7 +184,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>14</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="TeamConfigView">
        <layout class="QGridLayout" name="gridLayout_17">
@@ -2876,7 +2876,7 @@
              <row/>
              <column>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
              </column>
              <column>
@@ -3435,279 +3435,6 @@
               <bool>true</bool>
              </property>
             </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown01">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>40</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string> </string>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown02">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>70</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown03">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>100</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown04">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>130</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown05">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>160</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown15">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>460</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown16">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>490</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown17">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>520</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown18">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>550</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown19">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>580</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown20">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>610</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown21">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>640</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown12">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>370</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown11">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>340</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown13">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>400</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown14">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>430</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown07">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>220</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown06">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>190</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown09">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>280</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown10">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>310</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
-            <widget class="QFontComboBox" name="LEC_LET_VectorDropDown08">
-             <property name="geometry">
-              <rect>
-               <x>670</x>
-               <y>250</y>
-               <width>121</width>
-               <height>31</height>
-              </rect>
-             </property>
-             <property name="currentText">
-              <string/>
-             </property>
-            </widget>
            </widget>
           </item>
          </layout>
@@ -3753,7 +3480,7 @@
           </rect>
          </property>
          <property name="currentText">
-          <string> </string>
+          <string/>
          </property>
         </widget>
        </widget>
@@ -3986,7 +3713,7 @@
              <row/>
              <column>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
               <property name="font">
                <font>
@@ -5079,7 +4806,7 @@
              <row/>
              <column>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
              </column>
              <column>
@@ -5657,7 +5384,7 @@
               </rect>
              </property>
              <property name="currentText">
-              <string> </string>
+              <string/>
              </property>
             </widget>
             <widget class="QFontComboBox" name="VDBC_AS_SyncDropDown2">
@@ -5884,7 +5611,7 @@
              <row/>
              <column>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
              </column>
              <column>
@@ -6426,7 +6153,7 @@
              </rect>
             </property>
             <property name="currentText">
-             <string> </string>
+             <string/>
             </property>
            </widget>
            <widget class="QLabel" name="GBC_DescriptionLabel">
@@ -6589,7 +6316,7 @@
              </attribute>
              <row>
               <property name="text">
-               <string> </string>
+               <string/>
               </property>
              </row>
              <row>
@@ -7561,7 +7288,7 @@
              </rect>
             </property>
             <property name="currentText">
-             <string> </string>
+             <string/>
             </property>
            </widget>
            <widget class="QLabel" name="NCIGF_IntervalLlabel">
@@ -8448,7 +8175,7 @@
             <row/>
             <column>
              <property name="text">
-              <string> </string>
+              <string/>
              </property>
             </column>
             <column>
@@ -8477,6 +8204,9 @@
              </property>
              <property name="checkState">
               <enum>Unchecked</enum>
+             </property>
+             <property name="flags">
+              <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
              </property>
             </item>
             <item row="1" column="0">
@@ -8520,6 +8250,9 @@
              </property>
             </item>
             <item row="6" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
@@ -8533,11 +8266,17 @@
              </property>
             </item>
             <item row="8" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="9" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
@@ -8575,16 +8314,25 @@
              </property>
             </item>
             <item row="14" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="15" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="16" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
@@ -8606,156 +8354,249 @@
              </property>
             </item>
             <item row="19" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="20" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="21" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="22" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="23" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="24" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="25" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="26" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="27" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="28" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="29" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="30" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="31" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="32" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="33" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="34" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="35" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="36" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="37" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="38" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="39" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="40" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="41" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="42" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="43" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="44" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="45" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="46" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="47" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="48" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
             </item>
             <item row="49" column="0">
+             <property name="text">
+              <string/>
+             </property>
              <property name="checkState">
               <enum>Checked</enum>
              </property>
