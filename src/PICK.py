@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QComboBox, \
-    QTableWidget, QTableWidgetItem
+    QTableWidget, QTableWidgetItem, QLabel
 from PyQt5.uic import loadUi
 from src.fileDirectory import FileDirectory
 
@@ -182,7 +182,22 @@ class Ui(QMainWindow):
             self.ICtable.setItem(i, 0, checkbox)
             i += 1
 
+        self.connectButton = self.findChild(QPushButton, 'TeamConfigConnectpushButton')
+        self.connectStatus = self.findChild(QLabel, 'ConnectionStatus')
+        self.connectButton.clicked.connect(self.connectButtonClicked)
+
+
         self.show()
+
+    def connectButtonClicked(self):
+        if self.connectButton.text() == 'Disconnect':
+            self.connectButton.setText('Connect')
+            self.connectStatus.setText('Not Connected')
+        else:
+            self.connectStatus.setText('Connected')
+            self.connectButton.setText('Disconnect')
+
+
 
     def btn(self, index):
         if index < 15:

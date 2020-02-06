@@ -184,7 +184,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>13</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="TeamConfigView">
        <layout class="QGridLayout" name="gridLayout_17">
@@ -237,7 +237,7 @@
         <item row="10" column="1">
          <widget class="QPushButton" name="TeamConfigConnectpushButton">
           <property name="text">
-           <string>Connect</string>
+           <string>Disconnect</string>
           </property>
          </widget>
         </item>
@@ -460,6 +460,13 @@
             <widget class="QCheckBox" name="LeadCheckBox">
              <property name="text">
               <string>Lead</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="ConnectionStatus">
+             <property name="text">
+              <string>Connected</string>
              </property>
             </widget>
            </item>
