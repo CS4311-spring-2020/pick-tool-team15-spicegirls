@@ -24,7 +24,7 @@ The University of Texas at El Paso (UTEP) and LSH are collaborating to develop P
 
 ## Github Structure
 
-This repository contains 3 folders (src, doc, and ui). 
+This repository contains 3 folders (src, doc, resources, and ui). 
 
   * The src folder contains all source code regarding the PICK project.
   
