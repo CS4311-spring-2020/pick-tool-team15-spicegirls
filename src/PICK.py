@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QComboBox, \
     QTableWidget, QTableWidgetItem, QLabel
 from PyQt5.uic import loadUi
-from src.fileDirectory import FileDirectory
+from fileDirectory import FileDirectory
 
 
 class Ui(QMainWindow):
