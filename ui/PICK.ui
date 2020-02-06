@@ -7097,7 +7097,7 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>../../../Capture.PNG</normaloff>../../../Capture.PNG</iconset>
+              <normaloff>../Resouces/Capture.PNG</normaloff>../Resouces/Capture.PNG</iconset>
             </property>
             <property name="iconSize">
              <size>
