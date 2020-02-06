@@ -66,7 +66,121 @@ class Ui(QMainWindow):
             self.LECtable.setCellWidget(i, 4, combo)
             i += 1
 
+        # log file configuration table checkboxes
+        self.LFGtable = self.findChild(QTableWidget, 'LFT_tableWidget')
+        i = 0
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.LFGtable.setItem(i, 5, checkbox)
+            i += 1
 
+        # Vector configuration table checkboxes
+        self.VCtable = self.findChild(QTableWidget, 'VC_TableView')
+        i = 0
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.VCtable.setItem(i, 0, checkbox)
+            i += 1
+
+        # Relationship config table checkboxes
+        self.RCtable = self.findChild(QTableWidget, 'RelationshipConfigTableWidget')
+        i = 0
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.RCtable.setItem(i, 0, checkbox)
+            i += 1
+
+        # Pulled vector database table checkboxes
+        self.PullVDBtable = self.findChild(QTableWidget, 'VDBC_PulledTableWidget')
+        i = 0
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.PullVDBtable.setItem(i, 0, checkbox)
+            i += 1
+
+        # pushed vector database table check boxes
+        self.PushVDBtable = self.findChild(QTableWidget, 'VDBC_PushedTableWidget')
+        i = 0
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.PushVDBtable.setItem(i, 0, checkbox)
+            i += 1
+
+        # approval database table check boxes and drop down
+        self.ADBtable = self.findChild(QTableWidget, 'VDBC_AS_TableWidget')
+        i = 0
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.ADBtable.setItem(i, 0, checkbox)
+            combo = QComboBox()
+            combo.addItems([' ', '1', '2', '3'])
+            self.ADBtable.setCellWidget(i, 7, combo)
+            i += 1
+
+        # Node configuration table check boxes and drop down
+        self.NCtable = self.findChild(QTableWidget, 'NCITF_NT_tableWidget')
+        i = 1
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.NCtable.setItem(i, 0, checkbox)
+            i += 1
+
+        i = 1
+        while i < 10:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.NCtable.setItem(0, i, checkbox)
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.NCtable.setItem(10, i, checkbox)
+            i += 1
+
+        i = 1
+        while i < 10:
+            j = 6
+            while j < 9:
+                combo = QComboBox()
+                combo.addItems([' ', '1', '2', '3'])
+                self.NCtable.setCellWidget(j, i, combo)
+                j += 1
+            i += 1
+
+        # Node configuration in graphical view checkbox and combobox
+        self.NCVtable = self.findChild(QTableWidget, 'NCIGF_TV_tableWidget')
+        i = 1
+        while i < 10:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.NCVtable.setItem(i, 0, checkbox)
+            i += 1
+
+        i = 6
+        while i < 9:
+            combo = QComboBox()
+            combo.addItems([' ', '1', '2', '3'])
+            self.NCVtable.setCellWidget(i, 1, combo)
+            i += 1
+
+        checkbox = QTableWidgetItem()
+        checkbox.setCheckState(Qt.Unchecked)
+        self.NCVtable.setItem(0, 1, checkbox)
+        self.NCVtable.setItem(10, 1, checkbox)
+
+        # Icon configuration table checkboxes
+        self.ICtable = self.findChild(QTableWidget, 'IC_IT_TableWidget')
+        i = 0
+        while i < 50:
+            checkbox = QTableWidgetItem()
+            checkbox.setCheckState(Qt.Unchecked)
+            self.ICtable.setItem(i, 0, checkbox)
+            i += 1
 
         self.show()
 
