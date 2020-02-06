@@ -31,6 +31,8 @@ This repository contains 3 folders (src, doc, and ui).
   * The doc folder contains all documents regarding the PICK project (SRS and SCM).
   
   * The ui folder contains the .ui files for the PICK project.
+  
+  * The resources folder contains all images and icons used in the PICK ui
 
 ## Collaborators
 
