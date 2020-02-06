@@ -3,6 +3,7 @@
 ## Table of Contents  
 * [Product Perspective](#product-perspective)  
 * [Scope of Product](#scope-of-product)  
+* [Github Structure](#github-structure)
 * [Collaborators](#collaborators) 
   
 <Product Perspective="product-perspective"/>
@@ -19,6 +20,17 @@ The Lethality, Survivability, and HSI Directorate (LSH) recognizes the complexit
 
 The University of Texas at El Paso (UTEP) and LSH are collaborating to develop Prevent, Mitigate, and Recover (PMR) Insight Collective Knowledge System (PICK) that will provide the ability to correlate red team’s activities to blue team’s responses and graphically represent the events that took place during an adversarial assessment. 
 
+<Github Structure="github-structure"/>
+
+## Github Structure
+
+This repository contains 3 folders (src, doc, and ui). 
+
+  * The src folder contains all source code regarding the PICK project.
+  
+  * The doc folder contains all documents regarding the PICK project (SRS and SCM).
+  
+  * The ui folder contains the .ui files for the PICK project.
 
 ## Collaborators
 
