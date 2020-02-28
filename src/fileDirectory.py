@@ -18,7 +18,6 @@ class FileDirectory(QWidget):
         self.setGeometry(self.left, self.top, self.width, self.height)
         
         self.openFileNameDialog()
-
         self.show()
 
     def openFileNameDialog(self):
@@ -30,5 +29,5 @@ class FileDirectory(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = App()
+    ex = FileDirectory()
     sys.exit(app.exec_())
