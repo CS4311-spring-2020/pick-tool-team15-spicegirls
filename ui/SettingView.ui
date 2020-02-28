@@ -1,0 +1,1979 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PICK_SettingView</class>
+ <widget class="QMainWindow" name="PICK_SettingView">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1281</width>
+    <height>779</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>PICK Settings</string>
+  </property>
+  <property name="dockOptions">
+   <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QFrame" name="OptionView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0" rowspan="2" colspan="2">
+        <widget class="QGroupBox" name="OV_GroupBox">
+         <property name="title">
+          <string>Option View</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QPushButton" name="OV_TeamConfigButton">
+            <property name="text">
+             <string>Team Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_EventConfigButton">
+            <property name="text">
+             <string>Event Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_DirectoryConfigButton">
+            <property name="text">
+             <string>Directory Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_VectorConfigButton">
+            <property name="text">
+             <string>Vector Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_ChangeConfigButton">
+            <property name="text">
+             <string>Change Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_IconConfigButton">
+            <property name="text">
+             <string>Icon Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="OV_verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="Line" name="OVMainViewLine">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="1" colspan="2">
+     <widget class="QStackedWidget" name="StackView">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="currentIndex">
+       <number>3</number>
+      </property>
+      <widget class="QWidget" name="TeamConfigView">
+       <layout class="QGridLayout" name="gridLayout_17">
+        <item row="4" column="2">
+         <widget class="QLineEdit" name="IPAddressLineEdit">
+          <property name="text">
+           <string>129.108.202.0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <spacer name="TeamConfigVerticalSpacer7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="6" column="2" rowspan="7">
+         <spacer name="TeamConfigVerticalSpacer5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="18" column="2">
+         <spacer name="TeamConfigVerticalSpacer15">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="10" column="1">
+         <widget class="QPushButton" name="TeamConfigConnectpushButton">
+          <property name="text">
+           <string>Disconnect</string>
+          </property>
+         </widget>
+        </item>
+        <item row="17" column="2">
+         <spacer name="TeamConfigVerticalSpacer4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="11" column="1" rowspan="2">
+         <spacer name="TeamConfigVerticalSpacer3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Preferred</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>1000000</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="7" column="1">
+         <spacer name="TeamConfigVerticalSpacer8">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="13" column="2">
+         <spacer name="TeamConfigVerticalSpacer2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLineEdit" name="NoOfConnectionslineEdit">
+          <property name="text">
+           <string>12</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <spacer name="TeamConfigVerticalSpacer6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="14" column="1">
+         <spacer name="TeamConfigVerticalSpacer16">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="20" column="2">
+         <spacer name="TeamConfigVerticalSpacer1">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="21" column="2">
+         <spacer name="TeamConfigVerticalSpacer14">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="22" column="2">
+         <spacer name="TeamConfigVerticalSpacer13">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="23" column="2">
+         <spacer name="TeamConfigVerticalSpacer12">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="25" column="2">
+         <spacer name="TeamConfigVerticalSpacer11">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="26" column="2">
+         <spacer name="TeamConfigVerticalSpacer10">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="27" column="2">
+         <spacer name="TeamConfigVerticalSpacer9">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="28" column="2">
+         <spacer name="TeamConfigHorizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="1" rowspan="7">
+         <widget class="QGroupBox" name="TeamConfigGroupBox">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="title">
+           <string>Team Configuration</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QFrame" name="TeamConfigTopContentFrame">
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_5"/>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="LeadCheckBox">
+             <property name="text">
+              <string>Lead</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="ConnectionStatus">
+             <property name="text">
+              <string>Connected</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="LeadIPLabel">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Lead IP address:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="IPConnectionLabel">
+             <property name="text">
+              <string>No. of established connections to the lead's IP address:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="EventConfigView">
+       <layout class="QGridLayout" name="gridLayout_13">
+        <item row="1" column="0">
+         <widget class="QPushButton" name="SaveEventPushButton">
+          <property name="text">
+           <string>Save Event</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <spacer name="EventConfigVerticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>100</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="EventConfigGroupBox">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="sizeIncrement">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="title">
+           <string>Event Configuration</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <widget class="QLineEdit" name="EventNameLineEdit">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>70</y>
+             <width>631</width>
+             <height>21</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="EventDescriptionLineEdit">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>110</y>
+             <width>631</width>
+             <height>21</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="EventStartLineEdit">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>150</y>
+             <width>631</width>
+             <height>21</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLineEdit" name="EventEndLineEdit">
+           <property name="geometry">
+            <rect>
+             <x>160</x>
+             <y>190</y>
+             <width>631</width>
+             <height>21</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="EventNameLabel">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>70</y>
+             <width>151</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Event Name:</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="EventDescriptionLabel">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>110</y>
+             <width>151</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Event Description:</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="EventStartTimestampLabel">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>150</y>
+             <width>141</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Event start timestamp:</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="EventEndTimestampLabel">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>190</y>
+             <width>141</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Event end timestamp:</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <spacer name="EventConfigHorizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="DirectoryConfigView">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="2" column="0" rowspan="3">
+         <widget class="QGroupBox" name="DirectoryConfigGroupbox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Directory Configuration</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
+           </property>
+           <property name="bottomMargin">
+            <number>12</number>
+           </property>
+           <item row="4" column="1">
+            <spacer name="DC_HorizontalSpacer2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="1">
+            <spacer name="DC_HorizontalSpacer1">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1">
+            <spacer name="DC_VerticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Maximum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="6" column="1">
+            <spacer name="DC_HorizontalSpacer3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="8" column="1">
+            <widget class="QLineEdit" name="WhiteTeamLineEdit"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="RootDirectoryLabel">
+             <property name="text">
+              <string>Root directory:</string>
+             </property>
+             <property name="wordWrap">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="RooDirectoruLineEdit"/>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="WhiteTeamFolderLabel">
+             <property name="text">
+              <string>White team folder:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="RedTeamLineEdit"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="RedTeamFolderLabel">
+             <property name="text">
+              <string>Red team folder:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLineEdit" name="BlueTeamLineEdit"/>
+           </item>
+           <item row="5" column="3">
+            <widget class="QToolButton" name="BlueTeamToolButton">
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QToolButton" name="RootDirectoryToolButton">
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QToolButton" name="RedTeamToolButton">
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="BlueTeamFolderLabel">
+             <property name="text">
+              <string>Blue team folder:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="3">
+            <widget class="QToolButton" name="WhiteTeamToolButton">
+             <property name="text">
+              <string>...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
+            <spacer name="DC_VerticalSpacer1">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="7" column="0" rowspan="2">
+         <spacer name="DCVerticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Ignored</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="5" column="0">
+         <widget class="QPushButton" name="StartIngestionPushButton">
+          <property name="text">
+           <string>Start data ingestion</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="VectorConfigView">
+       <layout class="QGridLayout" name="gridLayout_11">
+        <item row="4" column="0">
+         <widget class="QGroupBox" name="VectorConfigGroupBoxView">
+          <property name="title">
+           <string>Vector configuration</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="VectorConfigGroupBoxFieldArea">
+             <widget class="QTableWidget" name="VC_TableView">
+              <property name="geometry">
+               <rect>
+                <x>15</x>
+                <y>22</y>
+                <width>743</width>
+                <height>581</height>
+               </rect>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Sunken</enum>
+              </property>
+              <property name="sizeAdjustPolicy">
+               <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+              </property>
+              <property name="dragEnabled">
+               <bool>false</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::ExtendedSelection</enum>
+              </property>
+              <property name="textElideMode">
+               <enum>Qt::ElideRight</enum>
+              </property>
+              <property name="verticalScrollMode">
+               <enum>QAbstractItemView::ScrollPerPixel</enum>
+              </property>
+              <property name="gridStyle">
+               <enum>Qt::SolidLine</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="rowCount">
+               <number>50</number>
+              </property>
+              <attribute name="horizontalHeaderCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>240</number>
+              </attribute>
+              <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="horizontalHeaderStretchLastSection">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="verticalHeaderDefaultSectionSize">
+               <number>35</number>
+              </attribute>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <column>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textAlignment">
+                <set>AlignLeading|AlignVCenter</set>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Vector name</string>
+               </property>
+               <property name="textAlignment">
+                <set>AlignLeading|AlignVCenter</set>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Vector description</string>
+               </property>
+              </column>
+              <item row="0" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="textAlignment">
+                <set>AlignLeading|AlignVCenter</set>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="0" column="1">
+               <property name="text">
+                <string/>
+               </property>
+              </item>
+              <item row="1" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="2" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="3" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="4" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="5" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="6" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="7" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="8" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="9" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="10" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="11" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="12" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="13" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="14" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="15" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="16" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="17" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="18" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="19" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="20" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="21" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="22" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="23" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="24" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="25" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="26" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="27" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="28" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="29" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="30" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="31" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="32" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="33" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="34" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="35" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="36" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="37" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="38" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="39" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="40" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="41" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="42" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="43" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="44" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="45" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="46" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="47" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="48" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+              <item row="49" column="0">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+              </item>
+             </widget>
+             <widget class="QPushButton" name="VC_AddVectorButton">
+              <property name="geometry">
+               <rect>
+                <x>419</x>
+                <y>613</y>
+                <width>109</width>
+                <height>32</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Add vector</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="VC_DeleteVectorButton">
+              <property name="geometry">
+               <rect>
+                <x>530</x>
+                <y>613</y>
+                <width>124</width>
+                <height>32</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Delete vector</string>
+              </property>
+             </widget>
+             <widget class="QPushButton" name="VC_EditVectorButton">
+              <property name="geometry">
+               <rect>
+                <x>656</x>
+                <y>613</y>
+                <width>108</width>
+                <height>32</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Edit vector</string>
+              </property>
+             </widget>
+             <widget class="QLabel" name="VC_VectorTableLabel">
+              <property name="geometry">
+               <rect>
+                <x>18</x>
+                <y>-10</y>
+                <width>101</width>
+                <height>41</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>      vector table</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="ChangeConfigView">
+       <widget class="QGroupBox" name="ChangeConfigGroupBox">
+        <property name="geometry">
+         <rect>
+          <x>29</x>
+          <y>-1</y>
+          <width>771</width>
+          <height>261</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Change configuration</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <widget class="QLabel" name="CC_ChangeListLabel">
+         <property name="geometry">
+          <rect>
+           <x>30</x>
+           <y>130</y>
+           <width>91</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Change list:</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="CC_ChangeListLineEdit">
+         <property name="geometry">
+          <rect>
+           <x>130</x>
+           <y>130</y>
+           <width>611</width>
+           <height>21</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="CC_CommitPushButton">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>280</y>
+          <width>113</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Commit</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="CC_UndoPushButton">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>280</y>
+          <width>113</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Undo</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="IconConfigView">
+       <widget class="QGroupBox" name="IconConfigGroupBox">
+        <property name="geometry">
+         <rect>
+          <x>9</x>
+          <y>-1</y>
+          <width>831</width>
+          <height>711</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Icon configuration</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget_8">
+         <property name="geometry">
+          <rect>
+           <x>9</x>
+           <y>29</y>
+           <width>801</width>
+           <height>631</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="IconConfig_IT_VerticalLayout">
+          <item>
+           <widget class="QGroupBox" name="IC_IT_groupBox">
+            <property name="title">
+             <string>Icon table</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <widget class="QTableWidget" name="IC_IT_TableWidget">
+             <property name="geometry">
+              <rect>
+               <x>5</x>
+               <y>21</y>
+               <width>791</width>
+               <height>601</height>
+              </rect>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="rowCount">
+              <number>50</number>
+             </property>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>191</number>
+             </attribute>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <row/>
+             <column>
+              <property name="text">
+               <string/>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Icon name</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Icon source</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Image preview</string>
+              </property>
+             </column>
+             <item row="0" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="1" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="2" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="3" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="4" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="5" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="6" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="7" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="8" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="9" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="10" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="11" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="12" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="13" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="14" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="15" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="16" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="17" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="18" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="19" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="20" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="21" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="22" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="23" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="24" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="25" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="26" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="27" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="28" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="29" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="30" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="31" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="32" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="33" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="34" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="35" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="36" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="37" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="38" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="39" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="40" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="41" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="42" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="43" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="44" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="45" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="46" column="0">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="checkState">
+               <enum>Unchecked</enum>
+              </property>
+             </item>
+             <item row="47" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="48" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+             <item row="49" column="0">
+              <property name="checkState">
+               <enum>Checked</enum>
+              </property>
+             </item>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QPushButton" name="IconConfigDeleteIconButton">
+         <property name="geometry">
+          <rect>
+           <x>700</x>
+           <y>670</y>
+           <width>113</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Delete Icon</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="IconConfigEditIconButton">
+         <property name="geometry">
+          <rect>
+           <x>590</x>
+           <y>670</y>
+           <width>113</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Edit Icon</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="IconConfigAddIconButton">
+         <property name="geometry">
+          <rect>
+           <x>480</x>
+           <y>670</y>
+           <width>113</width>
+           <height>32</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Add Icon</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1281</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
