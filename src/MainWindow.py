@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'MainWindow.ui'
@@ -7,6 +8,8 @@
 # WARNING! All changes made in this file will be lost!
 
 
+=======
+>>>>>>> fcd20638fc56508546d4085dee92f9cab645d810
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
