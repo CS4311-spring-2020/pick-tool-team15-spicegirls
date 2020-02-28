@@ -30,7 +30,7 @@ class Ui(QMainWindow):
         self.OV_IconConfigButton.clicked.connect(lambda: self.btn(5))
         
         self.BlueTeamToolButton.clicked.connect(lambda: self.btn(6))
-        self.RootDirectoryToolButton.clicked.connect(lambda: self.btn())
+        self.RootDirectoryToolButton.clicked.connect(lambda: self.btn(6))
         self.RedTeamToolButton.clicked.connect(lambda: self.btn(6))
         self.WhiteTeamToolButton.clicked.connect(lambda: self.btn(6))
 
