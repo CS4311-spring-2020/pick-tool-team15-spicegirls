@@ -1,9 +1,8 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QComboBox, \
-    QTableWidget, QTableWidgetItem, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction
 from PyQt5.uic import loadUi
 from fileDirectory import FileDirectory
 from FilterConfiguration import FilterConfig
+from SettingView import SettingsWindow
 
 
 class MainWindow(QMainWindow):
@@ -11,11 +10,12 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         loadUi('../ui/MainWindow.ui', self)
 
-        self.OV_TeamConfigButton = self.findChild(QPushButton, 'filterButton')
-        self.OV_TeamConfigButton.clicked.connect(self.openFilterConfig)
+        self.FilterConfigButton = self.findChild(QPushButton, 'filterButton')
+        self.FilterConfigButton.clicked.connect(self.openFilterConfig)
 
-        self.OV_TeamConfigButton = self.findChild(QPushButton, 'graphSearchButton')
-        self.OV_TeamConfigButton.clicked.connect(self.openFileDirectory)
+        self.SettingsConfigButton = self.findChild(QPushButton, 'graphSearchButton')
+        #self.SettingsConfigButton.clicked.connect(self.openFileDirectory)
+        self.SettingsConfigButton.clicked.connect(self.openSettings)
 
         self.show()
 
@@ -25,6 +25,10 @@ class MainWindow(QMainWindow):
 
     def openFileDirectory(self):
         self.window = FileDirectory()
+        self.window.show()
+
+    def openSettings(self):
+        self.window = SettingsWindow()
         self.window.show()
 
 
