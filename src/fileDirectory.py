@@ -31,8 +31,4 @@ class FileDirectory(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = FileDirectory()
-<<<<<<< HEAD
     sys.exit(app.exec_())
-=======
-    sys.exit(app.exec_())
->>>>>>> 9e2d70b7685dd058071c50a0c837b02923230508
