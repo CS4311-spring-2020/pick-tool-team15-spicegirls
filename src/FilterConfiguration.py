@@ -5,11 +5,12 @@ from PyQt5.uic import loadUi
 
 class FilterConfig(QWidget):
     def __init__(self):
-        super().__init__()
+        super(FilterConfig, self).__init__()
         loadUi('../ui/FilterConfiguration.ui', self)
+        self.show()
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ui = FilterConfig()
-    sys.exit(app.exec_())
+    app.exec_()
