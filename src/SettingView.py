@@ -3,9 +3,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidg
 from PyQt5.uic import loadUi
 from fileDirectory import FileDirectory
 
-class Ui(QMainWindow):
+
+class SettingsWindow(QMainWindow):
     def __init__(self):
-        super(Ui, self).__init__()
+        super(SettingsWindow, self).__init__()
         loadUi('../ui/SettingView.ui', self)
 
         self.mainStackedView = self.findChild(QStackedWidget, 'StackView')
@@ -77,5 +78,5 @@ class Ui(QMainWindow):
 if __name__ == "__main__":
     import sys
     application = QApplication(sys.argv)
-    window = Ui()
+    window = SettingsWindow()
     application.exec_()
