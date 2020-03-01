@@ -14,9 +14,8 @@ class MainWindow(QMainWindow):
         self.FilterConfigButton = self.findChild(QPushButton, 'filterButton')
         self.FilterConfigButton.clicked.connect(self.openFilterConfig)
 
-        self.SettingsConfigButton = self.findChild(QPushButton, 'graphSearchButton')
-        #self.SettingsConfigButton.clicked.connect(self.openFileDirectory)
-        self.SettingsConfigButton.clicked.connect(self.openSettings)
+        self.settingsConfig = self.findChild(QAction, 'actionSettings')
+        self.settingsConfig.triggered.connect(self.openSettings)
 
         CloseMenuSelect = self.findChild(QAction, 'actionClose_Exit')
         CloseMenuSelect.setShortcut("Ctrl+Q")

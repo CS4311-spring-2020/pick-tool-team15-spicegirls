@@ -335,6 +335,8 @@
     <addaction name="separator"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
+    <addaction name="actionSettings"/>
+    <addaction name="separator"/>
     <addaction name="actionClose_Exit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -426,6 +428,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
    </property>
   </action>
  </widget>
