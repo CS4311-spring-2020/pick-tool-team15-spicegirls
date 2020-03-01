@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu
 from PyQt5.uic import loadUi
+from PyQt5.uic.properties import QtCore
 from fileDirectory import FileDirectory
 from FilterConfiguration import FilterConfig
 from SettingView import SettingsWindow
@@ -16,6 +17,10 @@ class MainWindow(QMainWindow):
         self.SettingsConfigButton = self.findChild(QPushButton, 'graphSearchButton')
         #self.SettingsConfigButton.clicked.connect(self.openFileDirectory)
         self.SettingsConfigButton.clicked.connect(self.openSettings)
+
+        CloseMenuSelect = self.findChild(QAction, 'actionClose_Exit')
+        CloseMenuSelect.setShortcut("Ctrl+Q")
+        CloseMenuSelect.triggered.connect(qApp.quit)
 
         self.show()
 
