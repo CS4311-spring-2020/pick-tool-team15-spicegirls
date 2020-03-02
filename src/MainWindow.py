@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit
 from PyQt5.uic import loadUi
 from PyQt5.uic.properties import QtCore
 from fileDirectory import FileDirectory
@@ -17,9 +17,26 @@ class MainWindow(QMainWindow):
         self.settingsConfig = self.findChild(QAction, 'actionSettings')
         self.settingsConfig.triggered.connect(self.openSettings)
 
-        CloseMenuSelect = self.findChild(QAction, 'actionClose_Exit')
-        CloseMenuSelect.setShortcut("Ctrl+Q")
-        CloseMenuSelect.triggered.connect(qApp.quit)
+        #Search button functionality ##need to add keyword search still
+        self.searchSearchButton = self.findChild(QPushButton, 'searchSearchButton')
+        self.searchSearchButton.clicked.connect(self.openFilterConfig)
+
+        # Enter press on qlineedit search tab triggers the search button
+        self.searchLineEdit = self.findChild(QLineEdit, 'lineEdit_2')
+        self.searchLineEdit.returnPressed.connect(self.searchSearchButton.click)
+
+        #Search button on graph tab functionality ##need keyword functionality added
+        self.graphSearchButton = self.findChild(QPushButton, 'graphSearchButton_2')
+        self.graphSearchButton.clicked.connect(self.openFilterConfig)
+
+        # Enter press on qlineedit graph tab triggers search button
+        self.graphSearchEdit = self.findChild(QLineEdit, 'graphLineEdit')
+        self.graphSearchEdit.returnPressed.connect(self.graphSearchButton.click)
+
+        #Exit menu option functionality
+        self.CloseMenuSelect = self.findChild(QAction, 'actionClose_Exit')
+        self.CloseMenuSelect.setShortcut("Ctrl+Q")
+        self.CloseMenuSelect.triggered.connect(qApp.quit)
 
         self.show()
 

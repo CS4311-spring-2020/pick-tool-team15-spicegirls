@@ -73,7 +73,7 @@
               <number>2</number>
              </property>
              <item>
-              <widget class="QPushButton" name="graphSearchButton">
+              <widget class="QPushButton" name="searchSearchButton">
                <property name="text">
                 <string>Search</string>
                </property>
@@ -201,7 +201,7 @@
             <number>2</number>
            </property>
            <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="graphSearchButton_2">
              <property name="text">
               <string>Search</string>
              </property>
@@ -221,7 +221,7 @@
             </spacer>
            </item>
            <item row="0" column="1">
-            <widget class="QLineEdit" name="lineEdit"/>
+            <widget class="QLineEdit" name="graphLineEdit"/>
            </item>
            <item row="0" column="3">
             <widget class="QPushButton" name="pushButton_2">
@@ -323,7 +323,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
