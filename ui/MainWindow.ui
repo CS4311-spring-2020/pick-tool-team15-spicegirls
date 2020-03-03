@@ -381,12 +381,12 @@
   </action>
   <action name="actionExport">
    <property name="text">
-    <string>Export...          Ctrl+E</string>
+    <string>Export...</string>
    </property>
   </action>
   <action name="actionClose_Exit">
    <property name="text">
-    <string>Close/Exit      Ctrl+Q</string>
+    <string>Close/Exit</string>
    </property>
   </action>
   <action name="actionUndo">
