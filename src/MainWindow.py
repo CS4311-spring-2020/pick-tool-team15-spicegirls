@@ -4,6 +4,8 @@ from PyQt5.uic.properties import QtCore
 from fileDirectory import FileDirectory
 from FilterConfiguration import FilterConfig
 from SettingView import SettingsWindow
+from ExportConfiguration import ExportConfig
+from VectDBConfig import VectorDBConfig
 
 
 class MainWindow(QMainWindow):
@@ -35,10 +37,28 @@ class MainWindow(QMainWindow):
 
         #Exit menu option functionality
         self.CloseMenuSelect = self.findChild(QAction, 'actionClose_Exit')
-        self.CloseMenuSelect.setShortcut("Ctrl+Q")
+        self.CloseMenuSelect.setShortcut('Ctrl+Q')
         self.CloseMenuSelect.triggered.connect(qApp.quit)
 
+        #Export menu option functionality
+        self.exportConfig = self.findChild(QAction, 'actionExport')
+        self.exportConfig.setShortcut('Ctrl+E')
+        self.exportConfig.triggered.connect(self.openExportConfig)
+
+        #VectorDBConfig linked to menu option
+        self.versionControl = self.findChild(QAction, 'actionVersion_Control')
+        self.versionControl.setShortcut('Ctrl+S')
+        self.versionControl.triggered.connect(self.openVectDBConfig)
+
         self.show()
+
+    def openVectDBConfig(self):
+        self.window = VectorDBConfig()
+        self.window.show()
+
+    def openExportConfig(self):
+        self.window = ExportConfig()
+        self.window.show()
 
     def openFilterConfig(self):
         self.window = FilterConfig()
