@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit, QTableWidget, \
+    QTableWidgetItem, QComboBox
 from PyQt5.uic import loadUi
 from PyQt5.uic.properties import QtCore
 from fileDirectory import FileDirectory
@@ -49,6 +50,15 @@ class MainWindow(QMainWindow):
         self.versionControl = self.findChild(QAction, 'actionVersion_Control')
         self.versionControl.setShortcut('Ctrl+S')
         self.versionControl.triggered.connect(self.openVectDBConfig)
+
+        #drop down menus vector collumn search table
+        self.searchSearchTableWidget = self.findChild(QTableWidget, 'tableWidget_2')
+        i = 0
+        while i < 10:
+            combo = QComboBox()
+            combo.addItems([' ', '1', '2', '3'])
+            self.searchSearchTableWidget.setCellWidget(i, 3, combo)
+            i += 1
 
         self.show()
 
