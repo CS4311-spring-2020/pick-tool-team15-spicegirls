@@ -1,5 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit, QTableWidget, \
-    QTableWidgetItem, QComboBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit, QTableWidget, QTableWidgetItem, QComboBox
 from PyQt5.uic import loadUi
 from PyQt5.uic.properties import QtCore
 from fileDirectory import FileDirectory
