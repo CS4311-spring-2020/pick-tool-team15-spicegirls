@@ -44,3 +44,7 @@ class SplunkHandler:
         for index in indexes:
             count = index["totalEventCount"]
             print("%s (events: %s)" % (index.name, count))
+
+    def print_jobs(self):
+        jobs = self.service.jobs
+        print("there are %d jobs :", len(jobs))
