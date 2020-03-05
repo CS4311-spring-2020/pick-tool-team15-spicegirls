@@ -11,8 +11,8 @@ class SplunkHandler:
             self.service = client.connect(
                 host="localhost",
                 port=8089,
-                username="leochoa2",
-                password="n9cErPvGV2ds5A^")
+                username="dimaaj",
+                password="@DimaAbdelJaber1234@")
 
         except Exception as Error:
             print("error connecting to splunk")

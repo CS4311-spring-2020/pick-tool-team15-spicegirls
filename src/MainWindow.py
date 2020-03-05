@@ -76,7 +76,7 @@ class MainWindow(QMainWindow):
 
     #open the graph but only calls file atm
     def openGraph(self):
-        os.system('QGraphViewer.py')
+        os.system('python3 QGraphViewer.py')
 
     def openLogConfig(self):
         self.window = LogFileConfig()
