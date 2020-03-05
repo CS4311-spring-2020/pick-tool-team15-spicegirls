@@ -74,6 +74,7 @@ class MainWindow(QMainWindow):
 
         self.show()
 
+    #open the graph but only calls file atm
     def openGraph(self):
         os.system('QGraphViewer.py')
 
