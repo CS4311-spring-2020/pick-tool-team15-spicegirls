@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         self.searchSearchButton.clicked.connect(self.openFilterConfig)
 
         # Enter press on qlineedit search tab triggers the search button
-        self.searchLineEdit = self.findChild(QLineEdit, 'lineEdit_2')
+        self.searchLineEdit = self.findChild(QLineEdit, 'searchLineEdit')
         self.searchLineEdit.returnPressed.connect(self.searchSearchButton.click)
 
         #Search button on graph tab functionality ##need keyword functionality added
