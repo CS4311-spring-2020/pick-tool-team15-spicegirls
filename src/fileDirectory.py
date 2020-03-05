@@ -1,10 +1,9 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QFileSystemModel, QTreeView, QWidget, QVBoxLayout, QInputDialog, QLineEdit, QFileDialog
 from PyQt5.QtGui import QIcon
-import os
+
 
 class FileDirectory(QWidget):
-
     def __init__(self):
         super().__init__()
         self.title = 'Directory'
@@ -19,6 +18,7 @@ class FileDirectory(QWidget):
         self.setGeometry(self.left, self.top, self.width, self.height)
         
         self.openFileNameDialog()
+
         self.show()
 
     def openFileNameDialog(self):
@@ -30,5 +30,5 @@ class FileDirectory(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = FileDirectory()
+    ex = app()
     sys.exit(app.exec_())
