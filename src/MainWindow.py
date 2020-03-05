@@ -7,6 +7,7 @@ from FilterConfiguration import FilterConfig
 from SettingView import SettingsWindow
 from ExportConfiguration import ExportConfig
 from VectDBConfig import VectorDBConfig
+from LogFileConfig import LogFileConfig
 
 
 class MainWindow(QMainWindow):
@@ -51,6 +52,10 @@ class MainWindow(QMainWindow):
         self.versionControl.setShortcut('Ctrl+S')
         self.versionControl.triggered.connect(self.openVectDBConfig)
 
+        self.actionLogFile = self.findChild(QAction, 'actionFileConfig')
+        self.actionLogFile.setShortcut('Ctrl+F')
+        self.actionLogFile.triggered.connect(self.openLogConfig)
+
         #drop down menus vector collumn search table
         self.searchSearchTableWidget = self.findChild(QTableWidget, 'tableWidget_2')
         i = 0
@@ -61,6 +66,10 @@ class MainWindow(QMainWindow):
             i += 1
 
         self.show()
+
+    def openLogConfig(self):
+        self.window = LogFileConfig()
+        self.window.show()
 
     def openVectDBConfig(self):
         self.window = VectorDBConfig()

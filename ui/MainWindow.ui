@@ -337,6 +337,7 @@
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
     <addaction name="actionVersion_Control"/>
+    <addaction name="actionFileConfig"/>
     <addaction name="separator"/>
     <addaction name="actionClose_Exit"/>
    </widget>
@@ -444,6 +445,11 @@
   <action name="actionVersion_Control">
    <property name="text">
     <string>Version Control</string>
+   </property>
+  </action>
+  <action name="actionFileConfig">
+   <property name="text">
+    <string>Log File Configuration</string>
    </property>
   </action>
  </widget>
