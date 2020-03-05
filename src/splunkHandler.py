@@ -50,6 +50,7 @@ class SplunkHandler:
         jobs = self.service.jobs
         print("there are %d jobs :", len(jobs))
 
+    #doesnt work yet
     def create_jobs(self):
 
         kwargs_blockingsearch = {"exec_mode": "blocking"}
@@ -58,11 +59,26 @@ class SplunkHandler:
         # A blocking search returns the job's SID when the search is done
         job = self.service.jobs.create(searchquery_blocking, **kwargs_blockingsearch)
         self.print_jobs()
+
     def create_new_user(self,username,password,role,fullname):
         newuser = self.service.users.create(username=username, password=password, roles=role, realname=fullname)
 
+    def add_directory(self, path):
+        inputs = self.service.inputs
+        newInput = inputs.create(path, "monitor")
+
+    def print_inputs(self):
+        # Get the collection of data inputs
+        inputs = self.service.inputs
+
+        # List the inputs and kind
+        for item in inputs:
+            print("%s (%s)" % (item.name, item.kind))
+
+
 splunkHandler = SplunkHandler()
 splunkHandler.print_indexes()
+splunkHandler.print_inputs()
 #splunkHandler.create_new_user("testAdmin", "password", "admin", "testAdmin")
 splunkHandler.print_users()
 #splunkHandler.add_file("main","/Users/dima/Desktop/pick-tool-team15-spicegirls/src/testing/testing.txt")
