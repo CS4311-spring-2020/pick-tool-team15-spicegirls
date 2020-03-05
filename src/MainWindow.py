@@ -1,5 +1,9 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit, QTableWidget, QTableWidgetItem, QComboBox
+#!/user/bin/python3
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit, QTableWidget, \
+    QTableWidgetItem, QComboBox, QGroupBox
 from PyQt5.uic import loadUi
+import os
+
 from PyQt5.uic.properties import QtCore
 from fileDirectory import FileDirectory
 from FilterConfiguration import FilterConfig
@@ -25,12 +29,12 @@ class MainWindow(QMainWindow):
         self.searchSearchButton.clicked.connect(self.openFilterConfig)
 
         # Enter press on qlineedit search tab triggers the search button
-        self.searchLineEdit = self.findChild(QLineEdit, 'searchLineEdit')
+        self.searchLineEdit = self.findChild(QLineEdit, 'lineEdit_2')
         self.searchLineEdit.returnPressed.connect(self.searchSearchButton.click)
 
         #Search button on graph tab functionality ##need keyword functionality added
         self.graphSearchButton = self.findChild(QPushButton, 'graphSearchButton_2')
-        self.graphSearchButton.clicked.connect(self.openFilterConfig)
+        self.graphSearchButton.clicked.connect(self.openGraph)
 
         # Enter press on qlineedit graph tab triggers search button
         self.graphSearchEdit = self.findChild(QLineEdit, 'graphLineEdit')
@@ -55,6 +59,10 @@ class MainWindow(QMainWindow):
         self.actionLogFile.setShortcut('Ctrl+F')
         self.actionLogFile.triggered.connect(self.openLogConfig)
 
+        self.graphButton = self.findChild(QPushButton, 'GraphButton')
+        self.graphButton.clicked.connect(self.openGraph)
+
+
         #drop down menus vector collumn search table
         self.searchSearchTableWidget = self.findChild(QTableWidget, 'tableWidget_2')
         i = 0
@@ -65,6 +73,9 @@ class MainWindow(QMainWindow):
             i += 1
 
         self.show()
+
+    def openGraph(self):
+        os.system('QGraphViewer.py')
 
     def openLogConfig(self):
         self.window = LogFileConfig()

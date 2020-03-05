@@ -16,9 +16,7 @@ class FileDirectory(QWidget):
     def initUI(self):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
-        
         self.openFileNameDialog()
-
         self.show()
 
     def openFileNameDialog(self):
