@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidg
     QTableWidget, QTableWidgetItem, QLabel, QLineEdit
 from PyQt5.uic import loadUi
 from fileDirectory import FileDirectory
+import MainWindow
 import shelve
 
 
@@ -61,6 +62,10 @@ class SettingsWindow(QMainWindow):
         self.RedTeamToolButton.clicked.connect(lambda: self.btn(6))
         self.WhiteTeamToolButton.clicked.connect(lambda: self.btn(6))
 
+        self.completeSettings = self.findChild(QPushButton, 'completeSetupButton_pushButton')
+        self.completeSettings.clicked.connect(self.openMain)
+
+
         # Vector configuration table checkboxes
         self.VCtable = self.findChild(QTableWidget, 'VC_TableView')
         i = 0
@@ -108,6 +113,10 @@ class SettingsWindow(QMainWindow):
         db['EventEndTime'] = self.EELineEdit.text()
         db.close()
 
+    def openMain(self):
+        self.window = MainWindow.MainWindow()
+        self.window.show()
+        self.close()
 
 if __name__ == "__main__":
     import sys

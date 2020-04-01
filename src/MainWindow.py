@@ -7,7 +7,7 @@ import os
 from PyQt5.uic.properties import QtCore
 from fileDirectory import FileDirectory
 from FilterConfiguration import FilterConfig
-from SettingView import SettingsWindow
+import SettingView
 from ExportConfiguration import ExportConfig
 from VectDBConfig import VectorDBConfig
 from LogFileConfig import LogFileConfig
@@ -99,7 +99,7 @@ class MainWindow(QMainWindow):
         self.window.show()
 
     def openSettings(self):
-        self.window = SettingsWindow()
+        self.window = SettingView.SettingsWindow()
         self.window.show()
 
 
