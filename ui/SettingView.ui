@@ -100,6 +100,13 @@
             </property>
            </spacer>
           </item>
+          <item>
+           <widget class="QPushButton" name="completeSetupButton_pushButton">
+            <property name="text">
+             <string>Complete Setup</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -134,7 +141,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="TeamConfigView">
        <layout class="QGridLayout" name="gridLayout_17">
