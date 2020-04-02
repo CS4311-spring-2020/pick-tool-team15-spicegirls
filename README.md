@@ -32,7 +32,7 @@ This repository contains 3 folders (src, doc, Libraries, Resouces, and ui).
   
   * The ui folder contains the .ui files for the PICK project.
   
-  * The Resouces folder contains all images and icons used in the PICK ui
+  * The Resouces folder contains all images, icons, and Audios used in the PICK ui
   
   * The Libraries folder contains all libraries used in the code.
 
