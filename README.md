@@ -4,6 +4,7 @@
 * [Product Perspective](#product-perspective)  
 * [Scope of Product](#scope-of-product)  
 * [Github Structure](#github-structure)
+* [How to Run](#how-to-run)
 * [Collaborators](#collaborators) 
   
 <Product Perspective="product-perspective"/>
@@ -35,12 +36,29 @@ This repository contains 3 folders (src, doc, Libraries, Resouces, and ui).
   * The Resouces folder contains all images, icons, and Audios used in the PICK ui
   
   * The Libraries folder contains all libraries used in the code.
+
+<How to Run="how-to-run"/>
   
 ## How to Run
 
 First, clone the repository:
     
-      git clone 
+      git clone https://github.com/CS4311-spring-2020/pick-tool-team15-spicegirls.git
+      
+Then, once you're inside pick-tool-team15-spicegirls, go to src
+
+      cd src
+      
+Next, run pickStartPage.py
+
+  For Linux and MacOS run:
+      
+       python3 pickStartPage.py
+       
+  For Windows run:
+  
+      ./pickStartPage.py
+
 
 ## Collaborators
 
