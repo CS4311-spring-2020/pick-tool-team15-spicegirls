@@ -35,6 +35,12 @@ This repository contains 3 folders (src, doc, Libraries, Resouces, and ui).
   * The Resouces folder contains all images, icons, and Audios used in the PICK ui
   
   * The Libraries folder contains all libraries used in the code.
+  
+## How to Run
+
+First, clone the repository:
+    
+      git clone 
 
 ## Collaborators
 
