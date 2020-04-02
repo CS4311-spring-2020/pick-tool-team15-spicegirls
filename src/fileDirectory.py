@@ -22,9 +22,7 @@ class FileDirectory(QWidget):
     def openFileNameDialog(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(self,"Directory", "","All Files (*);;Python Files (*.py)", options=options)
-        if fileName:
-            print(fileName)
+        fileName = str(QFileDialog.getExistingDirectory(self,"Directory"))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
