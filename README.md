@@ -51,15 +51,14 @@ Then, once you're inside pick-tool-team15-spicegirls, go to src
       
 Next, run pickStartPage.py
 
-    For Linux and MacOS run:
-    
+   ##### For Linux and MacOS run: 
       
-          python3 pickStartPage.py
+        python3 pickStartPage.py
        
-    For Windows run:
-    
+   
+   ##### For Windows run:
   
-          ./pickStartPage.py
+        ./pickStartPage.py
 
 
 ## Collaborators
