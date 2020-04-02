@@ -65,7 +65,6 @@ class SettingsWindow(QMainWindow):
         self.completeSettings = self.findChild(QPushButton, 'completeSetupButton_pushButton')
         self.completeSettings.clicked.connect(self.openMain)
 
-
         # Vector configuration table checkboxes
         self.VCtable = self.findChild(QTableWidget, 'VC_TableView')
         i = 0
