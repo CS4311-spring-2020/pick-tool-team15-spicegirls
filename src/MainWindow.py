@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
             self.searchSearchTableWidget.setCellWidget(i, 3, combo)
             i += 1
 
-        self.show()
+        self.showMaximized()
 
     #open the graph but only calls file atm
     def openGraph(self):
