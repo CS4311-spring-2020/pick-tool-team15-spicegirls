@@ -21,7 +21,6 @@ class SettingsWindow(QMainWindow):
         self.OV_EventConfigButton = self.findChild(QPushButton, 'OV_EventConfigButton')
         self.OV_DirectoryConfigButton = self.findChild(QPushButton, 'OV_DirectoryConfigButton')
         self.OV_VectorConfigButton = self.findChild(QPushButton, 'OV_VectorConfigButton')
-        self.OV_ChangeConfigButton = self.findChild(QPushButton, 'OV_ChangeConfigButton')
         self.OV_IconConfigButton = self.findChild(QPushButton, 'OV_IconConfigButton')
 
         self.SaveEventConfig = self.findChild(QPushButton, 'SaveEventPushButton')
@@ -54,13 +53,12 @@ class SettingsWindow(QMainWindow):
         self.OV_EventConfigButton.clicked.connect(lambda: self.btn(1))
         self.OV_DirectoryConfigButton.clicked.connect(lambda: self.btn(2))
         self.OV_VectorConfigButton.clicked.connect(lambda: self.btn(3))
-        self.OV_ChangeConfigButton.clicked.connect(lambda: self.btn(4))
-        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(5))
+        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(4))
         
-        self.BlueTeamToolButton.clicked.connect(lambda: self.btn(6))
-        self.RootDirectoryToolButton.clicked.connect(lambda: self.btn(6))
-        self.RedTeamToolButton.clicked.connect(lambda: self.btn(6))
-        self.WhiteTeamToolButton.clicked.connect(lambda: self.btn(6))
+        self.BlueTeamToolButton.clicked.connect(lambda: self.btn(5))
+        self.RootDirectoryToolButton.clicked.connect(lambda: self.btn(5))
+        self.RedTeamToolButton.clicked.connect(lambda: self.btn(5))
+        self.WhiteTeamToolButton.clicked.connect(lambda: self.btn(5))
 
         self.completeSettings = self.findChild(QPushButton, 'completeSetupButton_pushButton')
         self.completeSettings.clicked.connect(self.openMain)
@@ -98,9 +96,9 @@ class SettingsWindow(QMainWindow):
             self.connectButton.setText('Disconnect')
 
     def btn(self, index):
-        if index < 6:
+        if index < 5:
             self.StackView.setCurrentIndex(index)
-        elif index == 6:
+        elif index == 5:
             self.window = FileDirectory()
             self.window.show()
 
