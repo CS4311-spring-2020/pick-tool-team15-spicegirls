@@ -36,7 +36,6 @@ class MainWindow(QMainWindow):
 
         #Search button on graph tab functionality ##need keyword functionality added
         self.graphSearchButton = self.findChild(QPushButton, 'graphSearchButton_2')
-        self.graphSearchButton.clicked.connect(self.openGraph)
 
         # Enter press on qlineedit graph tab triggers search button
         self.graphSearchEdit = self.findChild(QLineEdit, 'graphLineEdit')
