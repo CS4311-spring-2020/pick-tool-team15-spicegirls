@@ -134,7 +134,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="TeamConfigView">
        <layout class="QGridLayout" name="gridLayout_17">
@@ -709,7 +709,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLineEdit" name="RooDirectoruLineEdit"/>
+            <widget class="QLineEdit" name="RootDirectoryLineEdit"/>
            </item>
            <item row="8" column="0">
             <widget class="QLabel" name="WhiteTeamFolderLabel">
@@ -1902,7 +1902,7 @@
      <x>0</x>
      <y>0</y>
      <width>1281</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
