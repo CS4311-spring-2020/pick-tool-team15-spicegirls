@@ -1,6 +1,5 @@
 from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QComboBox, \
-    QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QFileDialog
 from PyQt5.uic import loadUi
 import MainWindow
 import shelve

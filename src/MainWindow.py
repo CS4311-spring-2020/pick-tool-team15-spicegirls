@@ -5,7 +5,6 @@ from PyQt5.uic import loadUi
 import os
 
 from PyQt5.uic.properties import QtCore
-from fileDirectory import FileDirectory
 from FilterConfiguration import FilterConfig
 import SettingView
 from ExportConfiguration import ExportConfig
@@ -92,10 +91,6 @@ class MainWindow(QMainWindow):
 
     def openFilterConfig(self):
         self.window = FilterConfig()
-        self.window.show()
-
-    def openFileDirectory(self):
-        self.window = FileDirectory()
         self.window.show()
 
     def openSettings(self):
