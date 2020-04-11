@@ -1,0 +1,13 @@
+[149310.266646] sd 10:0:0:0: [sd1] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_SENSE
+[149310.266655] sd 10:0:0:0: [sd1] tag#0 Sense Key: Hardware Error [current] [descriptor]
+[149310.266659] sd 10:0:0:0: [sd1] tag#0 Add. Sense: No additional sense information
+[149310.266665] sd 10:0:0:0: [sd1] tag#0 CDB: ATA command pass through(16) 85 06 20 00 00 00 00 00 00
+00 00 00 00 00 e5 00
+[149410.820137] sd 10:0:0:0: [sd1] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_SENSE
+[149410.820142] sd 10:0:0:0: [sd1] tag#0 Sense Key: Hardware Error [current] [descriptor]
+[149410.820145] sd 10:0:0:0: [sd1] tag#0 Add. Sense: No additional sense information
+[149410.820148] sd 10:0:0:0: [sd1] tag#0 CDB: ATA command pass through(12)/Blank a1 06 20 da 00 00 4f
+c2 00 b0 00 00
+[150023.254303] sd 10:0:0:0: [sd1] tag#0 FAILED Result: hostbyte=DID_ERROR driverbyte=DRIVER_OK
+[150023.254303] sd 10:0:0:0: [sd1] tag#0 CDB: ATA command pass through(16) 85 06 20 00 00 00 00 00 00
+00 00 00 00 00 e5 00
