@@ -1,8 +1,6 @@
 from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QComboBox, \
-    QTableWidget, QTableWidgetItem, QLabel, QLineEdit
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QFileDialog
 from PyQt5.uic import loadUi
-from fileDirectory import FileDirectory
 import MainWindow
 import shelve
 
@@ -21,7 +19,6 @@ class SettingsWindow(QMainWindow):
         self.OV_EventConfigButton = self.findChild(QPushButton, 'OV_EventConfigButton')
         self.OV_DirectoryConfigButton = self.findChild(QPushButton, 'OV_DirectoryConfigButton')
         self.OV_VectorConfigButton = self.findChild(QPushButton, 'OV_VectorConfigButton')
-        self.OV_ChangeConfigButton = self.findChild(QPushButton, 'OV_ChangeConfigButton')
         self.OV_IconConfigButton = self.findChild(QPushButton, 'OV_IconConfigButton')
 
         self.SaveEventConfig = self.findChild(QPushButton, 'SaveEventPushButton')
@@ -44,9 +41,16 @@ class SettingsWindow(QMainWindow):
         self.ApplyButton = self.findChild(QPushButton, 'applyButton')
 
         self.BlueTeamToolButton = self.findChild(QToolButton, 'BlueTeamToolButton')
+        self.BlueTeamLineEdit = self.findChild(QLineEdit, 'BlueTeamLineEdit')
+
         self.RootDirectoryToolButton = self.findChild(QToolButton, 'RootDirectoryToolButton')
+        self.RootLineEdit = self.findChild(QLineEdit, 'RootDirectoryLineEdit')
+
         self.RedTeamToolButton = self.findChild(QToolButton, 'RedTeamToolButton')
+        self.RedTeamLineEdit = self.findChild(QLineEdit, 'RedTeamLineEdit')
+
         self.WhiteTeamToolButton = self.findChild(QToolButton, 'WhiteTeamToolButton')
+        self.WhiteTeamLineEdit = self.findChild(QLineEdit, 'WhiteTeamLineEdit')
 
         # self.OV_TeamConfigButton.clicked.connect(self.applyChanges)
 
@@ -54,13 +58,12 @@ class SettingsWindow(QMainWindow):
         self.OV_EventConfigButton.clicked.connect(lambda: self.btn(1))
         self.OV_DirectoryConfigButton.clicked.connect(lambda: self.btn(2))
         self.OV_VectorConfigButton.clicked.connect(lambda: self.btn(3))
-        self.OV_ChangeConfigButton.clicked.connect(lambda: self.btn(4))
-        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(5))
-        
-        self.BlueTeamToolButton.clicked.connect(lambda: self.btn(6))
-        self.RootDirectoryToolButton.clicked.connect(lambda: self.btn(6))
-        self.RedTeamToolButton.clicked.connect(lambda: self.btn(6))
-        self.WhiteTeamToolButton.clicked.connect(lambda: self.btn(6))
+        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(4))
+
+        self.RootDirectoryToolButton.clicked.connect(lambda: self.setDir(0))
+        self.RedTeamToolButton.clicked.connect(lambda: self.setDir(1))
+        self.BlueTeamToolButton.clicked.connect(lambda: self.setDir(2))
+        self.WhiteTeamToolButton.clicked.connect(lambda: self.setDir(3))
 
         self.completeSettings = self.findChild(QPushButton, 'completeSetupButton_pushButton')
         self.completeSettings.clicked.connect(self.openMain)
@@ -98,11 +101,19 @@ class SettingsWindow(QMainWindow):
             self.connectButton.setText('Disconnect')
 
     def btn(self, index):
-        if index < 6:
+        if index < 5:
             self.StackView.setCurrentIndex(index)
-        elif index == 6:
-            self.window = FileDirectory()
-            self.window.show()
+
+    def setDir(self, index):
+        temp_dir = QFileDialog.getExistingDirectory(self, 'Choose Directory', "", QFileDialog.ShowDirsOnly)
+        if index == 0:
+            self.RootLineEdit.setText(str(temp_dir))
+        elif index == 1:
+            self.RedTeamLineEdit.setText(str(temp_dir))
+        elif index == 2:
+            self.BlueTeamLineEdit.setText(str(temp_dir))
+        elif index == 3:
+            self.WhiteTeamLineEdit.setText(str(temp_dir))
 
     def updateED(self):
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db

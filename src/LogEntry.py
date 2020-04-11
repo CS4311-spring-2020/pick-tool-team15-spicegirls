@@ -1,12 +1,9 @@
 class LogEntry:
-    WHITE_TEAM = "White Team"
-    BLUE_TEAM = "Blue Team"
-    RED_TEAM = "Red Team"
 
-    def __init__(self):
-        self.date = ""
-        self.creator = ""
-        self.description = ""
-        self.artifact = ""
-        self.id = ""
-        self.Vectors = list()
+    def __init__(self, number, timestamp, content, host, source, sourceType):
+        self.number = number
+        self.timestamp = timestamp
+        self.content = content
+        self.host = host
+        self.source = source
+        self.sourceType = sourceType
