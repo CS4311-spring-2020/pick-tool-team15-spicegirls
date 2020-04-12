@@ -5,14 +5,14 @@ from PyQt5.uic import loadUi
 import os
 
 from PyQt5.uic.properties import QtCore
-from FilterConfiguration import FilterConfig
-import SettingView
-from ExportConfiguration import ExportConfig
+from filter_configuration import FilterConfig
+import setting_view
+from export_configuration import ExportConfig
 from QGraphViz.QGraphViz import QGraphViz, QGraphVizManipulationMode
 from QGraphViz.DotParser import Graph, GraphType
 from QGraphViz.Engines import Dot
-from VectDBConfig import VectorDBConfig
-from LogFileConfig import LogFileConfig
+from vector_db_config import VectorDBConfig
+from log_file_config import LogFileConfig
 
 
 class MainWindow(QMainWindow):
@@ -295,7 +295,7 @@ class MainWindow(QMainWindow):
         self.window.show()
 
     def openSettings(self):
-        self.window = SettingView.SettingsWindow()
+        self.window = setting_view.SettingsWindow()
         self.window.show()
 
 

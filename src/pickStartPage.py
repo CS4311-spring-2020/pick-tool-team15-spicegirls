@@ -1,6 +1,6 @@
 import sys
 
-import SettingView
+import setting_view
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt5.uic import loadUi
 
@@ -16,7 +16,7 @@ class PickStartPage(QMainWindow):
         self.show()
 
     def openSettings(self):
-        self.window = SettingView.SettingsWindow()
+        self.window = setting_view.SettingsWindow()
         self.window.show()
         self.close()
         

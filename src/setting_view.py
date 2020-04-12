@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QFileDialog
 from PyQt5.uic import loadUi
-import MainWindow
+import main_window
 import shelve
 
 
@@ -124,7 +124,7 @@ class SettingsWindow(QMainWindow):
         db.close()
 
     def openMain(self):
-        self.window = MainWindow.MainWindow()
+        self.window = main_window.MainWindow()
         self.window.show()
         self.close()
 
