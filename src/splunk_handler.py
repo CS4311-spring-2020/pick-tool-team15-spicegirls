@@ -3,82 +3,82 @@ from __future__ import print_function
 import sys, os
 import splunklib.client as client
 import asyncio, concurrent.futures
+import splunklib.results as results
+from splunklib.binding import AuthenticationError
+import os
+from LogEntry import LogEntry
+from cleansing import Cleanser
+from Validate import Validator
+from transcription import convert
+import datetime
+from time import sleep
+import json
 
-
-class SplunkHandler:
-    def __init__(self):
+class SplunkHandler():
+    def __init__(self, host, port, index, username, password):
+        self.host = host
+        self.port = port
+        self.index = index
+        self.username = username
+        self.password = password
+        self.entries = list()
         try:
-            self.service = client.connect(
-                host="localhost",
-                port=8089,
-                username="dimaaj",
-                password="@DimaAbdelJaber1234@")
+            self.service = client.connect(host=self.host, port=self.port, username=self.username, password=self.password)
+        except Exception as e:
+            print(str(e))
 
-        except Exception as Error:
-            print("error connecting to splunk")
-            exit(1)
+    def create_index(self, name):
+        self.service.indexes.create(name)
 
-    #assuming file is absolute path
-    #need name of index being added to
-    def add_file(self, index, file):
+    def set_index(self, name):
+        self.index = name
 
-        myindex = self.service.indexes[index]
-        myindex.upload(file)
+    def upload_file(self, path, index):
+        ind = self.service.indexes[index]
+        try:
+            ind.upload(os.path.abspath(path))
+        except Exception as e:
+            print(str(e))
 
-    def add_index(self,index):
+    def view_indexes(self):
+        for index in self.service.indexes:
+            print(index.name)
 
-        self.service.indexes.create(index)
+    def get_index(self,index):
+        return self.service.indexes.get(index)
 
-    def print_users(self):
-        kwargs = {"sort_key": "realname", "sort_dir": "asc"}
-        users = self.service.users.list(count=-1, **kwargs)
-        print(self.service.username)
-        # Print the users' real names, usernames, and roles
-        print("Users:")
-        for user in users:
-            print("%s (%s)" % (user.realname, user.name))
-            for role in user.role_entities:
-                print(" - ", role.name)
+    def get_content(self,index):
+        self.set_index(index)
+        for job in self.service.jobs:
+            print(job)
 
-    def print_indexes(self):
-        indexes = self.service.indexes
-        for index in indexes:
-            count = index["totalEventCount"]
-            print("%s (events: %s)" % (index.name, count))
-
-    def print_jobs(self):
+    def download_log_files(self):
+        # Retrieve search jobs
         jobs = self.service.jobs
-        print("there are %d jobs :", len(jobs))
 
-    #doesnt work yet
-    def create_jobs(self):
+        # blocks until search is finished
+        blocking_search = {"exec_mode": "blocking"}
+        query = "search | head 5"
 
-        kwargs_blockingsearch = {"exec_mode": "blocking"}
-        searchquery_blocking = "search * | head 100"
+        # Create search job
+        job = jobs.create(query, **blocking_search)
 
-        # A blocking search returns the job's SID when the search is done
-        job = self.service.jobs.create(searchquery_blocking, **kwargs_blockingsearch)
-        self.print_jobs()
-
-    def create_new_user(self,username,password,role,fullname):
-        newuser = self.service.users.create(username=username, password=password, roles=role, realname=fullname)
-
-    def add_directory(self, path):
-        inputs = self.service.inputs
-        newInput = inputs.create(path, "monitor")
-
-    def print_inputs(self):
-        # Get the collection of data inputs
-        inputs = self.service.inputs
-
-        # List the inputs and kind
-        for item in inputs:
-            print("%s (%s)" % (item.name, item.kind))
+        # Parse results
+        job_results = results.ResultsReader(job.results(count=5))
+        i = 0
+        for result in job_results:
+            if True:
+                self.entries.append(LogEntry(i, result['_indextime'], result['index'], result['host'], result['source'], result['sourcetype']))
+            i += 1
+        return self.entries
 
 
-splunkHandler = SplunkHandler()
-splunkHandler.print_indexes()
-splunkHandler.print_inputs()
-#splunkHandler.create_new_user("testAdmin", "password", "admin", "testAdmin")
-splunkHandler.print_users()
-#splunkHandler.add_file("main","/Users/dima/Desktop/pick-tool-team15-spicegirls/src/testing/testing.txt")
+if __name__ == '__main__':
+    client = SplunkHandler('localhost', 8089, 'one', 'spiceteam', '007dannyd')
+    # client = SplunkHandler('localhost', 8089, 'yessir', 'SpiceGirls', '@DimaAbdelJaber1234@')
+    client.view_indexes()
+    client.set_index('history')
+    # client.upload_file("temp.log", 'two')
+    client.download_log_files()
+    print(client.entries)
+

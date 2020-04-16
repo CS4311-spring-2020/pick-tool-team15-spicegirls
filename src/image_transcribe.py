@@ -1,11 +1,15 @@
+import os
 try:
     from PIL import Image
 except ImportError:
     import Image
 import pytesseract
 
-def ocr_core(filename):
-    text = pytesseract.image_to_string(Image.open(filename))
-    return text
 
-print(ocr_core('/Users/dima/Desktop/pick-tool-team15-spicegirls/Resources/pic.png'))
+class ImageTranscription:
+    def ocr_core(fileName, directory):
+        text = pytesseract.image_to_string(Image.open(directory + '/' + fileName))
+        temp = directory + '/' + os.path.splitext(fileName)[0] + '.txt'
+        file = open(temp, "w+")
+        file.write(text)
+        file.close()

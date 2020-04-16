@@ -1,11 +1,22 @@
+import os
+from os import listdir
+from os.path import isdir
+from os.path import isfile, join
 import speech_recognition as sr
 
-r = sr.Recognizer()
-with sr.AudioFile('/Users/dima/Desktop/pick-tool-team15-spicegirls/Resources/Listen To This and Change Yourself  Kobe Bryant (Eye Opening Speech).wav') as source:
-    audio = r.record(source)
-    
-try:
-    s = r.recognize_google(audio)
-    print("Text: " +s)
-except Exception as e:
-    print("Exception: "+str(e))
+
+class AudioTranscription:
+
+    def transcribeAudio(fileName, directory):
+        r = sr.Recognizer()
+
+        with sr.AudioFile(directory + "/" + fileName) as source:
+            audio = r.record(source)
+        try:
+            s = r.recognize_google(audio)
+            temp = directory + '/' + os.path.splitext(fileName)[0] + '.txt'
+            file = open(temp, "w+")
+            file.write(s)
+            file.close()
+        except Exception as e:
+            print("Exception: "+str(e))

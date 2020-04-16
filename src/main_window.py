@@ -60,8 +60,12 @@ class MainWindow(QMainWindow):
         self.actionLogFile.setShortcut('Ctrl+F')
         self.actionLogFile.triggered.connect(self.openLogConfig)
 
+        self.GraphTable = self.findChild(QTableWidget, 'tableWidget')
+
         self.graphArea = self.findChild(QWidget, 'graphArea')
         self.graphArea.setLayout(QVBoxLayout())
+
+        self.GraphTable.setItem(0, 0, QTableWidgetItem("Cell (1,1)"))
 
         # Events
         def node_selected(node):
@@ -246,7 +250,7 @@ class MainWindow(QMainWindow):
         btnAddNode = QPushButton("Add Node")
         btnAddNode.clicked.connect(add_node)
         hpanel.addWidget(btnAddNode)
-        buttons_list.append(btnManip)
+        buttons_list.append(btnAddNode)
 
         btnRemoveNode = QPushButton("Remove Node")
         btnRemoveNode.setCheckable(True)

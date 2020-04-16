@@ -1,0 +1,7 @@
+user@host> show log messages Apr 11 10:27:25 router1 mgd[3606]: UI_DBASE_LOGIN_EVENT: User 'barbara' entering configuration mode
+Apr 11 10:32:22 router1 mgd[3606]: UI_DBASE_LOGOUT_EVENT: User 'barbara' exiting configuration mode
+Apr 11 11:36:15 router1 mgd[3606]: UI_COMMIT: User 'root' performed commit: no comment
+router1 mib2d[2905]: SNMP_TRAP_LINK_DOWN: ifIndex 82, ifAdminStatus up(1), ifOperStatus down(2), ifName at-1/0/0
+03/22/20 08:51:06 INFO   :...read_physical_netif: index #4, interface CTCD0 has address 9.67.116.98, ifidx 4
+03/22/20 08:52:52 TRACE  :........flow_timer_start: Start T 4
+83.149.9.216 - - [17/May/2020 10:19:20 +0000] "GET /presentations/logstash-monitorama-2013/images/kibana-search.png"

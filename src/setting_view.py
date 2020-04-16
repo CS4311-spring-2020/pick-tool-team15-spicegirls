@@ -1,20 +1,34 @@
+from os import listdir
+from os.path import isdir
+
 from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QFileDialog, QCheckBox, QErrorMessage
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QTableWidget, \
+    QTableWidgetItem, QLabel, QLineEdit, QFileDialog, QWidget, QMessageBox
 from PyQt5.uic import loadUi
+import os
 import main_window
 import shelve
-import socket
+from os.path import isfile, join
+import shutil
+from Validate import Validator
+from cleansing import Cleanser
+from audio_transcription import AudioTranscription
+from image_transcribe import ImageTranscription
+
 
 class SettingsWindow(QMainWindow):
     def __init__(self):
         super(SettingsWindow, self).__init__()
         loadUi('../ui/SettingView.ui', self)
 
-        self.configDB = shelve.open('../Resouces/ConfigDB/TestConfig')  # Initialize values to avoid exeptions
-        self.configDB.close()
+        self.root_dir, self.red_dir, self.blue_dir, self.white_dir = '','','',''
+
+        self.myValidator = Validator('s', 'q')
+        # self.configDB = shelve.open('../Resouces/ConfigDB/TestConfig')  # Initialize values to avoid e
+        # self.configDB.close()
 
         self.mainStackedView = self.findChild(QStackedWidget, 'StackView')
-
+        
         self.OV_TeamConfigButton = self.findChild(QPushButton, 'OV_TeamConfigButton')
         self.OV_EventConfigButton = self.findChild(QPushButton, 'OV_EventConfigButton')
         self.OV_DirectoryConfigButton = self.findChild(QPushButton, 'OV_DirectoryConfigButton')
@@ -23,27 +37,42 @@ class SettingsWindow(QMainWindow):
 
         self.SaveEventConfig = self.findChild(QPushButton, 'SaveEventPushButton')
 
-        self.LeadCheckBox = self.findChild(QCheckBox,'LeadCheckBox')
-        self.LeadCheckBox.toggle()
-        self.LeadCheckBox.stateChanged.connect(self.LeadCheckBoxClicked)
-        self.NoConnections = self.findChild(QLineEdit,'NoOfConnectionslineEdit')
-        self.IPAddress = self.findChild(QLineEdit, "IPAddressLineEdit")
-        hostname = socket.gethostname()
-        self.IPAddress.setText(socket.gethostbyname(hostname))
         self.ENLineEdit = self.findChild(QLineEdit, 'EventNameLineEdit')  # This goes to test persistence db
         self.EDLineEdit = self.findChild(QLineEdit, 'EventDescriptionLineEdit')
         self.ESLineEdit = self.findChild(QLineEdit, 'EventStartLineEdit')
         self.EELineEdit = self.findChild(QLineEdit, 'EventEndLineEdit')
 
+        self.rootLE = self.findChild(QLineEdit, 'RootDirectoryLineEdit')
+        self.redLE = self.findChild(QLineEdit, 'RedTeamLineEdit')
+        self.blueLE = self.findChild(QLineEdit, 'BlueTeamLineEdit')
+        self.whiteLE = self.findChild(QLineEdit, 'WhiteTeamLineEdit')
+
         self.configDB = shelve.open('../Resouces/ConfigDB/TestConfig')
+        # Internal project settings display for line edits
         self.ENLineEdit.setText(self.configDB['EventName'])
         self.EDLineEdit.setText(self.configDB['EventDescription'])
         self.ESLineEdit.setText(self.configDB['EventStartTime'])
         self.EELineEdit.setText(self.configDB['EventEndTime'])
+        self.rootLE.setText(self.configDB['root_dir'])
+        self.redLE.setText(self.configDB['red_dir'])
+        self.blueLE.setText(self.configDB['blue_dir'])
+        self.whiteLE.setText(self.configDB['white_dir'])
         self.configDB.close()
 
+        self.rootLE.textChanged.connect(self.updateDirLE)
+        self.redLE.textChanged.connect(self.updateDirLE)
+        self.blueLE.textChanged.connect(self.updateDirLE)
+        self.whiteLE.textChanged.connect(self.updateDirLE)
+
+        self.rootLE.editingFinished.connect(lambda: self.finishedEditingDirLE('root_dir'))
+        self.redLE.editingFinished.connect(lambda: self.finishedEditingDirLE('red_dir'))
+        self.blueLE.editingFinished.connect(lambda: self.finishedEditingDirLE('blue_dir'))
+        self.whiteLE.editingFinished.connect(lambda: self.finishedEditingDirLE('white_dir'))
+
         self.ENLineEdit.textChanged.connect(self.updateED)
-        self.EDLineEdit.textChanged.connect(self.updateED)  # Temp config Stuff
+        self.EDLineEdit.textChanged.connect(self.updateED)
+        self.ESLineEdit.textChanged.connect(self.updateED)
+        self.EELineEdit.textChanged.connect(self.updateED)
 
         self.ApplyButton = self.findChild(QPushButton, 'applyButton')
 
@@ -72,8 +101,14 @@ class SettingsWindow(QMainWindow):
         self.BlueTeamToolButton.clicked.connect(lambda: self.setDir(2))
         self.WhiteTeamToolButton.clicked.connect(lambda: self.setDir(3))
 
+        self.StartIngestionB = self.findChild(QPushButton, 'StartIngestionPushButton')
+        self.StartIngestionB.clicked.connect(self.startIngestion)
+
         self.completeSettings = self.findChild(QPushButton, 'completeSetupButton_pushButton')
         self.completeSettings.clicked.connect(self.openMain)
+
+        self.pBar = self.findChild(QWidget, 'progressBar')
+
 
         # Vector configuration table checkboxes
         self.VCtable = self.findChild(QTableWidget, 'VC_TableView')
@@ -99,30 +134,11 @@ class SettingsWindow(QMainWindow):
 
         self.show()
 
-    def validateIP(self):
-        try:
-            socket.inet_aton(self.IPAddress.text())
-            # legal
-        except socket.error:
-            error_dialog = QErrorMessage()
-            error_dialog.showMessage('Not A Valid IP Address')
-
-            #error_dialog.exec_()
-
-    def LeadCheckBoxClicked(self):
-        if self.IPAddress.isVisible:
-            self.IPAddress.setEnabled(1)
-        else:
-            self.IPAddress.setDisabled(1)
-
     def connectButtonClicked(self):
         if self.connectButton.text() == 'Disconnect':
-            self.validateIP
             self.connectButton.setText('Connect')
-            self.NoConnections.setText('0')
             self.connectStatus.setText('Not Connected')
         else:
-            self.NoConnections.setText('1')
             self.connectStatus.setText('Connected')
             self.connectButton.setText('Disconnect')
 
@@ -131,15 +147,34 @@ class SettingsWindow(QMainWindow):
             self.StackView.setCurrentIndex(index)
 
     def setDir(self, index):
-        temp_dir = QFileDialog.getExistingDirectory(self, 'Choose Directory', "", QFileDialog.ShowDirsOnly)
-        if index == 0:
-            self.RootLineEdit.setText(str(temp_dir))
-        elif index == 1:
-            self.RedTeamLineEdit.setText(str(temp_dir))
-        elif index == 2:
-            self.BlueTeamLineEdit.setText(str(temp_dir))
-        elif index == 3:
-            self.WhiteTeamLineEdit.setText(str(temp_dir))
+        flag = True
+        while flag:
+            temp_dir = QFileDialog.getExistingDirectory(self, 'Choose Directory', "", QFileDialog.ShowDirsOnly)
+            if temp_dir == self.root_dir or temp_dir == self.red_dir or temp_dir == self.blue_dir or temp_dir == self.white_dir:
+                if temp_dir == '':
+                    break
+                retry = QMessageBox.question(self, 'Error - Invalid directory',
+                                           "The directory: {} has already been used".format(temp_dir),
+                                           QMessageBox.Retry | QMessageBox.Cancel, QMessageBox.Cancel)
+                if retry == QMessageBox.Cancel:
+                    flag = False
+            else:
+                self.configDB = shelve.open('../Resouces/ConfigDB/TestConfig')
+                if index == 0:
+                    self.RootLineEdit.setText(str(temp_dir))
+                    self.configDB['root_dir'] = temp_dir
+                    self.root_dir = temp_dir
+                elif index == 1:
+                    self.RedTeamLineEdit.setText(str(temp_dir))
+                    self.red_dir = temp_dir
+                elif index == 2:
+                    self.BlueTeamLineEdit.setText(str(temp_dir))
+                    self.blue_dir = temp_dir
+                elif index == 3:
+                    self.WhiteTeamLineEdit.setText(str(temp_dir))
+                    self.white_dir = temp_dir
+                self.configDB.close()
+                flag = False
 
     def updateED(self):
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
@@ -147,6 +182,97 @@ class SettingsWindow(QMainWindow):
         db['EventDescription'] = self.EDLineEdit.text()
         db['EventStartTime'] = self.ESLineEdit.text()
         db['EventEndTime'] = self.EELineEdit.text()
+        db.close()
+
+    def updateDirLE(self):
+        db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
+        db['root_dir'] = self.rootLE.text()
+        db['red_dir'] = self.redLE.text()
+        db['blue_dir'] = self.blueLE.text()
+        db['white_dir'] = self.whiteLE.text()
+        db.close()
+
+    def finishedEditingDirLE(self, dir):
+        self.configDB = shelve.open('../Resouces/ConfigDB/TestConfig')
+        # if not isdir(self.configDB[dir]):
+        # QMessageBox.question(self, 'Error - Invalid directory', "The directory: {} is not valid.".format(dir), QMessageBox.Ok)
+        self.configDB.close()
+
+    def startCleanse(self):
+        db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
+        dirList = [db['red_dir'], db['blue_dir'], db['white_dir']]
+        db.close()
+        myCleanser = Cleanser
+        for dir in dirList:
+            if isdir(dir):
+                allCurDirFiles = [f for f in listdir(dir) if isfile(join(dir, f))]
+                for eachFile in allCurDirFiles:
+                    extension = os.path.splitext(eachFile)[1]
+                    if extension == '.txt' or extension == '.log':
+                        eachFile = dir + "/" + eachFile
+                        myCleanser.cleanse(eachFile)
+
+    def startAudioTranscription(self):
+        db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
+        dirList = [db['red_dir'], db['blue_dir'], db['white_dir']]
+        db.close()
+        myTranscriber = AudioTranscription
+        for dir in dirList:
+            if isdir(dir):
+                allCurDirFiles = [f for f in listdir(dir) if isfile(join(dir, f))]
+                for fileName in allCurDirFiles:
+                    extension = os.path.splitext(fileName)[1]
+                    if extension == '.wav' or extension == '.mp3':
+                        myTranscriber.transcribeAudio(fileName, dir)
+
+    def startImageTranscription(self):
+        db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
+        dirList = [db['red_dir'], db['blue_dir'], db['white_dir']]
+        db.close()
+        myImageTranscriber = ImageTranscription
+        for dir in dirList:
+            if isdir(dir):
+                allCurDirFiles = [f for f in listdir(dir) if isfile(join(dir, f))]
+                for fileName in allCurDirFiles:
+                    extension = os.path.splitext(fileName)[1]
+                    if extension == '.png' or extension == '.jpeg':
+                        myImageTranscriber.transcribeAudio(fileName, dir)
+
+    def startValidation(self):
+        db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
+        dirList = [db['red_dir'], db['blue_dir'], db['white_dir']]
+        db.close()
+        for dir in dirList:
+            if isdir(dir):
+                allCurDirFiles = [f for f in listdir(dir) if isfile(join(dir, f))]
+                for fileName in allCurDirFiles:
+                    fileName = dir + "/" + fileName
+                    self.myValidator.validate(fileName)
+
+    def organizeDirectories(self):
+        db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
+        dirList = [db['red_dir'], db['blue_dir'], db['white_dir']]
+        db.close()
+        for dir in dirList:
+            if isdir(dir):
+                allCurDirFiles = [f for f in listdir(dir) if isfile(join(dir, f))]
+                for fileName in allCurDirFiles:
+                    dest = dir + '/' + 'raw_files'
+                    if not os.path.exists(dest):
+                        os.makedirs(dest)
+                    extension = os.path.splitext(fileName)[1]
+                    if extension == '.png' or extension == '.jpeg' or extension == '.wav' or extension == '.mp3':
+                    # fileName = dir + "/" + fileName
+                        shutil.move(dir + '/' + fileName, dest)
+
+    def startIngestion(self):
+        self.startAudioTranscription()
+        # self.startImageTranscription()
+        self.organizeDirectories()
+        self.startCleanse()
+        self.startValidation()
+        db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
+        db['EAReport'] = self.myValidator.getEnforcementReport()
         db.close()
 
     def openMain(self):
