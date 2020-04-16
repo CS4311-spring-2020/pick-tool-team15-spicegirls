@@ -2,8 +2,7 @@ from os import listdir
 from os.path import isdir
 
 from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QTableWidget, \
-    QTableWidgetItem, QLabel, QLineEdit, QFileDialog, QWidget, QMessageBox, QCheckBox
+from PyQt5.QtWidgets import QApplication, QCheckBox, QErrorMessage, QFileDialog, QLabel, QLineEdit, QMainWindow, QMessageBox, QPushButton, QStackedWidget, QTableWidget, QTableWidgetItem, QToolButton, QWidget
 from PyQt5.uic import loadUi
 import os
 import main_window
