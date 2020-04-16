@@ -1,9 +1,9 @@
 from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QStackedWidget, QToolButton, QTableWidget, QTableWidgetItem, QLabel, QLineEdit, QFileDialog, QCheckBox, QErrorMessage
 from PyQt5.uic import loadUi
 import main_window
 import shelve
-
+import socket
 
 class SettingsWindow(QMainWindow):
     def __init__(self):
@@ -14,7 +14,7 @@ class SettingsWindow(QMainWindow):
         self.configDB.close()
 
         self.mainStackedView = self.findChild(QStackedWidget, 'StackView')
-        
+
         self.OV_TeamConfigButton = self.findChild(QPushButton, 'OV_TeamConfigButton')
         self.OV_EventConfigButton = self.findChild(QPushButton, 'OV_EventConfigButton')
         self.OV_DirectoryConfigButton = self.findChild(QPushButton, 'OV_DirectoryConfigButton')
@@ -23,6 +23,13 @@ class SettingsWindow(QMainWindow):
 
         self.SaveEventConfig = self.findChild(QPushButton, 'SaveEventPushButton')
 
+        self.LeadCheckBox = self.findChild(QCheckBox,'LeadCheckBox')
+        self.LeadCheckBox.toggle()
+        self.LeadCheckBox.stateChanged.connect(self.LeadCheckBoxClicked)
+        self.NoConnections = self.findChild(QLineEdit,'NoOfConnectionslineEdit')
+        self.IPAddress = self.findChild(QLineEdit, "IPAddressLineEdit")
+        hostname = socket.gethostname()
+        self.IPAddress.setText(socket.gethostbyname(hostname))
         self.ENLineEdit = self.findChild(QLineEdit, 'EventNameLineEdit')  # This goes to test persistence db
         self.EDLineEdit = self.findChild(QLineEdit, 'EventDescriptionLineEdit')
         self.ESLineEdit = self.findChild(QLineEdit, 'EventStartLineEdit')
@@ -92,11 +99,30 @@ class SettingsWindow(QMainWindow):
 
         self.show()
 
+    def validateIP(self):
+        try:
+            socket.inet_aton(self.IPAddress.text())
+            # legal
+        except socket.error:
+            error_dialog = QErrorMessage()
+            error_dialog.showMessage('Not A Valid IP Address')
+
+            #error_dialog.exec_()
+
+    def LeadCheckBoxClicked(self):
+        if self.IPAddress.isVisible:
+            self.IPAddress.setEnabled(1)
+        else:
+            self.IPAddress.setDisabled(1)
+
     def connectButtonClicked(self):
         if self.connectButton.text() == 'Disconnect':
+            self.validateIP
             self.connectButton.setText('Connect')
+            self.NoConnections.setText('0')
             self.connectStatus.setText('Not Connected')
         else:
+            self.NoConnections.setText('1')
             self.connectStatus.setText('Connected')
             self.connectButton.setText('Disconnect')
 
