@@ -134,23 +134,14 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="TeamConfigView">
        <layout class="QGridLayout" name="gridLayout_17">
         <item row="4" column="2">
          <widget class="QLineEdit" name="IPAddressLineEdit">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
           <property name="text">
-           <string>129.108.20</string>
-          </property>
-          <property name="readOnly">
-           <bool>false</bool>
-          </property>
-          <property name="clearButtonEnabled">
-           <bool>true</bool>
+           <string>129.108.202.0</string>
           </property>
          </widget>
         </item>
@@ -196,7 +187,7 @@
         <item row="10" column="1">
          <widget class="QPushButton" name="TeamConfigConnectpushButton">
           <property name="text">
-           <string>Connect</string>
+           <string>Disconnect</string>
           </property>
          </widget>
         </item>
@@ -258,13 +249,7 @@
         <item row="5" column="2">
          <widget class="QLineEdit" name="NoOfConnectionslineEdit">
           <property name="text">
-           <string>0</string>
-          </property>
-          <property name="readOnly">
-           <bool>true</bool>
-          </property>
-          <property name="clearButtonEnabled">
-           <bool>false</bool>
+           <string>12</string>
           </property>
          </widget>
         </item>
@@ -431,7 +416,7 @@
            <item>
             <widget class="QLabel" name="ConnectionStatus">
              <property name="text">
-              <string>Disconnected</string>
+              <string>Connected</string>
              </property>
             </widget>
            </item>
@@ -800,6 +785,13 @@
           </layout>
          </widget>
         </item>
+        <item row="5" column="0">
+         <widget class="QPushButton" name="StartIngestionPushButton">
+          <property name="text">
+           <string>Start data ingestion</string>
+          </property>
+         </widget>
+        </item>
         <item row="7" column="0" rowspan="2">
          <spacer name="DCVerticalSpacer_3">
           <property name="orientation">
@@ -816,12 +808,8 @@
           </property>
          </spacer>
         </item>
-        <item row="5" column="0">
-         <widget class="QPushButton" name="StartIngestionPushButton">
-          <property name="text">
-           <string>Start data ingestion</string>
-          </property>
-         </widget>
+        <item row="9" column="0">
+         <widget class="QWidget" name="progressBar" native="true"/>
         </item>
        </layout>
       </widget>
@@ -1917,7 +1905,7 @@
      <x>0</x>
      <y>0</y>
      <width>1281</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
