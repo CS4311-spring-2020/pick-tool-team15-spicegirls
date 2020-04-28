@@ -75,10 +75,10 @@ class SplunkHandler():
 
 if __name__ == '__main__':
     #client = SplunkHandler('localhost', 8089, 'one', 'spiceteam', '007dannyd')
-    client = SplunkHandler('localhost', 8089, 'yessir', 'SpiceGirls', '@DimaAbdelJaber1234@')
+    client = SplunkHandler('localhost', 8089, 'test1', 'SpiceGirls', '@DimaAbdelJaber1234@')
     client.view_indexes()
-    #client.set_index('history')
-    client.upload_file("sample.txt", 'two')
+    #client.set_index('test2')
+    client.upload_file("sample.txt", 'test2')
     print(client.download_log_files())
     print(client.entries)
 
