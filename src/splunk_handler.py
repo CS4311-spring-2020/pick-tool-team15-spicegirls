@@ -68,17 +68,17 @@ class SplunkHandler():
         i = 0
         for result in job_results:
             if True:
-                self.entries.append(LogEntry(i, result['_indextime'], result['index'], result['host'], result['source'], result['sourcetype']))
+                self.entries.append(LogEntry(i, result['_indextime'], result['_raw'], result['host'], result['source'], result['sourcetype']))
             i += 1
         return self.entries
 
 
 if __name__ == '__main__':
-    client = SplunkHandler('localhost', 8089, 'one', 'spiceteam', '007dannyd')
-    # client = SplunkHandler('localhost', 8089, 'yessir', 'SpiceGirls', '@DimaAbdelJaber1234@')
+    #client = SplunkHandler('localhost', 8089, 'one', 'spiceteam', '007dannyd')
+    client = SplunkHandler('localhost', 8089, 'yessir', 'SpiceGirls', '@DimaAbdelJaber1234@')
     client.view_indexes()
-    client.set_index('history')
-    # client.upload_file("temp.log", 'two')
-    client.download_log_files()
+    #client.set_index('history')
+    client.upload_file("sample.txt", 'two')
+    print(client.download_log_files())
     print(client.entries)
 
