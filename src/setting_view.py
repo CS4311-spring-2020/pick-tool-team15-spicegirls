@@ -347,7 +347,7 @@ class SettingsWindow(QMainWindow):
 
     def startIngestion(self):
         self.startAudioTranscription()
-        # self.startImageTranscription()
+        self.startImageTranscription()
         self.organizeDirectories()
         self.startCleanse()
         self.startValidation()
