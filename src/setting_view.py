@@ -47,8 +47,6 @@ class SettingsWindow(QMainWindow):
 
         self.ENLineEdit = self.findChild(QLineEdit, 'EventNameLineEdit')  # This goes to test persistence db
         self.EDLineEdit = self.findChild(QLineEdit, 'EventDescriptionLineEdit')
-        self.ESLineEdit = self.findChild(QLineEdit, 'EventStartLineEdit')
-        self.EELineEdit = self.findChild(QLineEdit, 'EventEndLineEdit')
 
         self.rootLE = self.findChild(QLineEdit, 'RootDirectoryLineEdit')
         self.redLE = self.findChild(QLineEdit, 'RedTeamLineEdit')
@@ -59,8 +57,6 @@ class SettingsWindow(QMainWindow):
         # Internal project settings display for line edits
         self.ENLineEdit.setText(self.configDB['EventName'])
         self.EDLineEdit.setText(self.configDB['EventDescription'])
-        self.ESLineEdit.setText(self.configDB['EventStartTime'])
-        self.EELineEdit.setText(self.configDB['EventEndTime'])
         self.rootLE.setText(self.configDB['root_dir'])
         self.redLE.setText(self.configDB['red_dir'])
         self.blueLE.setText(self.configDB['blue_dir'])
@@ -79,8 +75,6 @@ class SettingsWindow(QMainWindow):
 
         self.ENLineEdit.textChanged.connect(self.updateED)
         self.EDLineEdit.textChanged.connect(self.updateED)
-        self.ESLineEdit.textChanged.connect(self.updateED)
-        self.EELineEdit.textChanged.connect(self.updateED)
 
         self.ApplyButton = self.findChild(QPushButton, 'applyButton')
 
@@ -207,8 +201,6 @@ class SettingsWindow(QMainWindow):
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
         db['EventName'] = self.ENLineEdit.text()
         db['EventDescription'] = self.EDLineEdit.text()
-        db['EventStartTime'] = self.ESLineEdit.text()
-        db['EventEndTime'] = self.EELineEdit.text()
         db.close()
 
     def updateDirLE(self):
