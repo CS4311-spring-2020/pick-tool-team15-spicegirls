@@ -21,107 +21,6 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QFrame" name="OptionView">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0" rowspan="2" colspan="2">
-        <widget class="QGroupBox" name="OV_GroupBox">
-         <property name="title">
-          <string>Option View</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
-          <item>
-           <widget class="QPushButton" name="OV_TeamConfigButton">
-            <property name="text">
-             <string>Team Configuration</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="OV_EventConfigButton">
-            <property name="text">
-             <string>Event Configuration</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="OV_DirectoryConfigButton">
-            <property name="text">
-             <string>Directory Configuration</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="OV_VectorConfigButton">
-            <property name="text">
-             <string>Vector Configuration</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="OV_IconConfigButton">
-            <property name="text">
-             <string>Icon Configuration</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="OV_verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="completeSetupButton_pushButton">
-            <property name="text">
-             <string>Complete Setup</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="Line" name="OVMainViewLine">
-         <property name="focusPolicy">
-          <enum>Qt::NoFocus</enum>
-         </property>
-         <property name="acceptDrops">
-          <bool>false</bool>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="0" column="1" colspan="2">
      <widget class="QStackedWidget" name="StackView">
       <property name="enabled">
@@ -450,6 +349,135 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="page">
+       <widget class="QWidget" name="widget" native="true">
+        <property name="geometry">
+         <rect>
+          <x>29</x>
+          <y>19</y>
+          <width>801</width>
+          <height>681</height>
+         </rect>
+        </property>
+        <widget class="QWidget" name="verticalLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>-1</x>
+           <y>-1</y>
+           <width>801</width>
+           <height>341</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>Splunk Configuration</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <widget class="QWidget" name="gridLayoutWidget_2">
+             <property name="geometry">
+              <rect>
+               <x>9</x>
+               <y>19</y>
+               <width>781</width>
+               <height>321</height>
+              </rect>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_10">
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="portLineEdit">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="UsernameLineEdit"/>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="passwordLineEdit"/>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="indexLineEdit"/>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="port">
+                <property name="text">
+                 <string>Port: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="username">
+                <property name="text">
+                 <string>Username:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="password">
+                <property name="text">
+                 <string>Password:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="index">
+                <property name="text">
+                 <string>Index:</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="verticalLayoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>-1</x>
+           <y>339</y>
+           <width>801</width>
+           <height>341</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QPushButton" name="splunkConnectpushButton">
+              <property name="text">
+               <string>Connect</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </widget>
       <widget class="QWidget" name="EventConfigView">
        <layout class="QGridLayout" name="gridLayout_13">
@@ -1556,6 +1584,114 @@
         </widget>
        </widget>
       </widget>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QFrame" name="OptionView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0" rowspan="2" colspan="2">
+        <widget class="QGroupBox" name="OV_GroupBox">
+         <property name="title">
+          <string>Option View</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QPushButton" name="OV_TeamConfigButton">
+            <property name="text">
+             <string>Team Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="SplunkConfigpushButton">
+            <property name="text">
+             <string>Splunk Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_EventConfigButton">
+            <property name="text">
+             <string>Event Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_DirectoryConfigButton">
+            <property name="text">
+             <string>Directory Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_VectorConfigButton">
+            <property name="text">
+             <string>Vector Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="OV_IconConfigButton">
+            <property name="text">
+             <string>Icon Configuration</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="OV_verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="completeSetupButton_pushButton">
+            <property name="text">
+             <string>Complete Setup</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="Line" name="OVMainViewLine">
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

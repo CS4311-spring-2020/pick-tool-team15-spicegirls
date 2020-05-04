@@ -1,5 +1,5 @@
-'EventName', (0, 12)
-'EventDescription', (512, 13)
+'EventName', (0, 10)
+'EventDescription', (512, 10)
 'EventStartTime', (1024, 20)
 'EventEndTime', (1536, 20)
 'root_dir', (2048, 60)

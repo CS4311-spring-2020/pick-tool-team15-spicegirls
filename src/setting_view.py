@@ -15,7 +15,7 @@ from audio_transcription import AudioTranscription
 from image_transcribe import ImageTranscription
 import socket
 from log_file_config import LogFileConfig
-
+import datetime
 from custom_icon_widget import CustomIconWidget
 from icon_configuration import IconConfig
 
@@ -34,6 +34,7 @@ class SettingsWindow(QMainWindow):
         self.mainStackedView = self.findChild(QStackedWidget, 'StackView')
         
         self.OV_TeamConfigButton = self.findChild(QPushButton, 'OV_TeamConfigButton')
+        self.OV_SplunkConfigButton = self.findChild(QPushButton, "SplunkConfigpushButton")
         self.OV_EventConfigButton = self.findChild(QPushButton, 'OV_EventConfigButton')
         self.OV_DirectoryConfigButton = self.findChild(QPushButton, 'OV_DirectoryConfigButton')
         self.OV_VectorConfigButton = self.findChild(QPushButton, 'OV_VectorConfigButton')
@@ -99,10 +100,11 @@ class SettingsWindow(QMainWindow):
         # self.OV_TeamConfigButton.clicked.connect(self.applyChanges)
 
         self.OV_TeamConfigButton.clicked.connect(lambda: self.btn(0))
-        self.OV_EventConfigButton.clicked.connect(lambda: self.btn(1))
-        self.OV_DirectoryConfigButton.clicked.connect(lambda: self.btn(2))
-        self.OV_VectorConfigButton.clicked.connect(lambda: self.btn(3))
-        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(4))
+        self.OV_SplunkConfigButton.clicked.connect(lambda:self.btn(1))
+        self.OV_EventConfigButton.clicked.connect(lambda: self.btn(2))
+        self.OV_DirectoryConfigButton.clicked.connect(lambda: self.btn(3))
+        self.OV_VectorConfigButton.clicked.connect(lambda: self.btn(4))
+        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(5))
 
         self.RootDirectoryToolButton.clicked.connect(lambda: self.setDir(0))
         self.RedTeamToolButton.clicked.connect(lambda: self.setDir(1))
@@ -180,7 +182,7 @@ class SettingsWindow(QMainWindow):
             self.connectButton.setText('Disconnect')
 
     def btn(self, index):
-        if index < 5:
+        if index < 6:
             self.StackView.setCurrentIndex(index)
 
     def setDir(self, index):
@@ -276,16 +278,16 @@ class SettingsWindow(QMainWindow):
     def validateTime(self):
         nameValid = self.ENLineEdit.text() != ''
         descriptionValid = self.EDLineEdit.text() != ''
-        #timeStampValid = self.EST() < self.EET()
-        #if nameValid and descriptionValid and timeStampValid:
-        if nameValid and descriptionValid:
+        timeStampValid = self.EST.dateTime() < self.EET.dateTime()
+        if nameValid and descriptionValid and timeStampValid:
+        #if nameValid and descriptionValid:
             reply = QMessageBox.question(self, "Message", "Are you sure you entered the correct timestamp", QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.Cancel)
             if reply == QMessageBox.Yes:
                 label = QLabel('Timestamp Validated.')
                 label.setStyleSheet("QLabel { color: green}")
-                #if not self.timeStampValid:
-                    #self.eventLayout.layout().addRow(''.label)
-               # self.timeStampValid = True
+                if not self.timeStampValid:
+                    self.eventLayout.layout().addRow(''.label)
+                self.timeStampValid = True
             elif reply == QMessageBox.No:
                 QMessageBox.information(self, 'No', 'Be sure information entered is correct')
         else:
@@ -293,8 +295,8 @@ class SettingsWindow(QMainWindow):
                 QMessageBox.critical(self, 'Name Error', 'Event name is empty\n' + 'Enter an event name' )
             if not descriptionValid:
                 QMessageBox.critical(self, 'Description Error', 'Event description is empty\n' + 'Enter an event description' )
-            #if not timeStampValid:
-                #QMessageBox.critical(self, 'Timestamp Error', 'Time stamp range is invalid\n' + 'Timestamp must meed one of the following criterias\n' + '1. Start date and start time must be less than the end date and end time\n' + '2. Start date must be equal to the end date but the start time must must be less than the end time')
+            if not timeStampValid:
+                QMessageBox.critical(self, 'Timestamp Error', 'Time stamp range is invalid\n' + 'Timestamp must meet one of the following criterias\n' + '1. Start date and start time must be less than the end date and end time\n' + '2. Start date must be equal to the end date but the start time must must be less than the end time')
     
     def validateRoot(self):
         folder = self.rootLE.text()
