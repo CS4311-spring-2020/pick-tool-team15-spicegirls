@@ -2,7 +2,7 @@
 'EventDescription', (512, 13)
 'EventStartTime', (1024, 20)
 'EventEndTime', (1536, 20)
-'root_dir', (2048, 72)
+'root_dir', (2048, 60)
 'red_dir', (2560, 76)
 'blue_dir', (3072, 77)
 'white_dir', (3584, 78)

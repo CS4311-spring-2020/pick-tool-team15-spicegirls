@@ -134,7 +134,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="TeamConfigView">
        <layout class="QGridLayout" name="gridLayout_17">
@@ -517,7 +517,7 @@
           <widget class="QLineEdit" name="EventNameLineEdit">
            <property name="geometry">
             <rect>
-             <x>160</x>
+             <x>150</x>
              <y>70</y>
              <width>631</width>
              <height>21</height>
@@ -527,28 +527,8 @@
           <widget class="QLineEdit" name="EventDescriptionLineEdit">
            <property name="geometry">
             <rect>
-             <x>160</x>
+             <x>150</x>
              <y>110</y>
-             <width>631</width>
-             <height>21</height>
-            </rect>
-           </property>
-          </widget>
-          <widget class="QLineEdit" name="EventStartLineEdit">
-           <property name="geometry">
-            <rect>
-             <x>160</x>
-             <y>150</y>
-             <width>631</width>
-             <height>21</height>
-            </rect>
-           </property>
-          </widget>
-          <widget class="QLineEdit" name="EventEndLineEdit">
-           <property name="geometry">
-            <rect>
-             <x>160</x>
-             <y>190</y>
              <width>631</width>
              <height>21</height>
             </rect>
@@ -604,6 +584,26 @@
            </property>
            <property name="text">
             <string>Event end timestamp:</string>
+           </property>
+          </widget>
+          <widget class="QDateTimeEdit" name="dateTimeEdit">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>150</y>
+             <width>651</width>
+             <height>24</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QDateTimeEdit" name="dateTimeEdit_2">
+           <property name="geometry">
+            <rect>
+             <x>150</x>
+             <y>190</y>
+             <width>651</width>
+             <height>24</height>
+            </rect>
            </property>
           </widget>
          </widget>
@@ -1567,7 +1567,7 @@
      <x>0</x>
      <y>0</y>
      <width>1281</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
