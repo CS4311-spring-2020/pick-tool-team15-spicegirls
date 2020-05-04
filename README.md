@@ -41,7 +41,9 @@ This repository contains 3 folders (src, doc, Libraries, Resouces, and ui).
   
 ## How to Run
 
-First, clone the repository:
+First, make sure you have already downloaded MongoDB server onto your computer.
+
+Clone the repository:
     
       git clone https://github.com/CS4311-spring-2020/pick-tool-team15-spicegirls.git
       
