@@ -24,13 +24,13 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="SearchTab">
        <attribute name="title">
         <string>Search</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,1">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,0">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -86,6 +86,9 @@
               <spacer name="horizontalSpacer_2">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
@@ -153,7 +156,7 @@
         <item>
          <widget class="QGroupBox" name="groupBox_3">
           <property name="title">
-           <string>Reserved Area</string>
+           <string>                                </string>
           </property>
          </widget>
         </item>
@@ -181,7 +184,7 @@
           <property name="title">
            <string>GraphMenu</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0,0,0,0,0">
+          <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0,0,0">
            <property name="leftMargin">
             <number>2</number>
            </property>
@@ -200,6 +203,16 @@
            <property name="verticalSpacing">
             <number>2</number>
            </property>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLineEdit" name="graphLineEdit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+               <horstretch>9</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="3">
             <spacer name="horizontalSpacer_3">
              <property name="orientation">
@@ -216,16 +229,6 @@
              </property>
             </spacer>
            </item>
-           <item row="0" column="1" colspan="2">
-            <widget class="QLineEdit" name="graphLineEdit">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
-               <horstretch>9</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QPushButton" name="graphSearchButton_2">
              <property name="sizePolicy">
@@ -236,26 +239,6 @@
              </property>
              <property name="text">
               <string>Search</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="5">
-            <widget class="QCheckBox" name="checkBox_2">
-             <property name="text">
-              <string>Table</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>Graph    </string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
              </property>
             </widget>
            </item>

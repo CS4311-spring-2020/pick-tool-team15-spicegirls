@@ -123,9 +123,6 @@ class MainWindow(QMainWindow):
 
         # Add few buttons to the panel
 
-        def manipulate():
-            qgv.manipulation_mode = QGraphVizManipulationMode.Nodes_Move_Mode
-
         def save():
             fname = QFileDialog.getSaveFileName(qgv, "Save", "", "*.json")
             if (fname[0] != ""):
@@ -235,12 +232,6 @@ class MainWindow(QMainWindow):
         hpanel.addWidget(btnSave)
 
         buttons_list = []
-        btnManip = QPushButton("Manipulate")
-        btnManip.setCheckable(True)
-        btnManip.setChecked(True)
-        btnManip.clicked.connect(manipulate)
-        hpanel.addWidget(btnManip)
-        buttons_list.append(btnManip)
 
         btnAddNode = QPushButton("Add Node")
         btnAddNode.clicked.connect(add_node)
