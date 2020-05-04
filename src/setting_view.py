@@ -16,6 +16,9 @@ from image_transcribe import ImageTranscription
 import socket
 from log_file_config import LogFileConfig
 
+from custom_icon_widget import CustomIconWidget
+from icon_configuration import IconConfig
+
 class SettingsWindow(QMainWindow):
     def __init__(self):
         super(SettingsWindow, self).__init__()
@@ -23,7 +26,7 @@ class SettingsWindow(QMainWindow):
 
         #self.timeStampValid = False
         self.root_dir, self.red_dir, self.blue_dir, self.white_dir = '','','',''
-
+        self.selectedIconSource = ""
         self.myValidator = Validator('s', 'q')
         # self.configDB = shelve.open('../Resouces/ConfigDB/TestConfig')  # Initialize values to avoid e
         # self.configDB.close()
@@ -117,6 +120,22 @@ class SettingsWindow(QMainWindow):
 
         self.pBar = self.findChild(QWidget, 'progressBar')
 
+        self.connectButton = self.findChild(QPushButton, 'TeamConfigConnectpushButton')
+        self.connectStatus = self.findChild(QLabel, 'ConnectionStatus')
+        self.connectButton.clicked.connect(self.connectButtonClicked)
+
+        self.DeleteIconButton = self.findChild(QPushButton, 'IconConfigDeleteIconButton')
+        self.DeleteIconButton.clicked.connect(self.deleteIconConfigEdit)
+
+        self.EditIconButton = self.findChild(QPushButton, 'EditIconButton')
+        self.EditIconButton.clicked.connect(self.openIconConfigEdit)
+
+        self.AddIconButton = self.findChild(QPushButton, 'AddIconButton')
+        self.AddIconButton.clicked.connect(self.openIconConfigAdd)
+
+        self.IconTable = self.findChild(QTableWidget, 'IC_IT_TableWidget')
+        self.IconTable.cellClicked.connect(self.showEditButtons)
+        self.IconTable.cellChanged.connect(self.changeInIconTable)
 
         # Vector configuration table checkboxes
         self.VCtable = self.findChild(QTableWidget, 'VC_TableView')
@@ -127,18 +146,9 @@ class SettingsWindow(QMainWindow):
             self.VCtable.setItem(i, 0, checkbox)
             i += 1
 
-        # Icon configuration table checkboxes
-        self.ICtable = self.findChild(QTableWidget, 'IC_IT_TableWidget')
-        i = 0
-        while i < 50:
-            checkbox = QTableWidgetItem()
-            checkbox.setCheckState(Qt.Unchecked)
-            self.ICtable.setItem(i, 0, checkbox)
-            i += 1
-
-        self.connectButton = self.findChild(QPushButton, 'TeamConfigConnectpushButton')
-        self.connectStatus = self.findChild(QLabel, 'ConnectionStatus')
-        self.connectButton.clicked.connect(self.connectButtonClicked)
+        self.DeleteIconButton.hide()
+        self.EditIconButton.hide()
+        self.populateIcons()
 
         self.show()
 
@@ -316,8 +326,7 @@ class SettingsWindow(QMainWindow):
                         self.startIngestion()
                     else:
                         QMessageBox.critical(self, "Event config and team config not validated", "Make sure they are validated " "before ingestion")
-    
-    
+
     def startValidation(self):
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
         dirList = [db['red_dir'], db['blue_dir'], db['white_dir']]
@@ -361,6 +370,46 @@ class SettingsWindow(QMainWindow):
         self.window = main_window.MainWindow()
         self.window.show()
         self.close()
+
+    def populateIcons(self):
+        self.IconTable.clearContents()
+        i = 0
+        for file in os.listdir('../Resouces/IconDir'):
+            self.IconTable.insertRow(i)
+            lb = CustomIconWidget('../Resouces/IconDir/' + file)
+            self.IconTable.setCellWidget(i, 0, lb)
+            self.IconTable.setItem(i, 1, QTableWidgetItem(os.path.splitext(file)[0]))
+            self.IconTable.setItem(i, 2, QTableWidgetItem(str(os.path.abspath(file))))
+            i += 1
+
+    def changeInIconTable(self, row, _):
+        if self.IconTable.item(row, 2):
+            self.selectedIconSource = self.IconTable.item(row, 2).text()
+
+    def showEditButtons(self, row, _):
+        self.selectedIconSource = self.IconTable.item(row, 2).text()
+        # self.EditIconButton.show()
+        self.DeleteIconButton.show()
+
+    def deleteIconConfigEdit(self):
+        if self.selectedIconSource:
+            retry = QMessageBox.question(self, 'Confirm Delete Action',
+                                         "Are you sure you want to delete the icon: {}".format(
+                                             os.path.splitext(os.path.basename(self.selectedIconSource))[0]),
+                                         QMessageBox.Ok | QMessageBox.Cancel, QMessageBox.Cancel)
+            if retry == QMessageBox.Ok:
+                delpath = '../Resouces/IconDir/' + os.path.split(self.selectedIconSource)[1]
+                if os.path.exists(delpath):
+                    os.remove(delpath)
+
+    def openIconConfigEdit(self):
+        self.window = IconConfig()
+        self.window.setPath(self.selectedIconSource)
+        self.window.show()
+
+    def openIconConfigAdd(self):
+        self.window = IconConfig()
+        self.window.show()
 
 if __name__ == "__main__":
     import sys
