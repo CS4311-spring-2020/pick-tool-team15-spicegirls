@@ -12,7 +12,6 @@ from QGraphViz.QGraphViz import QGraphViz, QGraphVizManipulationMode
 from QGraphViz.DotParser import Graph, GraphType
 from QGraphViz.Engines import Dot
 from vector_db_config import VectorDBConfig
-from log_file_config import LogFileConfig
 
 
 class MainWindow(QMainWindow):
@@ -55,10 +54,6 @@ class MainWindow(QMainWindow):
         self.versionControl = self.findChild(QAction, 'actionVersion_Control')
         self.versionControl.setShortcut('Ctrl+S')
         self.versionControl.triggered.connect(self.openVectDBConfig)
-
-        self.actionLogFile = self.findChild(QAction, 'actionFileConfig')
-        self.actionLogFile.setShortcut('Ctrl+F')
-        self.actionLogFile.triggered.connect(self.openLogConfig)
 
         self.GraphTable = self.findChild(QTableWidget, 'tableWidget')
 
@@ -281,10 +276,6 @@ class MainWindow(QMainWindow):
             i += 1
 
         self.showMaximized()
-
-    def openLogConfig(self):
-        self.window = LogFileConfig()
-        self.window.show()
 
     def openVectDBConfig(self):
         self.window = VectorDBConfig()

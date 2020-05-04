@@ -14,6 +14,7 @@ from cleansing import Cleanser
 from audio_transcription import AudioTranscription
 from image_transcribe import ImageTranscription
 import socket
+from log_file_config import LogFileConfig
 
 class SettingsWindow(QMainWindow):
     def __init__(self):
@@ -300,6 +301,8 @@ class SettingsWindow(QMainWindow):
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
         db['EAReport'] = self.myValidator.getEnforcementReport()
         db.close()
+        self.window = LogFileConfig()
+        self.window.show()
 
     def openMain(self):
         self.window = main_window.MainWindow()
