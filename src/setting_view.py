@@ -2,7 +2,7 @@ from os import listdir
 from os.path import isdir
 
 from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QApplication, QCheckBox, QErrorMessage, QFileDialog, QLabel, QLineEdit, QMainWindow, QMessageBox, QPushButton, QStackedWidget, QTableWidget, QTableWidgetItem, QToolButton, QWidget
+from PyQt5.QtWidgets import QApplication, QCheckBox, QErrorMessage, QFileDialog, QLabel, QLineEdit, QMainWindow, QMessageBox, QPushButton, QStackedWidget, QTableWidget, QTableWidgetItem, QToolButton, QWidget, QDateTimeEdit
 from PyQt5.uic import loadUi
 import os
 import main_window
@@ -21,6 +21,7 @@ class SettingsWindow(QMainWindow):
         super(SettingsWindow, self).__init__()
         loadUi('../ui/SettingView.ui', self)
 
+        #self.timeStampValid = False
         self.root_dir, self.red_dir, self.blue_dir, self.white_dir = '','','',''
 
         self.myValidator = Validator('s', 'q')
@@ -47,6 +48,8 @@ class SettingsWindow(QMainWindow):
 
         self.ENLineEdit = self.findChild(QLineEdit, 'EventNameLineEdit')  # This goes to test persistence db
         self.EDLineEdit = self.findChild(QLineEdit, 'EventDescriptionLineEdit')
+        self.EST = self.findChild(QDateTimeEdit, 'dateTimeEdit')
+        self.EET = self.findChild(QDateTimeEdit, 'dateTimeEdit_2')
 
         self.rootLE = self.findChild(QLineEdit, 'RootDirectoryLineEdit')
         self.redLE = self.findChild(QLineEdit, 'RedTeamLineEdit')
@@ -104,10 +107,13 @@ class SettingsWindow(QMainWindow):
         self.WhiteTeamToolButton.clicked.connect(lambda: self.setDir(3))
 
         self.StartIngestionB = self.findChild(QPushButton, 'StartIngestionPushButton')
-        self.StartIngestionB.clicked.connect(self.startIngestion)
+        self.StartIngestionB.clicked.connect(self.validateRoot)
 
         self.completeSettings = self.findChild(QPushButton, 'completeSetupButton_pushButton')
         self.completeSettings.clicked.connect(self.openMain)
+
+        self.saveEvent = self.findChild(QPushButton, 'SaveEventPushButton')
+        self.saveEvent.clicked.connect(self.validateTime)
 
         self.pBar = self.findChild(QWidget, 'progressBar')
 
@@ -257,6 +263,61 @@ class SettingsWindow(QMainWindow):
                     if extension == '.png' or extension == '.jpeg':
                         myImageTranscriber.transcribeAudio(fileName, dir)
 
+    def validateTime(self):
+        nameValid = self.ENLineEdit.text() != ''
+        descriptionValid = self.EDLineEdit.text() != ''
+        #timeStampValid = self.EST() < self.EET()
+        #if nameValid and descriptionValid and timeStampValid:
+        if nameValid and descriptionValid:
+            reply = QMessageBox.question(self, "Message", "Are you sure you entered the correct timestamp", QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.Cancel)
+            if reply == QMessageBox.Yes:
+                label = QLabel('Timestamp Validated.')
+                label.setStyleSheet("QLabel { color: green}")
+                #if not self.timeStampValid:
+                    #self.eventLayout.layout().addRow(''.label)
+               # self.timeStampValid = True
+            elif reply == QMessageBox.No:
+                QMessageBox.information(self, 'No', 'Be sure information entered is correct')
+        else:
+            if not nameValid:
+                QMessageBox.critical(self, 'Name Error', 'Event name is empty\n' + 'Enter an event name' )
+            if not descriptionValid:
+                QMessageBox.critical(self, 'Description Error', 'Event description is empty\n' + 'Enter an event description' )
+            #if not timeStampValid:
+                #QMessageBox.critical(self, 'Timestamp Error', 'Time stamp range is invalid\n' + 'Timestamp must meed one of the following criterias\n' + '1. Start date and start time must be less than the end date and end time\n' + '2. Start date must be equal to the end date but the start time must must be less than the end time')
+    
+    def validateRoot(self):
+        folder = self.rootLE.text()
+        if folder == '':
+            QMessageBox.critical(self, "Root Directory Error", f"Root Directory is empty\n" f"Please select a folder")
+        if folder != '':
+            folders = os.listdir(folder)
+            folderCount = len(folders) >= 3 
+            hasRed, hasBlue, hasWhite = 'red' in folders, 'blue' in folders, 'white' in folders
+            if not folderCount:
+                QMessageBox.critical(self, "Root Directory Error", f"Root Directory has {len(folders)} folders\n" f"choose a directory with at least 3 folders")
+            if not hasRed:
+                QMessageBox.critical(self, "Root Directory Error", f"No folder labeled Red was found\n" f"Label your labels correctly")
+            if not hasBlue:
+                QMessageBox.critical(self, "Root Directory Error", f"No folder labeled Blue was found\n" f"Label your folders correctly")
+            if not hasWhite:
+                QMessageBox.critical(self, "Root Directory Error", f"No folder labeled White was found\n" f"Label your folders correctly")
+            else:
+                self.redLE.setText(self.rootLE.text() +'/red')
+                self.blueLE.setText(self.rootLE.text() +'/blue')
+                self.whiteLE.setText(self.rootLE.text() +'/white')
+                reply = QMessageBox.question(self, 'Message', "Start Ingestion?", QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.Cancel)
+                if not self.validateRoot:
+                    label = QLabel('Root Validated')
+                    label.setStyleSheet("QLabel { color: green}")
+                self.validateRoot = True
+                if reply == QMessageBox.Yes:
+                    if self.validateIP and self.validateRoot:
+                        self.startIngestion()
+                    else:
+                        QMessageBox.critical(self, "Event config and team config not validated", "Make sure they are validated " "before ingestion")
+    
+    
     def startValidation(self):
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
         dirList = [db['red_dir'], db['blue_dir'], db['white_dir']]
