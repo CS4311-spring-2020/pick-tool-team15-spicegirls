@@ -10,7 +10,7 @@ import main_window
 import shelve
 from os.path import isfile, join
 import shutil
-from Validate import Validator
+from validate import Validator
 from cleansing import Cleanser
 from audio_transcription import AudioTranscription
 from image_transcribe import ImageTranscription
@@ -113,6 +113,7 @@ class SettingsWindow(QMainWindow):
         self.StartIngestionB.clicked.connect(self.startIngestion)
 
         self.completeSettings = self.findChild(QPushButton, 'completeSetupButton_pushButton')
+        self.completeSettings.clicked.connect(self.projectDatabase)
         self.completeSettings.clicked.connect(self.openMain)
 
         self.pBar = self.findChild(QWidget, 'progressBar')
@@ -301,6 +302,9 @@ class SettingsWindow(QMainWindow):
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
         db['EAReport'] = self.myValidator.getEnforcementReport()
         db.close()
+
+    def projectDatabase(self):
+        
 
     def openMain(self):
         self.window = main_window.MainWindow()
