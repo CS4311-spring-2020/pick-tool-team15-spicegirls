@@ -5,10 +5,6 @@ import splunklib.client as client
 import asyncio, concurrent.futures
 from splunklib import results
 from log_entry import LogEntry
-from cleansing import Cleanser
-from Validate import Validator
-import datetime
-from transcription import convert
 
 class SplunkHandler:
     def __init__(self, host, port, index, username, password):
