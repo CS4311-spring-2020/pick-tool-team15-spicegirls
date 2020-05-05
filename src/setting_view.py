@@ -159,7 +159,7 @@ class SettingsWindow(QMainWindow):
         self.IconTable.cellChanged.connect(self.changeInIconTable)
 
         self.connectSplunk = self.findChild(QPushButton, 'splunkConnectpushButton')
-        self.connectSplunk.clicked.connect(self.splunk)
+        self.connectSplunk.clicked.connect(self.validateCredentials)
 
 
         # Vector configuration table checkboxes
