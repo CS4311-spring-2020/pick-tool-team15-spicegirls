@@ -85,6 +85,7 @@ class SplunkHandler:
             if True:
                 log_entry.create_log_entry(result['_raw'], result['_indextime'], result['host'], result['source'], result['sourcetype'])
 
+
     def cleanse(self,file):
         return self.cleanse.cleanse(file)
 
