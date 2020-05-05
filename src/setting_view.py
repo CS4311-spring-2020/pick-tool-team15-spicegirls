@@ -32,9 +32,10 @@ class SettingsWindow(QMainWindow):
         self.index = ''
         self.username = ''
         self.password = ''
-        self.splunk = SplunkHandler(host=self.host, port=self.port, index=self.index, username=self.username, password=self.password)
+        #self.host = 'localhost'
+        #self.splunk = SplunkHandler(host=self.host, port=self.port, index=self.index, username=self.username, password=self.password)
 
-        #self.timeStampValid = False
+        self.timeStampValid = False
         self.root_dir, self.red_dir, self.blue_dir, self.white_dir = '','','',''
         self.selectedIconSource = ""
         self.myValidator = Validator('s', 'q')
@@ -108,7 +109,7 @@ class SettingsWindow(QMainWindow):
 
         self.portLE = self.findChild(QLineEdit, 'portLineEdit')
         self.indexLE = self.findChild(QLineEdit, 'indexLineEdit')
-        self.usernameLE = self.findChild(QLineEdit, 'usernameLineEdit')
+        self.usernameLE = self.findChild(QLineEdit, 'UsernameLineEdit')
         self.passwordLE = self.findChild(QLineEdit, 'passwordLineEdit')
 
         # self.OV_TeamConfigButton.clicked.connect(self.applyChanges)
@@ -300,9 +301,6 @@ class SettingsWindow(QMainWindow):
             if reply == QMessageBox.Yes:
                 label = QLabel('Timestamp Validated.')
                 label.setStyleSheet("QLabel { color: green}")
-                if not self.timeStampValid:
-                    self.eventLayout.layout().addRow(''.label)
-                self.timeStampValid = True
             elif reply == QMessageBox.No:
                 QMessageBox.information(self, 'No', 'Be sure information entered is correct')
         else:
@@ -346,36 +344,37 @@ class SettingsWindow(QMainWindow):
 
 
     def validateCredentials(self):
-            result = None
-            try:
-                result = [0 <= int(x) < 256 for x in re.split('\.', re.match(r'^\d+\.\d+\.\d+\.\d+$', self.IPAddress.text()).group(0))].count(True) ==4
-            except AttributeError:
-                result = False
-            nonLead = (self.LeadCheckBox.isChecked() and socket.gethostbyname(socket.gethostname()) != self.IPAddress.text())
-            emptyIP = self.IPAddress.text() == ''
-            if nonLead:
-                QMessageBox.critical(self, 'Connection Error', f'Non Lead Analyst attempting to connect as a Lead Analyst\n' + 'Check lead checkbox if lead IP is entered\n' + 'Uncheck lead checkbox if non Lead Analyst IP is entered')
-            elif emptyIP:
-                QMessageBox.critical(self, 'Connection Error', 'No IP Address entered\n' + 'Enter a value from 0.0.0.0 to 255.255.255.255')
-            elif not result or result is None:
-                QMessageBox.critical(self, 'Connection Error', 'IP address is not valid\n' + 'Enter an IP address between 0.0.0.0 to 255.255.255.255' )
-            else:
+                result = None
                 try:
-                    lead= self.IPAddress.text().strip()
-                    port = self.portLE.text().strip()
-                    index = self.indexLE.text().strip()
-                    username = self.usernameLE
-                    password = self.passwordLE
-                    self.client = SplunkHandler(lead, port, index, username, password)
-                    QMessageBox.information(self, 'Connection Successful', f'Connection to server:from IP {self.IPAddressLineEdit.text()}' f' established!')
-                    if not self.validateIP:
-                        label = QLabel('Lead IP Validated.')
-                        label.setStyleSheet("QLabel { color: green}")
-                    self.IPAddress.setEnabled(False)
-                except ConnectionError:
-                    QMessageBox.critical(self, 'Connection Error', 'Connection could not be established\n' + 'Confirm that the server is active and running\n' + 'and that login information is correct.')
-                except ValueError:
-                    QMessageBox.critical(self, 'Port Number Error', 'Port number must be a numerical value')
+                    result = [0 <= int(x) < 256 for x in re.split('\.', re.match(r'^\d+\.\d+\.\d+\.\d+$', self.IPAddress.text()).group(0))].count(True) ==4
+                except AttributeError:
+                    result = False
+                nonLead = (self.LeadCheckBox.isChecked() and socket.gethostbyname(socket.gethostname()) != self.IPAddress.text())
+                emptyIP = self.IPAddress.text() == ''
+                if nonLead:
+                    QMessageBox.critical(self, 'Connection Error', f'Non Lead Analyst attempting to connect as a Lead Analyst\n' + 'Check lead checkbox if lead IP is entered\n' + 'Uncheck lead checkbox if non Lead Analyst IP is entered')
+                elif emptyIP:
+                    QMessageBox.critical(self, 'Connection Error', 'No IP Address entered\n' + 'Enter a value from 0.0.0.0 to 255.255.255.255')
+                elif not result or result is None:
+                    QMessageBox.critical(self, 'Connection Error', 'IP address is not valid\n' + 'Enter an IP address between 0.0.0.0 to 255.255.255.255' )
+                else:
+                    try:
+                        lead= self.IPAddress.text().strip()
+                        port = int(self.portLE.text().strip())
+                        index = self.indexLE.text().strip()
+                        username = self.usernameLE.text().strip()
+                        password = self.passwordLE.text().strip()
+                        splunk = SplunkHandler('localhost', port, index, username, password)
+                        
+                        QMessageBox.information(self, 'Connection Successful', f'Connection to server:from IP {self.IPAddressLineEdit.text()}' f' established!')
+                        if not self.validateIP:
+                            label = QLabel('Lead IP Validated.')
+                            label.setStyleSheet("QLabel { color: green}")
+                        self.IPAddress.setEnabled(False)
+                    except ConnectionError:
+                        QMessageBox.critical(self, 'Connection Error', 'Connection could not be established\n' + 'Confirm that the server is active and running\n' + 'and that login information is correct.')
+                    except ValueError:
+                        QMessageBox.critical(self, 'Port Number Error', 'Port number must be a numerical value')
 
 
 
