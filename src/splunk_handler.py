@@ -26,7 +26,7 @@ class SplunkHandler:
     def set_index(self, name):
         self.index = name
 
-    async def upload_file(self, index, path):
+    def upload_file(self, index, path):
         ind = self.service.indexes[index]
         try:
             ind.upload(os.path.abspath(path))
@@ -107,5 +107,8 @@ class SplunkHandler:
         return self.validate.validate(file)
 
 if __name__ == '__main__':
-    client = SplunkHandler('localhost', 8089, 'main', 'SpiceGirls', '@DimaAbdelJaber1234@')
-    client.upload_file("pick","YOURFILE")
+    # client = SplunkHandler('localhost', 8089, 'main', 'SpiceGirls', '@DimaAbdelJaber1234@')
+    client = SplunkHandler('localhost', 8089, 'main', 'spiceteam', '007dannyd')
+    client.upload_file("main","/Users/dima/Desktop/pick-tool-team15-spicegirls/src/sample.txt")
+    client.download_log_files()
+    print(client.download_log_files())
