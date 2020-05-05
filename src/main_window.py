@@ -13,7 +13,7 @@ from QGraphViz.Engines import Dot
 from pymongo import MongoClient
 from vector_db_config import VectorDBConfig
 from db_handler import DBHandler
-
+from graph_operations import GraphOperations
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -282,6 +282,7 @@ class MainWindow(QMainWindow):
         self.showMaximized()
         # DBHandler.create_vector_entry('../Resources/LocalGraphs/VECTOR#3.json')
         self.populateTable()
+        self.populateGraph()
 
     def openVectDBConfig(self):
         self.window = VectorDBConfig()
@@ -301,6 +302,7 @@ class MainWindow(QMainWindow):
 
     def vectorSelected(self, index):
         self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
+        # self.refreshViews()
 
         # delteThis v
     def tempMethod(self):
@@ -308,7 +310,7 @@ class MainWindow(QMainWindow):
 
     def populateTable(self):
         self.GraphTable.setRowCount(0)
-        vectorList = self.myDb.get_all_vectors()
+        vectorList = self.myDb.get_all_vectors_raw()
         i = 0
         for vector in vectorList:
             if vector['name'] == self.currentVectorMenu.currentText():
@@ -320,43 +322,15 @@ class MainWindow(QMainWindow):
                     self.GraphTable.setItem(i, 5, QTableWidgetItem(str(entry['source'])))
                     i+=1
 
-    # def populateGraph(self):
-    #     client = MongoClient(port=27017)
-    #     db = client.business
-    #     cursor = db.Vectors.find({})
-    #     for vector in cursor:
-    #         if vector['name'] == self.currentVectorMenu.currentText():
-    #             empty = {
-    #                 "name": "MainGraph",
-    #                 "graph_type": 0,
-    #                 "kwargs": {},
-    #                 "nodes": [],
-    #                 "edges": [],
-    #             }
-    #             empty["name"] = vector['name']
-    #             for entry in vector['entries']:
-    #                 tempEmptyEntry = {
-    #                             "name": str(entry['number']),
-    #                             "kwargs": {
-    #                                 "label": str(entry['number']),
-    #                                 "shape": "circle",
-    #                                 "width": 1
-    #                             }
-    #                         }
-    #                 empty["nodes"].append(tempEmptyEntry)
-    #             for edge in vector['relationships']:
-    #                 tempEdge = {
-    #                     "source": str(edge['source']),
-    #                     "dest": str(edge['destination']),
-    #                     "kwargs": {}
-    #                 }
-    #                 empty["edges"].append(tempEdge)
-    #             y = json.dumps(empty)
-    #             f = open("../Resouces/LocalGraphs/" + vector['name'] + ".json", "w+")
-    #             f.write(str(y))
-    #             f.close()
-    #             self.qgv.loadAJson("../Resouces/LocalGraphs/" + vector['name'] + ".json")
+    def populateGraph(self):
+        vectorList = self.myDb.get_all_vectors_raw()
+        for vector in vectorList:
+            GraphOperations.graph_from_raw_vector(vector)
+            if vector['name'] == self.currentVectorMenu.currentText():
+                self.qgv.loadAJson("../Resouces/LocalGraphs/" + vector['name'] + ".json")
     #
+    # self.qgv.loadAJson("../Resouces/LocalGraphs/" + vector['name'] + ".json")
+    # thispliease
     # # nted at the db level
     #
     #

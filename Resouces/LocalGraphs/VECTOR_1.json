@@ -1,0 +1,1 @@
+{"name": "VECTOR_1", "graph_type": 0, "kwargs": {}, "nodes": [{"name": "1", "kwargs": {"label": "1", "shape": "circle", "width": 1}}, {"name": "2", "kwargs": {"label": "2", "shape": "circle", "width": 1}}], "edges": [{"source": "1", "dest": "2", "kwargs": {}}]}

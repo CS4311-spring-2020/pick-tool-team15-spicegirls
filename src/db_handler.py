@@ -26,6 +26,9 @@ class DBHandler:
                 names.append(vector['name'])
         return names
 
-    def get_all_vectors(self):
+    def get_all_vectors_raw(self):
         cursor = self.db.vectors.find({})
         return list(cursor)
+
+    def get_all_vectors(self):
+        return ''
