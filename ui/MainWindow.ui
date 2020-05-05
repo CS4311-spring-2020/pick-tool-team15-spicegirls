@@ -24,7 +24,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="SearchTab">
        <attribute name="title">
@@ -156,7 +156,7 @@
         <item>
          <widget class="QGroupBox" name="groupBox_3">
           <property name="title">
-           <string>                                </string>
+           <string/>
           </property>
          </widget>
         </item>
@@ -184,7 +184,7 @@
           <property name="title">
            <string>GraphMenu</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0,0,0">
+          <layout class="QGridLayout" name="gridLayout_2" columnstretch="3,2,15,2,2,0,0">
            <property name="leftMargin">
             <number>2</number>
            </property>
@@ -203,7 +203,7 @@
            <property name="verticalSpacing">
             <number>2</number>
            </property>
-           <item row="0" column="1" colspan="2">
+           <item row="0" column="5" colspan="2">
             <widget class="QLineEdit" name="graphLineEdit">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
@@ -214,22 +214,6 @@
             </widget>
            </item>
            <item row="0" column="3">
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Ignored</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="0">
             <widget class="QPushButton" name="graphSearchButton_2">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Ignored">
@@ -241,6 +225,29 @@
               <string>Search</string>
              </property>
             </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QComboBox" name="VectorMenu"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="CurrentVector">
+             <property name="text">
+              <string>No Vector Selected</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -273,22 +280,8 @@
              <bool>true</bool>
             </property>
             <property name="rowCount">
-             <number>10</number>
+             <number>0</number>
             </property>
-            <row>
-             <property name="text">
-              <string>Visibility</string>
-             </property>
-            </row>
-            <row/>
-            <row/>
-            <row/>
-            <row/>
-            <row/>
-            <row/>
-            <row/>
-            <row/>
-            <row/>
             <column>
              <property name="text">
               <string>ID</string>
@@ -345,7 +338,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

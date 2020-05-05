@@ -1,4 +1,6 @@
 #!/user/bin/python3
+import json
+
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit, QTableWidget, \
     QTableWidgetItem, QComboBox, QGroupBox, QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QDialog, QFileDialog
 from PyQt5.uic import loadUi
@@ -11,6 +13,7 @@ from export_configuration import ExportConfig
 from QGraphViz.QGraphViz import QGraphViz, QGraphVizManipulationMode
 from QGraphViz.DotParser import Graph, GraphType
 from QGraphViz.Engines import Dot
+from pymongo import MongoClient
 from vector_db_config import VectorDBConfig
 
 
@@ -18,10 +21,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         loadUi('../ui/MainWindow.ui', self)
-
         self.FilterConfigButton = self.findChild(QPushButton, 'filterButton')
         self.FilterConfigButton.clicked.connect(self.openFilterConfig)
-
         self.settingsConfig = self.findChild(QAction, 'actionSettings')
         self.settingsConfig.triggered.connect(self.openSettings)
 
@@ -35,6 +36,7 @@ class MainWindow(QMainWindow):
 
         #Search button on graph tab functionality ##need keyword functionality added
         self.graphSearchButton = self.findChild(QPushButton, 'graphSearchButton_2')
+        self.graphSearchButton.clicked.connect(self.populateTable)
 
         # Enter press on qlineedit graph tab triggers search button
         self.graphSearchEdit = self.findChild(QLineEdit, 'graphLineEdit')
@@ -60,17 +62,23 @@ class MainWindow(QMainWindow):
         self.graphArea = self.findChild(QWidget, 'graphArea')
         self.graphArea.setLayout(QVBoxLayout())
 
-        self.GraphTable.setItem(0, 0, QTableWidgetItem("Cell (1,1)"))
+        self.currentVectorMenu = self.findChild(QComboBox, 'VectorMenu')
+        self.currentVectorLabel = self.findChild(QLabel, 'CurrentVector')
+
+        self.currentVectorMenu.addItems(self.dbGetVectorNames())
+        self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
+        self.currentVectorMenu.activated.connect(self.vectorSelected)
+
 
         # Events
         def node_selected(node):
-            if qgv.manipulation_mode == QGraphVizManipulationMode.Node_remove_Mode:
+            if self.qgv.manipulation_mode == QGraphVizManipulationMode.Node_remove_Mode:
                 print("Node {} removed".format(node))
             else:
                 print("Node selected {}".format(node))
 
         def edge_selected(edge):
-            if qgv.manipulation_mode == QGraphVizManipulationMode.Edge_remove_Mode:
+            if self.qgv.manipulation_mode == QGraphVizManipulationMode.Edge_remove_Mode:
                 print("Edge {} removed".format(edge))
             else:
                 print("Edge selected {}".format(edge))
@@ -89,7 +97,7 @@ class MainWindow(QMainWindow):
 
         # Create QGraphViz widget
         show_subgraphs = True
-        qgv = QGraphViz(
+        self.qgv = QGraphViz(
             show_subgraphs=show_subgraphs,
 
             node_selected_callback=node_selected,
@@ -102,41 +110,41 @@ class MainWindow(QMainWindow):
             hilight_Nodes=True,
             hilight_Edges=True
         )
-        qgv.setStyleSheet("background-color:white;")
+        self.qgv.setStyleSheet("background-color:white;")
         # Create A new Graph using Dot layout engine
-        qgv.new(Dot(Graph("Main_Graph"), show_subgraphs=show_subgraphs))
+        self.qgv.new(Dot(Graph("Main_Graph"), show_subgraphs=show_subgraphs))
 
         # Adding nodes with an image as its shape
         icon_path = os.path.dirname(os.path.abspath(__file__)) + r"\dbicon.png"
 
         # Build the graph (the layout engine organizes where the nodes and connections are)
-        qgv.build()
+        self.qgv.build()
         # Save it to a file to be loaded by Graphviz if needed
-        qgv.save("test.gv")
+        self.qgv.save("test.gv")
 
         # Add the QGraphViz object to the layout
-        self.graphArea.layout().addWidget(qgv)
+        self.graphArea.layout().addWidget(self.qgv)
 
         # Add a horizontal layout (a pannel to select what to do)
-        hpanel = QHBoxLayout()
-        self.graphArea.layout().addLayout(hpanel)
+        self.hpanel = QHBoxLayout()
+        self.graphArea.layout().addLayout(self.hpanel)
 
         # Add few buttons to the panel
 
         def save():
-            fname = QFileDialog.getSaveFileName(qgv, "Save", "", "*.json")
+            fname = QFileDialog.getSaveFileName(self.qgv, "Save", "", "*.json")
             if (fname[0] != ""):
-                qgv.saveAsJson(fname[0])
+                self.qgv.saveAsJson(fname[0])
 
         def new():
-            qgv.engine.graph = Graph("MainGraph")
-            qgv.build()
-            qgv.repaint()
+            self.qgv.engine.graph = Graph("MainGraph")
+            self.qgv.build()
+            self.qgv.repaint()
 
         def load():
-            fname = QFileDialog.getOpenFileName(qgv, "Open", "", "*.json")
+            fname = QFileDialog.getOpenFileName(self.qgv, "Open", "", "*.json")
             if (fname[0] != ""):
-                qgv.loadAJson(fname[0])
+                self.qgv.loadAJson(fname[0])
 
         def add_node():
             dlg = QDialog()
@@ -174,6 +182,7 @@ class MainWindow(QMainWindow):
             l.setWidget(3, QFormLayout.LabelRole, QLabel("Node Image"))
             l.setWidget(3, QFormLayout.FieldRole, leImagePath)
 
+
             def ok():
                 dlg.OK = True
                 dlg.node_name = leNodeName.text()
@@ -197,64 +206,64 @@ class MainWindow(QMainWindow):
 
             # node_name, okPressed = QInputDialog.getText(wi, "Node name","Node name:", QLineEdit.Normal, "")
             if dlg.OK and dlg.node_name != '':
-                qgv.addNode(qgv.engine.graph, dlg.node_name, label=dlg.node_label, shape=dlg.node_type)
-                qgv.build()
+                self.qgv.addNode(self.qgv.engine.graph, dlg.node_name, label=dlg.node_label, shape=dlg.node_type)
+                self.qgv.build()
 
         def remove_node():
-            qgv.manipulation_mode = QGraphVizManipulationMode.Node_remove_Mode
-            for btn in buttons_list:
+            self.qgv.manipulation_mode = QGraphVizManipulationMode.Node_remove_Mode
+            for btn in self.buttons_list:
                 btn.setChecked(False)
-            btnRemoveNode.setChecked(True)
+            self.btnRemoveNode.setChecked(True)
 
         def remove_edge():
-            qgv.manipulation_mode = QGraphVizManipulationMode.Edge_remove_Mode
-            for btn in buttons_list:
+            self.qgv.manipulation_mode = QGraphVizManipulationMode.Edge_remove_Mode
+            for btn in self.buttons_list:
                 btn.setChecked(False)
-            btnRemoveEdge.setChecked(True)
+            self.btnRemoveEdge.setChecked(True)
 
         def add_edge():
-            qgv.manipulation_mode = QGraphVizManipulationMode.Edges_Connect_Mode
-            for btn in buttons_list:
+            self.qgv.manipulation_mode = QGraphVizManipulationMode.Edges_Connect_Mode
+            for btn in self.buttons_list:
                 btn.setChecked(False)
-            btnAddEdge.setChecked(True)
+            self.btnAddEdge.setChecked(True)
 
         # Add buttons
-        btnNew = QPushButton("New")
-        btnNew.clicked.connect(new)
-        btnOpen = QPushButton("Open")
-        btnOpen.clicked.connect(load)
+        self.btnNew = QPushButton("New")
+        self.btnNew.clicked.connect(new)
+        self.btnOpen = QPushButton("Open")
+        self.btnOpen.clicked.connect(load)
 
-        btnSave = QPushButton("Save")
-        btnSave.clicked.connect(save)
+        self.btnSave = QPushButton("Save")
+        self.btnSave.clicked.connect(save)
 
-        hpanel.addWidget(btnNew)
-        hpanel.addWidget(btnOpen)
-        hpanel.addWidget(btnSave)
+        self.hpanel.addWidget(self.btnNew)
+        self.hpanel.addWidget(self.btnOpen)
+        self.hpanel.addWidget(self.btnSave)
 
-        buttons_list = []
+        self.buttons_list = []
 
-        btnAddNode = QPushButton("Add Node")
-        btnAddNode.clicked.connect(add_node)
-        hpanel.addWidget(btnAddNode)
-        buttons_list.append(btnAddNode)
+        self.btnAddNode = QPushButton("Add Node")
+        self.btnAddNode.clicked.connect(add_node)
+        self.hpanel.addWidget(self.btnAddNode)
+        self.buttons_list.append(self.btnAddNode)
 
-        btnRemoveNode = QPushButton("Remove Node")
-        btnRemoveNode.setCheckable(True)
-        btnRemoveNode.clicked.connect(remove_node)
-        hpanel.addWidget(btnRemoveNode)
-        buttons_list.append(btnRemoveNode)
+        self.btnRemoveNode = QPushButton("Remove Node")
+        self.btnRemoveNode.setCheckable(True)
+        self.btnRemoveNode.clicked.connect(remove_node)
+        self.hpanel.addWidget(self.btnRemoveNode)
+        self.buttons_list.append(self.btnRemoveNode)
 
-        btnAddEdge = QPushButton("Add Edge")
-        btnAddEdge.setCheckable(True)
-        btnAddEdge.clicked.connect(add_edge)
-        hpanel.addWidget(btnAddEdge)
-        buttons_list.append(btnAddEdge)
+        self.btnAddEdge = QPushButton("Add Edge")
+        self.btnAddEdge.setCheckable(True)
+        self.btnAddEdge.clicked.connect(add_edge)
+        self.hpanel.addWidget(self.btnAddEdge)
+        self.buttons_list.append(self.btnAddEdge)
 
-        btnRemoveEdge = QPushButton("Remove Edge")
-        btnRemoveEdge.setCheckable(True)
-        btnRemoveEdge.clicked.connect(remove_edge)
-        hpanel.addWidget(btnRemoveEdge)
-        buttons_list.append(btnRemoveEdge)
+        self.btnRemoveEdge = QPushButton("Remove Edge")
+        self.btnRemoveEdge.setCheckable(True)
+        self.btnRemoveEdge.clicked.connect(remove_edge)
+        self.hpanel.addWidget(self.btnRemoveEdge)
+        self.buttons_list.append(self.btnRemoveEdge)
 
 
         #drop down menus vector collumn search table
@@ -267,6 +276,8 @@ class MainWindow(QMainWindow):
             i += 1
 
         self.showMaximized()
+
+        self.populateTable()
 
     def openVectDBConfig(self):
         self.window = VectorDBConfig()
@@ -283,6 +294,125 @@ class MainWindow(QMainWindow):
     def openSettings(self):
         self.window = setting_view.SettingsWindow()
         self.window.show()
+
+    def populateTable(self):
+        self.GraphTable.setRowCount(0)
+        client = MongoClient(port=27017)
+        db = client.business
+        cursor = db.Vectors.find({})
+        i = 0
+        for vector in cursor:
+            if vector['name'] == self.currentVectorMenu.currentText():
+                for entry in vector['entries']:
+                    self.GraphTable.insertRow(i)
+                    self.GraphTable.setItem(i, 0, QTableWidgetItem(str(entry['number'])))
+                    self.GraphTable.setItem(i, 2, QTableWidgetItem(str(entry['timestamp'])))
+                    self.GraphTable.setItem(i, 3, QTableWidgetItem(entry['content']))
+                    self.GraphTable.setItem(i, 5, QTableWidgetItem(str(entry['source'])))
+                    i+=1
+
+    def tableToGraph(self):
+        sampleVector = {
+            'name': 'vect1',
+            'description': 'no select no vec',
+            'entries': [
+                {'number': 1,
+                 'timestamp': 'sampleTime',
+                 'content': 'SampleContent...Blabla',
+                 'host': 'host',
+                 'source': 'source?',
+                 'sourceType': 'sourceType'
+                 },
+                {'number': 2,
+                 'timestamp': 'secondtime',
+                 'content': 'Second entrie',
+                 'host': 'host2',
+                 'source': 'source2',
+                 'sourceType': 'sourceType2'
+                 },
+            ],
+            'relationships': [
+                {'relationshipId': 1,
+                 'source': 1,
+                 'destination': 2
+                 }
+            ]
+        }
+        empty = {
+            "name": "MainGraph",
+            "graph_type": 0,
+            "kwargs": {},
+            "nodes": [],
+            "edges": [],
+        }
+        # empty["name"] = sampleVector['name']
+        for entry in sampleVector['entries']:
+            tempEmptyEntry = {
+                        "name": str(entry['number']),
+                        "kwargs": {
+                            "label": entry['content'],
+                            "shape": "circle",
+                            "width": 1
+                        }
+                    }
+            empty["nodes"].append(tempEmptyEntry)
+        for edge in sampleVector['relationships']:
+            tempEdge = {
+                "source": str(edge['source']),
+                "dest": str(edge['destination']),
+                "kwargs": {}
+            }
+            empty["edges"].append(tempEdge)
+        print(empty)
+        y = json.dumps(empty)
+        f = open("sample.json", "w+")
+        f.write(str(y))
+        f.close()
+        self.qgv.loadAJson("sample.json")
+
+    # nted at the db level
+    def dbGetVectorNames(self):
+        sampleVector = {
+            'name': 'vect1',
+            'description': 'no select no vec',
+            'entries': [
+                {'number': 1,
+                 'timestamp': 'sampleTime',
+                 'content': 'SampleContent...Blabla',
+                 'host': 'host',
+                 'source': 'source?',
+                 'sourceType': 'sourceType'
+                },
+                {'number': 2,
+                 'timestamp': 'secondtime',
+                 'content': 'Second entrie',
+                 'host': 'host2',
+                 'source': 'source2',
+                 'sourceType': 'sourceType2'
+                 },
+            ],
+            'relationships': [
+                {'relationshipId': 1,
+                 'source': 1,
+                 'destination': 2
+                }
+            ]
+        }
+        client = MongoClient(port=27017)
+        db = client.business
+        cursor = db.Vectors.find({})
+        list = []
+        for vector in cursor:
+            list.append(vector['name'])
+        return list
+
+    def vectorSelected(self, index):
+        self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
+        self.refreshView()
+
+    def refreshView(self):
+        self.populateTable()
+        self.tableToGraph()
 
 
 if __name__ == "__main__":
