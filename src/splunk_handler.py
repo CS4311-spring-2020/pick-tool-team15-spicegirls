@@ -4,24 +4,25 @@ import sys, os
 import splunklib.client as client
 import asyncio, concurrent.futures
 from splunklib import results
-from LogEntry import LogEntry
-
+from log_entry import LogEntry
+from cleansing import Cleanser
+from Validate import Validator
+import datetime
+from transcription import convert
 
 class SplunkHandler:
-    def __init__(self):
+    def __init__(self, host, port, index, username, password):
+
+        self.host = host
+        self.port = port
+        self.index = index
+        self.username = username
+        self.password = password
         try:
-            self.service = client.connect(
-                host="localhost",
-                port=8089,
-                username="SpiceGirls",
-                password="@DimaAbdelJaber1234@")
-
-        except Exception as Error:
-            print("error connecting to splunk")
-            exit(1)
-
-    #assuming file is absolute path
-    #need name of index being added to
+            self.service = client.connect(host=self.host, port=self.port, username=self.username, password=self.password)
+        except Exception as e:
+            print(str(e))
+        
     def add_file(self, index, file):
 
         myindex = self.service.indexes[index]
@@ -92,13 +93,16 @@ class SplunkHandler:
             i += 1
         return log_entries
 
-splunkHandler = SplunkHandler()
-#splunkHandler.print_indexes()
-#splunkHandler.print_inputs()
-#splunkHandler.create_new_user("testAdmin", "password", "admin", "testAdmin")
-#splunkHandler.print_users()
-#splunkHandler.add_index("main")
-splunkHandler.add_file("main","/Users/dima/Desktop/pick-tool-team15-spicegirls/src/sample.txt")
-splunkHandler.download_log_files()
-print(splunkHandler.download_log_files())
+    def cleanse(self,file):
+        return self.cleanse.cleanse(file)
 
+    def validate(self,file,event_start, event_end):
+        self.validate.startTimestamp = event_start
+        self.validate.endTimestamp = event_end
+        return self.validate.validate(file)
+
+if __name__ == '__main__':
+    client = SplunkHandler('localhost', 8089, 'main', 'SpiceGirls', '@DimaAbdelJaber1234@')
+    client.add_file("main","/Users/dima/Desktop/pick-tool-team15-spicegirls/src/sample.txt")
+    client.download_log_files()
+    print(client.download_log_files())
