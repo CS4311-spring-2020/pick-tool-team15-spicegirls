@@ -1,3 +1,11 @@
+from pymongo import MongoClient
+from random import randint
+
+
+client = MongoClient(port=27017)
+db = client.vector
+
+
 class Node:
     def __init__(self):
         # create proper init signature after checking where it is called
@@ -20,3 +28,11 @@ class Node:
     def change_time_stamp(self, new_time_stamp):
         # check if time stamp is valid
         self.time_stamp = new_time_stamp
+
+
+def create_node(name, description, time_stamp, source):
+    if db.nodes.find_one({'name': name}) is None:
+        db.nodes.insert_one({'name': name, 'description': description, 'time_stamp': time_stamp, 'source': source})
+        return True
+    return False
+
