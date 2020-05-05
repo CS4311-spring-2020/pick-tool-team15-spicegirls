@@ -4,7 +4,7 @@ import sys, os
 import splunklib.client as client
 import asyncio, concurrent.futures
 from splunklib import results
-from log_entry import LogEntry
+import log_entry
 
 class SplunkHandler:
     def __init__(self, host, port, index, username, password):
@@ -81,13 +81,9 @@ class SplunkHandler:
         query = "search | head 5"
         job = jobs.create(query, **blocking_search)
         job_results = results.ResultsReader(job.results(count=5))
-        i = 0
-        log_entries= []
         for result in job_results:
             if True:
-                log_entries.append(LogEntry(i, result['_indextime'], result['_raw'], result['host'], result['source'], result['sourcetype']))
-            i += 1
-        return log_entries
+                log_entry.create_log_entry(result['_raw'], result['_indextime'], result['host'], result['source'], result['sourcetype'])
 
     def cleanse(self,file):
         return self.cleanse.cleanse(file)
