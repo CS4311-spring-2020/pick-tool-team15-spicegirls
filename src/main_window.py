@@ -20,6 +20,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__()
         loadUi('../ui/MainWindow.ui', self)
         self.myDb = DBHandler()
+        self.updateTableFlag = True
         self.FilterConfigButton = self.findChild(QPushButton, 'filterButton')
         self.FilterConfigButton.clicked.connect(self.openFilterConfig)
         self.settingsConfig = self.findChild(QAction, 'actionSettings')
@@ -57,6 +58,7 @@ class MainWindow(QMainWindow):
         self.graphArea.setLayout(QVBoxLayout())
 
         self.graphSearchButton = self.findChild(QPushButton, 'graphSearchButton_2')
+        # self.graphSearchButton.clicked.connect()
 
         self.currentVectorMenu = self.findChild(QComboBox, 'VectorMenu')
         self.currentVectorLabel = self.findChild(QLabel, 'CurrentVector')
@@ -65,7 +67,8 @@ class MainWindow(QMainWindow):
         self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
         self.currentVectorMenu.activated.connect(self.vectorSelected)
 
-        self.GraphTable.cellClicked.connect()
+        self.GraphTable.cellClicked.connect(self.entryFieldSelected)
+        self.GraphTable.cellChanged.connect(self.updateEntryFromTable)
 
         # Events
         def node_selected(node):
@@ -270,13 +273,7 @@ class MainWindow(QMainWindow):
         # n9 = qgv.addNode(qgv.engine.graph, "Node9", label="N9", shape=icon_path)
 
         #drop down menus vector collumn search table
-        self.searchSearchTableWidget = self.findChild(QTableWidget, 'tableWidget_2')
-        i = 0
-        while i < 10:
-            combo = QComboBox()
-            combo.addItems([' ', '1', '2', '3'])
-            self.searchSearchTableWidget.setCellWidget(i, 3, combo)
-            i += 1
+        self.SearchTable = self.findChild(QTableWidget, 'tableWidget_2')
 
         self.showMaximized()
         # DBHandler.create_vector_entry('../Resources/LocalGraphs/VECTOR_3.json')
@@ -286,6 +283,7 @@ class MainWindow(QMainWindow):
         self.generateModels()
         self.populateTable()
         self.populateGraph()
+        self.populateSearchTable()
 
     def openVectDBConfig(self):
         self.window = VectorDBConfig()
@@ -307,7 +305,22 @@ class MainWindow(QMainWindow):
         self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
         self.updateViews()
 
+    def populateSearchTable(self):
+        self.SearchTable.setRowCount(0)
+        entriesList = self.myDb.get_all_log_entries()
+        i=0
+        for entry in entriesList:
+            self.SearchTable.insertRow(i)
+            self.SearchTable.setItem(i, 0, QTableWidgetItem(str(entry['id'])))
+            self.SearchTable.setItem(i, 1, QTableWidgetItem(str(entry['time_stamp'])))
+            self.SearchTable.setItem(i, 2, QTableWidgetItem(str(entry['content'])))
+            self.SearchTable.setItem(i, 3, QTableWidgetItem(str(entry['source'])))
+            self.SearchTable.setItem(i, 4, QTableWidgetItem(str(entry['host'])))
+            self.SearchTable.setItem(i, 5, QTableWidgetItem('No vector assigned'))
+            i+=1
+
     def populateTable(self):
+        self.updateTableFlag = False
         self.GraphTable.setRowCount(0)
         vectorList = self.myDb.get_all_vectors_raw()
         i = 0
@@ -315,7 +328,6 @@ class MainWindow(QMainWindow):
             if vector['name'] == self.currentVectorMenu.currentText():
                 for entry in vector['entries']:
                     self.GraphTable.insertRow(i)
-
                     self.GraphTable.setItem(i, 0, QTableWidgetItem(str(entry['id'])))
                     self.GraphTable.setItem(i, 1, QTableWidgetItem(str(entry['name'])))
                     self.GraphTable.setItem(i, 2, QTableWidgetItem(str(entry['timestamp'])))
@@ -323,6 +335,7 @@ class MainWindow(QMainWindow):
                     self.GraphTable.setItem(i, 4, QTableWidgetItem(str(entry['reference'])))
                     self.GraphTable.setItem(i, 5, QTableWidgetItem(str(entry['source'])))
                     i+=1
+        self.updateTableFlag = True
 
     def populateGraph(self):
         vectorList = self.myDb.get_all_vectors_raw()
@@ -334,6 +347,22 @@ class MainWindow(QMainWindow):
         vectorList = self.myDb.get_all_vectors_raw()
         for vector in vectorList:
             GraphOperations.graph_from_raw_vector(vector)
+
+    def updateEntryFromTable(self, row, col):
+        # This prevents table from updating vector db entries when clearing table and populating
+        if self.updateTableFlag:
+
+            print(row, col)
+
+    def entryFieldSelected(self, row, col):
+        if self.GraphTable.item(row, col):
+            print(self.GraphTable.item(row, col).text())
+            if self.GraphTable.item(row,0):
+                print(self.GraphTable.item(row,0).text())
+
+    #make copy
+    #delete old
+    #upload copy
 
     # def refreshView(self):    #     self.populateTable()
     #     self.populateGraph()
@@ -375,6 +404,7 @@ class MainWindow(QMainWindow):
     #
     def saveGraph(self):
         self.qgv.saveAsJson("../Resouces/LocalGraphs/" + self.currentVectorMenu.currentText() + ".json")
+
 
 
 if __name__ == "__main__":

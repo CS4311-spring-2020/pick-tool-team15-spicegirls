@@ -411,7 +411,7 @@ class SettingsWindow(QMainWindow):
         self.organizeDirectories()
         self.startCleanse()
         self.startValidation()
-        # self.startDataPopulation()
+        self.startDataPopulation()
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
         db['EAReport'] = self.myValidator.getEnforcementReport()
         db.close()
@@ -468,14 +468,17 @@ class SettingsWindow(QMainWindow):
         status = db['EAReport']
         db.close()
         client = SplunkHandler('localhost', 8089, 'two', 'SpiceGirls', '@DimaAbdelJaber1234@')
+        # client = SplunkHandler('localhost', 8089, 'main', 'spiceteam', '007dannyd')
+        client.add_index('tempIndex')
+
         for each in status:
             if each['invalid_timeStamp'] or each['missing_timeStamp']:
                 # dont upload to splunk yet
                 print('ignored', os.path.abspath(each['filePath']))
             else:
                 print('in', os.path.abspath(each['filePath']))
-                client.add_index('tempIndex')
                 client.add_file('tempIndex', each['filePath'])
+        client.set_index('tempIndex')
         client.download_log_files()
         client.delete_index('tempIndex')
             #  do upload to splunk

@@ -19,10 +19,13 @@ class SplunkHandler:
             print("Connection established")
         except Exception as Error:
             print("error connecting to splunk")
-        
+
+    def set_index(self, name):
+        self.index = name
+
     def add_file(self, index, file):
-            myindex = self.service.indexes[index]
-            myindex.upload(file)
+            # myindex = self.service.indexes[index]
+            self.index.upload(file)
 
     def add_index(self,index):
         self.service.indexes.create(index)
@@ -82,9 +85,12 @@ class SplunkHandler:
         query = "search | head 5"
         job = jobs.create(query, **blocking_search)
         job_results = results.ResultsReader(job.results(count=5))
+        i=0
+        mydb = DBHandler()
         for result in job_results:
             if True:
-                DBHandler.create_log_entry(result['_raw'], result['_indextime'], result['host'], result['source'], result['sourcetype'])
+                mydb.create_log_entry(i, result['_raw'], result['_indextime'], result['host'], result['source'], result['sourcetype'])
+                i+=1
 
     def cleanse(self,file):
         return self.cleanse.cleanse(file)
