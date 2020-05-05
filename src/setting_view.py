@@ -468,7 +468,6 @@ class SettingsWindow(QMainWindow):
     def startDataPopulation(self):
         # client = SplunkHandler('localhost', 8089, 'two', 'SpiceGirls', '@DimaAbdelJaber1234@')
         client = SplunkHandler('localhost', 8089, 'pick', 'spiceteam', '007dannyd')
-
         client.download_log_files()
 
 
