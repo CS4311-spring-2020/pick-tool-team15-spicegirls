@@ -109,6 +109,6 @@ class SplunkHandler:
 if __name__ == '__main__':
     # client = SplunkHandler('localhost', 8089, 'main', 'SpiceGirls', '@DimaAbdelJaber1234@')
     client = SplunkHandler('localhost', 8089, 'main', 'spiceteam', '007dannyd')
-    client.add_file("main","/Users/dima/Desktop/pick-tool-team15-spicegirls/src/sample.txt")
+    client.upload_file("main","/Users/dima/Desktop/pick-tool-team15-spicegirls/src/sample.txt")
     client.download_log_files()
     print(client.download_log_files())
