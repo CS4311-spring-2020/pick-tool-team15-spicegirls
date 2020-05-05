@@ -360,11 +360,11 @@ class SettingsWindow(QMainWindow):
                 else:
                     try:
                         lead= self.IPAddress.text().strip()
-                        port = int(self.portLE.text().strip())
-                        index = self.indexLE.text().strip()
-                        username = self.usernameLE.text().strip()
-                        password = self.passwordLE.text().strip()
-                        splunk = SplunkHandler('localhost', port, index, username, password)
+                        self.port = int(self.portLE.text().strip())
+                        self.index = self.indexLE.text().strip()
+                        self.username = self.usernameLE.text().strip()
+                        self.password = self.passwordLE.text().strip()
+                        splunk = SplunkHandler('localhost', self.port, self.index, self.username, self.password)
                         
                         QMessageBox.information(self, 'Connection Successful', f'Connection to server:from IP {self.IPAddressLineEdit.text()}' f' established!')
                         if not self.validateIP:
@@ -411,6 +411,7 @@ class SettingsWindow(QMainWindow):
         self.organizeDirectories()
         self.startCleanse()
         self.startValidation()
+        # self.startDataPopulation()
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
         db['EAReport'] = self.myValidator.getEnforcementReport()
         db.close()
@@ -461,6 +462,24 @@ class SettingsWindow(QMainWindow):
     def openIconConfigAdd(self):
         self.window = IconConfig()
         self.window.show()
+
+    def startDataPopulation(self):
+        db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
+        status = db['EAReport']
+        db.close()
+        client = SplunkHandler('localhost', 8089, 'two', 'SpiceGirls', '@DimaAbdelJaber1234@')
+        for each in status:
+            if each['invalid_timeStamp'] or each['missing_timeStamp']:
+                # dont upload to splunk yet
+                print('ignored', os.path.abspath(each['filePath']))
+            else:
+                print('in', os.path.abspath(each['filePath']))
+                client.add_index('tempIndex')
+                client.add_file('tempIndex', each['filePath'])
+        client.download_log_files()
+        client.delete_index('tempIndex')
+            #  do upload to splunk
+
 
 if __name__ == "__main__":
     import sys

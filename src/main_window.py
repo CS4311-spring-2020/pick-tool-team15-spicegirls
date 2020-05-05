@@ -9,6 +9,7 @@ import os
 from PyQt5.uic.properties import QtCore
 from filter_configuration import FilterConfig
 import setting_view
+import itertools
 from export_configuration import ExportConfig
 from QGraphViz.QGraphViz import QGraphViz, QGraphVizManipulationMode
 from QGraphViz.DotParser import Graph, GraphType
@@ -74,6 +75,8 @@ class MainWindow(QMainWindow):
         def node_selected(node):
             if self.qgv.manipulation_mode == QGraphVizManipulationMode.Node_remove_Mode:
                 print("Node {} removed".format(node))
+                self.saveGraph()
+                self.updateTable()
             else:
                 print("Node selected {}".format(node))
 
@@ -319,93 +322,45 @@ class MainWindow(QMainWindow):
                     self.GraphTable.setItem(i, 5, QTableWidgetItem(str(entry['source'])))
                     i+=1
 
-    def tableToGraph(self):
-        sampleVector = {
-            'name': 'vect1',
-            'description': 'no select no vec',
-            'entries': [
-                {'number': 1,
-                 'timestamp': 'sampleTime',
-                 'content': 'SampleContent...Blabla',
-                 'host': 'host',
-                 'source': 'source?',
-                 'sourceType': 'sourceType'
-                 },
-                {'number': 2,
-                 'timestamp': 'secondtime',
-                 'content': 'Second entrie',
-                 'host': 'host2',
-                 'source': 'source2',
-                 'sourceType': 'sourceType2'
-                 },
-            ],
-            'relationships': [
-                {'relationshipId': 1,
-                 'source': 1,
-                 'destination': 2
-                 }
-            ]
-        }
-        empty = {
-            "name": "MainGraph",
-            "graph_type": 0,
-            "kwargs": {},
-            "nodes": [],
-            "edges": [],
-        }
-        # empty["name"] = sampleVector['name']
-        for entry in sampleVector['entries']:
-            tempEmptyEntry = {
-                        "name": str(entry['number']),
-                        "kwargs": {
-                            "label": entry['content'],
-                            "shape": "circle",
-                            "width": 1
-                        }
+    def populateGraph(self):
+        client = MongoClient(port=27017)
+        db = client.business
+        cursor = db.Vectors.find({})
+        for vector in cursor:
+            if vector['name'] == self.currentVectorMenu.currentText():
+                empty = {
+                    "name": "MainGraph",
+                    "graph_type": 0,
+                    "kwargs": {},
+                    "nodes": [],
+                    "edges": [],
+                }
+                empty["name"] = vector['name']
+                for entry in vector['entries']:
+                    tempEmptyEntry = {
+                                "name": str(entry['number']),
+                                "kwargs": {
+                                    "label": str(entry['number']),
+                                    "shape": "circle",
+                                    "width": 1
+                                }
+                            }
+                    empty["nodes"].append(tempEmptyEntry)
+                for edge in vector['relationships']:
+                    tempEdge = {
+                        "source": str(edge['source']),
+                        "dest": str(edge['destination']),
+                        "kwargs": {}
                     }
-            empty["nodes"].append(tempEmptyEntry)
-        for edge in sampleVector['relationships']:
-            tempEdge = {
-                "source": str(edge['source']),
-                "dest": str(edge['destination']),
-                "kwargs": {}
-            }
-            empty["edges"].append(tempEdge)
-        print(empty)
-        y = json.dumps(empty)
-        f = open("sample.json", "w+")
-        f.write(str(y))
-        f.close()
-        self.qgv.loadAJson("sample.json")
+                    empty["edges"].append(tempEdge)
+                y = json.dumps(empty)
+                f = open("../Resouces/LocalGraphs/" + vector['name'] + ".json", "w+")
+                f.write(str(y))
+                f.close()
+                self.qgv.loadAJson("../Resouces/LocalGraphs/" + vector['name'] + ".json")
 
     # nted at the db level
     def dbGetVectorNames(self):
-        sampleVector = {
-            'name': 'vect1',
-            'description': 'no select no vec',
-            'entries': [
-                {'number': 1,
-                 'timestamp': 'sampleTime',
-                 'content': 'SampleContent...Blabla',
-                 'host': 'host',
-                 'source': 'source?',
-                 'sourceType': 'sourceType'
-                },
-                {'number': 2,
-                 'timestamp': 'secondtime',
-                 'content': 'Second entrie',
-                 'host': 'host2',
-                 'source': 'source2',
-                 'sourceType': 'sourceType2'
-                 },
-            ],
-            'relationships': [
-                {'relationshipId': 1,
-                 'source': 1,
-                 'destination': 2
-                }
-            ]
-        }
         client = MongoClient(port=27017)
         db = client.business
         cursor = db.Vectors.find({})
@@ -420,7 +375,45 @@ class MainWindow(QMainWindow):
 
     def refreshView(self):
         self.populateTable()
-        self.tableToGraph()
+        self.populateGraph()
+
+    #compares graph to table elements
+    def updateTable(self):
+        client = MongoClient(port=27017)
+        db = client.business
+        cursor = db.Vectors.find({})
+        for vector in cursor:
+            if vector['name'] == self.currentVectorMenu.currentText():
+                f = open("../Resouces/LocalGraphs/" + vector['name'] + ".json", "r")
+                tempFile = f.read()
+                tempJson = json.loads(tempFile)
+                f.close
+                tempSet1 = []
+                tempSet2 = []
+                for each in vector['entries']:
+                    tempSet1.append(str(each['number']))
+                for each in tempJson['nodes']:
+                    tempSet2.append(str(each['name']))
+                listDifference = [item for item in tempSet1 if item not in tempSet2]
+
+                tempVector = vector
+                self.deleteThis(listDifference)
+                if '_id' in tempVector:
+                    del tempVector['_id']
+                i = 0
+                for entry in tempVector['entries']:
+                    if int(listDifference) == entry['number']:
+                        del tempVector['entries'][i]
+                    i+=1
+                db.Vectors.insert_one(tempVector)
+
+    def deleteThis(self, num):
+        client = MongoClient(port=27017)
+        db = client.business
+        db.Vectors.delete_one({'entries.number': int(num)})
+
+    def saveGraph(self):
+        self.qgv.saveAsJson("../Resouces/LocalGraphs/" + self.currentVectorMenu.currentText() + ".json")
 
 
 if __name__ == "__main__":

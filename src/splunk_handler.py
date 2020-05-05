@@ -4,7 +4,7 @@ import sys, os
 import splunklib.client as client
 import asyncio, concurrent.futures
 from splunklib import results
-import log_entry
+from db_handler import DBHandler
 
 class SplunkHandler:
     def __init__(self, host, port, index, username, password):
@@ -21,13 +21,14 @@ class SplunkHandler:
             print("error connecting to splunk")
         
     def add_file(self, index, file):
-
-        myindex = self.service.indexes[index]
-        myindex.upload(file)
+            myindex = self.service.indexes[index]
+            myindex.upload(file)
 
     def add_index(self,index):
-
         self.service.indexes.create(index)
+
+    def delete_index(self, index):
+        self.service.indexes.delete(index)
 
     def print_users(self):
         kwargs = {"sort_key": "realname", "sort_dir": "asc"}
@@ -75,7 +76,6 @@ class SplunkHandler:
         for item in inputs:
             print("%s (%s)" % (item.name, item.kind))
 
-
     def download_log_files(self):
         jobs = self.service.jobs
         blocking_search = {"exec_mode": "blocking"}
@@ -84,7 +84,7 @@ class SplunkHandler:
         job_results = results.ResultsReader(job.results(count=5))
         for result in job_results:
             if True:
-                log_entry.create_log_entry(result['_raw'], result['_indextime'], result['host'], result['source'], result['sourcetype'])
+                DBHandler.create_log_entry(result['_raw'], result['_indextime'], result['host'], result['source'], result['sourcetype'])
 
     def cleanse(self,file):
         return self.cleanse.cleanse(file)
@@ -95,7 +95,8 @@ class SplunkHandler:
         return self.validate.validate(file)
 
 if __name__ == '__main__':
-    client = SplunkHandler('localhost', 8089, 'main', 'SpiceGirls', '@DimaAbdelJaber1234@')
+    # client = SplunkHandler('localhost', 8089, 'main', 'SpiceGirls', '@DimaAbdelJaber1234@')
+    client = SplunkHandler('localhost', 8089, 'main', 'spiceteam', '007dannyd')
     client.add_file("main","/Users/dima/Desktop/pick-tool-team15-spicegirls/src/sample.txt")
     client.download_log_files()
     print(client.download_log_files())
