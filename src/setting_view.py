@@ -18,11 +18,25 @@ from log_file_config import LogFileConfig
 import datetime
 from custom_icon_widget import CustomIconWidget
 from icon_configuration import IconConfig
+import re
+from splunk_handler import SplunkHandler
 
 class SettingsWindow(QMainWindow):
     def __init__(self):
         super(SettingsWindow, self).__init__()
         loadUi('../ui/SettingView.ui', self)
+
+        self.timeStampValid = False
+        self.validateIP = False
+        self.validatedRoot = False
+        self.logs = []
+        self.files = set()
+        self.host = ''
+        self.port = ''
+        self.index = ''
+        self.username = ''
+        self.password = ''
+        self.splunk = SplunkHandler(host=self.host, port=self.port, index=self.index, username=self.username, password=self.password)
 
         #self.timeStampValid = False
         self.root_dir, self.red_dir, self.blue_dir, self.white_dir = '','','',''
@@ -97,6 +111,11 @@ class SettingsWindow(QMainWindow):
         self.WhiteTeamToolButton = self.findChild(QToolButton, 'WhiteTeamToolButton')
         self.WhiteTeamLineEdit = self.findChild(QLineEdit, 'WhiteTeamLineEdit')
 
+        self.portLE = self.findChild(QLineEdit, 'portLineEdit')
+        self.indexLE = self.findChild(QLineEdit, 'indexLineEdit')
+        self.usernameLE = self.findChild(QLineEdit, 'usernameLineEdit')
+        self.passwordLE = self.findChild(QLineEdit, 'passwordLineEdit')
+
         # self.OV_TeamConfigButton.clicked.connect(self.applyChanges)
 
         self.OV_TeamConfigButton.clicked.connect(lambda: self.btn(0))
@@ -138,6 +157,10 @@ class SettingsWindow(QMainWindow):
         self.IconTable = self.findChild(QTableWidget, 'IC_IT_TableWidget')
         self.IconTable.cellClicked.connect(self.showEditButtons)
         self.IconTable.cellChanged.connect(self.changeInIconTable)
+
+        self.connectSplunk = self.findChild(QPushButton, 'splunkConnectpushButton')
+        self.connectSplunk.clicked.connect(self.splunk)
+
 
         # Vector configuration table checkboxes
         self.VCtable = self.findChild(QTableWidget, 'VC_TableView')
@@ -231,8 +254,6 @@ class SettingsWindow(QMainWindow):
 
     def finishedEditingDirLE(self, dir):
         self.configDB = shelve.open('../Resouces/ConfigDB/TestConfig')
-        # if not isdir(self.configDB[dir]):
-        # QMessageBox.question(self, 'Error - Invalid directory', "The directory: {} is not valid.".format(dir), QMessageBox.Ok)
         self.configDB.close()
 
     def startCleanse(self):
@@ -328,6 +349,44 @@ class SettingsWindow(QMainWindow):
                         self.startIngestion()
                     else:
                         QMessageBox.critical(self, "Event config and team config not validated", "Make sure they are validated " "before ingestion")
+
+
+    def validateCredentials(self):
+        if not self.validateIP:
+            if self.IPAddress.isEnabled():
+                result = None
+                try:
+                    result = [0 <= int(x) < 256 for x in re.split('\.', re.match(r'^\d+\.\d+\.\d+\.\d+$', self.IPAddress.text()).group(0))].count(True) ==4
+                except AttributeError:
+                    result = False
+                nonLead = (self.LeadCheckBox.isChecked() and socket.gethostbyname(socket.gethostname()) != self.IPAddress.text())
+                emptyIP = self.IPAddress.text() == ''
+                if nonLead:
+                    QMessageBox.critical(self, 'Connection Error', f'Non Lead Analyst attempting to connect as a Lead Analyst\n' + 'Check lead checkbox if lead IP is entered\n' + 'Uncheck lead checkbox if non Lead Analyst IP is entered')
+                elif emptyIP:
+                    QMessageBox.critical(self, 'Connection Error', 'No IP Address entered\n' + 'Enter a value from 0.0.0.0 to 255.255.255.255')
+                elif not result or result is None:
+                    QMessageBox.critical(self, 'Connection Error', 'IP address is not valid\n' + 'Enter an IP address between 0.0.0.0 to 255.255.255.255' )
+                else:
+                    try:
+                        lead= self.IPAddress.text().strip()
+                        port = int(self.portLE.text().strip())
+                        index = self.indexLE.text().strip()
+                        username = self.usernameLE.text().strip()
+                        password = self.passwordLE.text().strip()
+                        self.splunk = SplunkHandler(lead, port, index, username, password)
+                        QMessageBox.information(self, 'Connection Successful', f'Connection to server:from IP {self.IPAddressLineEdit.text()}' f' established!')
+                        if not self.validateIP:
+                            label = QLabel('Lead IP Validated.')
+                            label.setStyleSheet("QLabel { color: green}")
+                            self.teamLayout.layout().addRow('', label)
+                        self.IPAddress.setEnabled(False)
+                    except ConnectionError:
+                        QMessageBox.critical(self, 'Connection Error', 'Connection could not be established\n' + 'Confirm that the server is active and running\n' + 'and that login information is correct.')
+                    except ValueError:
+                        QMessageBox.critical(self, 'Port Number Error', 'Port number must be a numerical value')
+
+
 
     def startValidation(self):
         db = shelve.open('../Resouces/ConfigDB/TestConfig')  # Shelve will create data.db
