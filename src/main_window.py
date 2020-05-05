@@ -116,7 +116,6 @@ class MainWindow(QMainWindow):
 
         # Adding nodes with an image as its shape
         icon_path = os.path.dirname(os.path.abspath(__file__)) + r"\dbicon.png"
-
         # Build the graph (the layout engine organizes where the nodes and connections are)
         self.qgv.build()
         # Save it to a file to be loaded by Graphviz if needed
@@ -130,11 +129,12 @@ class MainWindow(QMainWindow):
         self.graphArea.layout().addLayout(self.hpanel)
 
         # Add few buttons to the panel
-
+        
         def save():
             fname = QFileDialog.getSaveFileName(self.qgv, "Save", "", "*.json")
             if (fname[0] != ""):
                 self.qgv.saveAsJson(fname[0])
+        
 
         def new():
             self.qgv.engine.graph = Graph("MainGraph")
@@ -151,6 +151,7 @@ class MainWindow(QMainWindow):
             dlg.ok = False
             dlg.node_name = ""
             dlg.node_label = ""
+            dlg.node_color = ""
             dlg.node_type = "None"
             # Layouts
             main_layout = QVBoxLayout()
@@ -165,6 +166,7 @@ class MainWindow(QMainWindow):
             leNodeLabel = QLineEdit()
             cbxNodeType = QComboBox()
             leImagePath = QLineEdit()
+            leNodeColor = QLineEdit()
 
             pbOK = QPushButton()
             pbCancel = QPushButton()
@@ -181,6 +183,8 @@ class MainWindow(QMainWindow):
             l.setWidget(2, QFormLayout.FieldRole, cbxNodeType)
             l.setWidget(3, QFormLayout.LabelRole, QLabel("Node Image"))
             l.setWidget(3, QFormLayout.FieldRole, leImagePath)
+            l.setWidget(4, QFormLayout.LabelRole, QLabel("Node Color"))
+            l.setWidget(4, QFormLayout.FieldRole, leNodeColor)
 
 
             def ok():
@@ -191,6 +195,7 @@ class MainWindow(QMainWindow):
                     dlg.node_type = leImagePath.text()
                 else:
                     dlg.node_type = cbxNodeType.currentText()
+                dlg.node_color = leNodeColor.text()
                 dlg.close()
 
             def cancel():
@@ -206,7 +211,7 @@ class MainWindow(QMainWindow):
 
             # node_name, okPressed = QInputDialog.getText(wi, "Node name","Node name:", QLineEdit.Normal, "")
             if dlg.OK and dlg.node_name != '':
-                self.qgv.addNode(self.qgv.engine.graph, dlg.node_name, label=dlg.node_label, shape=dlg.node_type)
+                self.qgv.addNode(self.qgv.engine.graph, dlg.node_name, label=dlg.node_label, shape=dlg.node_type, color=dlg.node_color)
                 self.qgv.build()
 
         def remove_node():
@@ -264,6 +269,9 @@ class MainWindow(QMainWindow):
         self.btnRemoveEdge.clicked.connect(remove_edge)
         self.hpanel.addWidget(self.btnRemoveEdge)
         self.buttons_list.append(self.btnRemoveEdge)
+
+        #icon_path = os.path.dirname(os.path.abspath(__file__)) + r"\Resouces\IconDir,100,100"
+        # n9 = qgv.addNode(qgv.engine.graph, "Node9", label="N9", shape=icon_path)
 
 
         #drop down menus vector collumn search table
