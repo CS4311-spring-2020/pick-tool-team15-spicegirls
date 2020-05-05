@@ -1,1 +1,1 @@
-{"name": "VECTOR_2", "graph_type": 0, "kwargs": {}, "nodes": [{"name": "3", "kwargs": {"label": "3", "shape": "circle", "width": 1}}, {"name": "4", "kwargs": {"label": "4", "shape": "circle", "width": 1}}], "edges": [{"source": "1", "dest": "2", "kwargs": {}}]}
+{"name": "VECTOR_2", "graph_type": 0, "kwargs": {}, "nodes": [{"name": "2", "kwargs": {"label": "Unique entry", "shape": "circle", "width": 1}}, {"name": "4", "kwargs": {"label": "entry4", "shape": "circle", "width": 1}}], "edges": [{"source": "2", "dest": "4", "kwargs": {}}]}

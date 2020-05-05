@@ -33,12 +33,8 @@ class MainWindow(QMainWindow):
         self.searchLineEdit = self.findChild(QLineEdit, 'lineEdit_2')
         self.searchLineEdit.returnPressed.connect(self.searchSearchButton.click)
 
-        #Search button on graph tab functionality ##need keyword functionality added
-        self.graphSearchButton = self.findChild(QPushButton, 'graphSearchButton_2')
-        self.graphSearchButton.clicked.connect(self.tempMethod)
         # Enter press on qlineedit graph tab triggers search button
         self.graphSearchEdit = self.findChild(QLineEdit, 'graphLineEdit')
-        self.graphSearchEdit.returnPressed.connect(self.graphSearchButton.click)
 
         #Exit menu option functionality
         self.CloseMenuSelect = self.findChild(QAction, 'actionClose_Exit')
@@ -60,6 +56,8 @@ class MainWindow(QMainWindow):
         self.graphArea = self.findChild(QWidget, 'graphArea')
         self.graphArea.setLayout(QVBoxLayout())
 
+        self.graphSearchButton = self.findChild(QPushButton, 'graphSearchButton_2')
+
         self.currentVectorMenu = self.findChild(QComboBox, 'VectorMenu')
         self.currentVectorLabel = self.findChild(QLabel, 'CurrentVector')
 
@@ -67,12 +65,13 @@ class MainWindow(QMainWindow):
         self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
         self.currentVectorMenu.activated.connect(self.vectorSelected)
 
+        self.GraphTable.cellClicked.connect()
 
         # Events
         def node_selected(node):
             if self.qgv.manipulation_mode == QGraphVizManipulationMode.Node_remove_Mode:
                 print("Node {} removed".format(node))
-                # self.saveGraph()
+                self.saveGraph()
                 # self.updateTableFromGraph()
             else:
                 print("Node selected {}".format(node))
@@ -280,7 +279,11 @@ class MainWindow(QMainWindow):
             i += 1
 
         self.showMaximized()
-        # DBHandler.create_vector_entry('../Resources/LocalGraphs/VECTOR#3.json')
+        # DBHandler.create_vector_entry('../Resources/LocalGraphs/VECTOR_3.json')
+        self.updateViews()
+
+    def updateViews(self):
+        self.generateModels()
         self.populateTable()
         self.populateGraph()
 
@@ -302,11 +305,7 @@ class MainWindow(QMainWindow):
 
     def vectorSelected(self, index):
         self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
-        # self.refreshViews()
-
-        # delteThis v
-    def tempMethod(self):
-        self.myDb.create_vector_entry('../Resouces/LocalGraphs/VECTOR#3.json')
+        self.updateViews()
 
     def populateTable(self):
         self.GraphTable.setRowCount(0)
@@ -316,26 +315,27 @@ class MainWindow(QMainWindow):
             if vector['name'] == self.currentVectorMenu.currentText():
                 for entry in vector['entries']:
                     self.GraphTable.insertRow(i)
-                    self.GraphTable.setItem(i, 0, QTableWidgetItem(str(entry['number'])))
+
+                    self.GraphTable.setItem(i, 0, QTableWidgetItem(str(entry['id'])))
+                    self.GraphTable.setItem(i, 1, QTableWidgetItem(str(entry['name'])))
                     self.GraphTable.setItem(i, 2, QTableWidgetItem(str(entry['timestamp'])))
-                    self.GraphTable.setItem(i, 3, QTableWidgetItem(entry['content']))
+                    self.GraphTable.setItem(i, 3, QTableWidgetItem(entry['description']))
+                    self.GraphTable.setItem(i, 4, QTableWidgetItem(str(entry['reference'])))
                     self.GraphTable.setItem(i, 5, QTableWidgetItem(str(entry['source'])))
                     i+=1
 
     def populateGraph(self):
         vectorList = self.myDb.get_all_vectors_raw()
         for vector in vectorList:
-            GraphOperations.graph_from_raw_vector(vector)
             if vector['name'] == self.currentVectorMenu.currentText():
                 self.qgv.loadAJson("../Resouces/LocalGraphs/" + vector['name'] + ".json")
-    #
-    # self.qgv.loadAJson("../Resouces/LocalGraphs/" + vector['name'] + ".json")
-    # thispliease
-    # # nted at the db level
-    #
-    #
-    # def refreshView(self):
-    #     self.populateTable()
+
+    def generateModels(self):
+        vectorList = self.myDb.get_all_vectors_raw()
+        for vector in vectorList:
+            GraphOperations.graph_from_raw_vector(vector)
+
+    # def refreshView(self):    #     self.populateTable()
     #     self.populateGraph()
     #
     # #compares graph to table elements
@@ -373,8 +373,8 @@ class MainWindow(QMainWindow):
     #     db = client.business
     #     db.Vectors.delete_one({'entries.number': int(num)})
     #
-    # def saveGraph(self):
-    #     self.qgv.saveAsJson("../Resouces/LocalGraphs/" + self.currentVectorMenu.currentText() + ".json")
+    def saveGraph(self):
+        self.qgv.saveAsJson("../Resouces/LocalGraphs/" + self.currentVectorMenu.currentText() + ".json")
 
 
 if __name__ == "__main__":
