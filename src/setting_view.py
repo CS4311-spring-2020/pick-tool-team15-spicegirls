@@ -48,7 +48,6 @@ class SettingsWindow(QMainWindow):
         self.mainStackedView = self.findChild(QStackedWidget, 'StackView')
         
         self.OV_TeamConfigButton = self.findChild(QPushButton, 'OV_TeamConfigButton')
-        self.OV_SplunkConfigButton = self.findChild(QPushButton, "SplunkConfigpushButton")
         self.OV_EventConfigButton = self.findChild(QPushButton, 'OV_EventConfigButton')
         self.OV_DirectoryConfigButton = self.findChild(QPushButton, 'OV_DirectoryConfigButton')
         self.OV_VectorConfigButton = self.findChild(QPushButton, 'OV_VectorConfigButton')
@@ -119,11 +118,10 @@ class SettingsWindow(QMainWindow):
         # self.OV_TeamConfigButton.clicked.connect(self.applyChanges)
 
         self.OV_TeamConfigButton.clicked.connect(lambda: self.btn(0))
-        self.OV_SplunkConfigButton.clicked.connect(lambda:self.btn(1))
-        self.OV_EventConfigButton.clicked.connect(lambda: self.btn(2))
-        self.OV_DirectoryConfigButton.clicked.connect(lambda: self.btn(3))
-        self.OV_VectorConfigButton.clicked.connect(lambda: self.btn(4))
-        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(5))
+        self.OV_EventConfigButton.clicked.connect(lambda: self.btn(1))
+        self.OV_DirectoryConfigButton.clicked.connect(lambda: self.btn(2))
+        self.OV_VectorConfigButton.clicked.connect(lambda: self.btn(3))
+        self.OV_IconConfigButton.clicked.connect(lambda: self.btn(4))
 
         self.RootDirectoryToolButton.clicked.connect(lambda: self.setDir(0))
         self.RedTeamToolButton.clicked.connect(lambda: self.setDir(1))
@@ -158,7 +156,7 @@ class SettingsWindow(QMainWindow):
         self.IconTable.cellClicked.connect(self.showEditButtons)
         self.IconTable.cellChanged.connect(self.changeInIconTable)
 
-        self.connectSplunk = self.findChild(QPushButton, 'splunkConnectpushButton')
+        self.connectSplunk = self.findChild(QPushButton, 'TeamConfigConnectpushButton')
         self.connectSplunk.clicked.connect(self.validateCredentials)
 
 
@@ -205,7 +203,7 @@ class SettingsWindow(QMainWindow):
             self.connectButton.setText('Disconnect')
 
     def btn(self, index):
-        if index < 6:
+        if index < 5:
             self.StackView.setCurrentIndex(index)
 
     def setDir(self, index):
