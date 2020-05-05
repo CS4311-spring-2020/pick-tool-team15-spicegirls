@@ -1,27 +1,25 @@
 #!/user/bin/python3
 import json
-
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QAction, qApp, QMenu, QLineEdit, QTableWidget, \
     QTableWidgetItem, QComboBox, QGroupBox, QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLabel, QDialog, QFileDialog
 from PyQt5.uic import loadUi
 import os
-
-from PyQt5.uic.properties import QtCore
 from filter_configuration import FilterConfig
 import setting_view
-import itertools
 from export_configuration import ExportConfig
 from QGraphViz.QGraphViz import QGraphViz, QGraphVizManipulationMode
 from QGraphViz.DotParser import Graph, GraphType
 from QGraphViz.Engines import Dot
 from pymongo import MongoClient
 from vector_db_config import VectorDBConfig
+from db_handler import DBHandler
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         loadUi('../ui/MainWindow.ui', self)
+        self.myDb = DBHandler()
         self.FilterConfigButton = self.findChild(QPushButton, 'filterButton')
         self.FilterConfigButton.clicked.connect(self.openFilterConfig)
         self.settingsConfig = self.findChild(QAction, 'actionSettings')
@@ -37,8 +35,7 @@ class MainWindow(QMainWindow):
 
         #Search button on graph tab functionality ##need keyword functionality added
         self.graphSearchButton = self.findChild(QPushButton, 'graphSearchButton_2')
-        self.graphSearchButton.clicked.connect(self.populateTable)
-
+        self.graphSearchButton.clicked.connect(self.tempMethod)
         # Enter press on qlineedit graph tab triggers search button
         self.graphSearchEdit = self.findChild(QLineEdit, 'graphLineEdit')
         self.graphSearchEdit.returnPressed.connect(self.graphSearchButton.click)
@@ -66,7 +63,7 @@ class MainWindow(QMainWindow):
         self.currentVectorMenu = self.findChild(QComboBox, 'VectorMenu')
         self.currentVectorLabel = self.findChild(QLabel, 'CurrentVector')
 
-        self.currentVectorMenu.addItems(self.dbGetVectorNames())
+        self.currentVectorMenu.addItems(self.myDb.get_vector_names())
         self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
         self.currentVectorMenu.activated.connect(self.vectorSelected)
 
@@ -75,8 +72,8 @@ class MainWindow(QMainWindow):
         def node_selected(node):
             if self.qgv.manipulation_mode == QGraphVizManipulationMode.Node_remove_Mode:
                 print("Node {} removed".format(node))
-                self.saveGraph()
-                self.updateTable()
+                # self.saveGraph()
+                # self.updateTableFromGraph()
             else:
                 print("Node selected {}".format(node))
 
@@ -131,13 +128,11 @@ class MainWindow(QMainWindow):
         self.hpanel = QHBoxLayout()
         self.graphArea.layout().addLayout(self.hpanel)
 
-        # Add few buttons to the panel
-        
+        # Add buttons to the panel
         def save():
             fname = QFileDialog.getSaveFileName(self.qgv, "Save", "", "*.json")
             if (fname[0] != ""):
                 self.qgv.saveAsJson(fname[0])
-        
 
         def new():
             self.qgv.engine.graph = Graph("MainGraph")
@@ -188,7 +183,6 @@ class MainWindow(QMainWindow):
             l.setWidget(3, QFormLayout.FieldRole, leImagePath)
             l.setWidget(4, QFormLayout.LabelRole, QLabel("Node Color"))
             l.setWidget(4, QFormLayout.FieldRole, leNodeColor)
-
 
             def ok():
                 dlg.OK = True
@@ -276,7 +270,6 @@ class MainWindow(QMainWindow):
         #icon_path = os.path.dirname(os.path.abspath(__file__)) + r"\Resouces\IconDir,100,100"
         # n9 = qgv.addNode(qgv.engine.graph, "Node9", label="N9", shape=icon_path)
 
-
         #drop down menus vector collumn search table
         self.searchSearchTableWidget = self.findChild(QTableWidget, 'tableWidget_2')
         i = 0
@@ -287,7 +280,7 @@ class MainWindow(QMainWindow):
             i += 1
 
         self.showMaximized()
-
+        # DBHandler.create_vector_entry('../Resources/LocalGraphs/VECTOR#3.json')
         self.populateTable()
 
     def openVectDBConfig(self):
@@ -306,13 +299,18 @@ class MainWindow(QMainWindow):
         self.window = setting_view.SettingsWindow()
         self.window.show()
 
+    def vectorSelected(self, index):
+        self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
+
+        # delteThis v
+    def tempMethod(self):
+        self.myDb.create_vector_entry('../Resouces/LocalGraphs/VECTOR#3.json')
+
     def populateTable(self):
         self.GraphTable.setRowCount(0)
-        client = MongoClient(port=27017)
-        db = client.business
-        cursor = db.Vectors.find({})
+        vectorList = self.myDb.get_all_vectors()
         i = 0
-        for vector in cursor:
+        for vector in vectorList:
             if vector['name'] == self.currentVectorMenu.currentText():
                 for entry in vector['entries']:
                     self.GraphTable.insertRow(i)
@@ -322,98 +320,87 @@ class MainWindow(QMainWindow):
                     self.GraphTable.setItem(i, 5, QTableWidgetItem(str(entry['source'])))
                     i+=1
 
-    def populateGraph(self):
-        client = MongoClient(port=27017)
-        db = client.business
-        cursor = db.Vectors.find({})
-        for vector in cursor:
-            if vector['name'] == self.currentVectorMenu.currentText():
-                empty = {
-                    "name": "MainGraph",
-                    "graph_type": 0,
-                    "kwargs": {},
-                    "nodes": [],
-                    "edges": [],
-                }
-                empty["name"] = vector['name']
-                for entry in vector['entries']:
-                    tempEmptyEntry = {
-                                "name": str(entry['number']),
-                                "kwargs": {
-                                    "label": str(entry['number']),
-                                    "shape": "circle",
-                                    "width": 1
-                                }
-                            }
-                    empty["nodes"].append(tempEmptyEntry)
-                for edge in vector['relationships']:
-                    tempEdge = {
-                        "source": str(edge['source']),
-                        "dest": str(edge['destination']),
-                        "kwargs": {}
-                    }
-                    empty["edges"].append(tempEdge)
-                y = json.dumps(empty)
-                f = open("../Resouces/LocalGraphs/" + vector['name'] + ".json", "w+")
-                f.write(str(y))
-                f.close()
-                self.qgv.loadAJson("../Resouces/LocalGraphs/" + vector['name'] + ".json")
-
-    # nted at the db level
-    def dbGetVectorNames(self):
-        client = MongoClient(port=27017)
-        db = client.business
-        cursor = db.Vectors.find({})
-        list = []
-        for vector in cursor:
-            list.append(vector['name'])
-        return list
-
-    def vectorSelected(self, index):
-        self.currentVectorLabel.setText(self.currentVectorMenu.currentText())
-        self.refreshView()
-
-    def refreshView(self):
-        self.populateTable()
-        self.populateGraph()
-
-    #compares graph to table elements
-    def updateTable(self):
-        client = MongoClient(port=27017)
-        db = client.business
-        cursor = db.Vectors.find({})
-        for vector in cursor:
-            if vector['name'] == self.currentVectorMenu.currentText():
-                f = open("../Resouces/LocalGraphs/" + vector['name'] + ".json", "r")
-                tempFile = f.read()
-                tempJson = json.loads(tempFile)
-                f.close
-                tempSet1 = []
-                tempSet2 = []
-                for each in vector['entries']:
-                    tempSet1.append(str(each['number']))
-                for each in tempJson['nodes']:
-                    tempSet2.append(str(each['name']))
-                listDifference = [item for item in tempSet1 if item not in tempSet2]
-
-                tempVector = vector
-                self.deleteThis(listDifference)
-                if '_id' in tempVector:
-                    del tempVector['_id']
-                i = 0
-                for entry in tempVector['entries']:
-                    if int(listDifference) == entry['number']:
-                        del tempVector['entries'][i]
-                    i+=1
-                db.Vectors.insert_one(tempVector)
-
-    def deleteThis(self, num):
-        client = MongoClient(port=27017)
-        db = client.business
-        db.Vectors.delete_one({'entries.number': int(num)})
-
-    def saveGraph(self):
-        self.qgv.saveAsJson("../Resouces/LocalGraphs/" + self.currentVectorMenu.currentText() + ".json")
+    # def populateGraph(self):
+    #     client = MongoClient(port=27017)
+    #     db = client.business
+    #     cursor = db.Vectors.find({})
+    #     for vector in cursor:
+    #         if vector['name'] == self.currentVectorMenu.currentText():
+    #             empty = {
+    #                 "name": "MainGraph",
+    #                 "graph_type": 0,
+    #                 "kwargs": {},
+    #                 "nodes": [],
+    #                 "edges": [],
+    #             }
+    #             empty["name"] = vector['name']
+    #             for entry in vector['entries']:
+    #                 tempEmptyEntry = {
+    #                             "name": str(entry['number']),
+    #                             "kwargs": {
+    #                                 "label": str(entry['number']),
+    #                                 "shape": "circle",
+    #                                 "width": 1
+    #                             }
+    #                         }
+    #                 empty["nodes"].append(tempEmptyEntry)
+    #             for edge in vector['relationships']:
+    #                 tempEdge = {
+    #                     "source": str(edge['source']),
+    #                     "dest": str(edge['destination']),
+    #                     "kwargs": {}
+    #                 }
+    #                 empty["edges"].append(tempEdge)
+    #             y = json.dumps(empty)
+    #             f = open("../Resouces/LocalGraphs/" + vector['name'] + ".json", "w+")
+    #             f.write(str(y))
+    #             f.close()
+    #             self.qgv.loadAJson("../Resouces/LocalGraphs/" + vector['name'] + ".json")
+    #
+    # # nted at the db level
+    #
+    #
+    # def refreshView(self):
+    #     self.populateTable()
+    #     self.populateGraph()
+    #
+    # #compares graph to table elements
+    # def updateTableFromGraph(self):
+    #     client = MongoClient(port=27017)
+    #     db = client.business
+    #     cursor = db.Vectors.find({})
+    #     for vector in cursor:
+    #         if vector['name'] == self.currentVectorMenu.currentText():
+    #             f = open("../Resouces/LocalGraphs/" + vector['name'] + ".json", "r")
+    #             tempFile = f.read()
+    #             tempJson = json.loads(tempFile)
+    #             f.close
+    #             tempSet1 = []
+    #             tempSet2 = []
+    #             for each in vector['entries']:
+    #                 tempSet1.append(str(each['number']))
+    #             for each in tempJson['nodes']:
+    #                 tempSet2.append(str(each['name']))
+    #             listDifference = [item for item in tempSet1 if item not in tempSet2]
+    #
+    #             tempVector = vector
+    #             self.deleteThis(listDifference)
+    #             if '_id' in tempVector:
+    #                 del tempVector['_id']
+    #             i = 0
+    #             for entry in tempVector['entries']:
+    #                 if int(listDifference) == entry['number']:
+    #                     del tempVector['entries'][i]
+    #                 i+=1
+    #             db.Vectors.insert_one(tempVector)
+    #
+    # def deleteThis(self, num):
+    #     client = MongoClient(port=27017)
+    #     db = client.business
+    #     db.Vectors.delete_one({'entries.number': int(num)})
+    #
+    # def saveGraph(self):
+    #     self.qgv.saveAsJson("../Resouces/LocalGraphs/" + self.currentVectorMenu.currentText() + ".json")
 
 
 if __name__ == "__main__":

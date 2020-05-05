@@ -3,7 +3,7 @@ from random import randint
 
 #Step 1: Connect to MongoDB - Note: Change connection string as needed
 client = MongoClient(port=27017)
-db=client.business
+db=client.client
 
 #Step 2: Create sample data
 names = ['Kitchen','Animal','State', 'Tastey', 'Big','City','Fish', 'Pizza','Goat', 'Salty','Sandwich','Lazy', 'Fun']
@@ -16,7 +16,7 @@ for x in range(1, 501):
         'cuisine' : company_cuisine[randint(0, (len(company_cuisine)-1))]
     }
     #Step 3: Insert business object directly into MongoDB via isnert_one
-    result=db.reviews.insert_one(business)
+    result=db.business.insert_one(business)
 
     #Step 4: Print to the console the ObjectID of the new document
     print('Created {0} of 500 as {1}'.format(x,result.inserted_id))
