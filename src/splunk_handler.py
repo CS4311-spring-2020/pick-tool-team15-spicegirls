@@ -20,12 +20,18 @@ class SplunkHandler:
         except Exception as Error:
             print("error connecting to splunk")
 
+    def get_index(self, index):
+        return self.service.indexes.get(index)
+
     def set_index(self, name):
         self.index = name
 
-    def add_file(self, index, file):
-            # myindex = self.service.indexes[index]
-            self.index.upload(file)
+    def upload_file(self, index, path):
+        ind = self.service.indexes[index]
+        try:
+            ind.upload(os.path.abspath(path))
+        except Exception as e:
+            print(str(e))
 
     def add_index(self,index):
         self.service.indexes.create(index)
