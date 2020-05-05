@@ -16,8 +16,9 @@ class SplunkHandler:
         self.password = password
         try:
             self.service = client.connect(host=self.host, port=self.port, username=self.username, password=self.password)
-        except Exception as e:
-            print(str(e))
+            print("Connection established")
+        except Exception as Error:
+            print("error connecting to splunk")
         
     def add_file(self, index, file):
 
