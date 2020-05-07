@@ -89,3 +89,6 @@ class DBHandler:
 
     def get_all_vectors(self):
         return ''
+
+            
+
