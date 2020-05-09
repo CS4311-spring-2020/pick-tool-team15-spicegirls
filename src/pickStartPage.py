@@ -1,9 +1,8 @@
 import sys
-
+import main_window
 import setting_view
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton
 from PyQt5.uic import loadUi
-import main_window
 
 
 class PickStartPage(QMainWindow):

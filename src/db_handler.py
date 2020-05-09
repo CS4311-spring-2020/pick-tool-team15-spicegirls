@@ -33,36 +33,36 @@ class DBHandler:
                                         'source': source, 'source_type': source_type})
 
     def delete_log_entry(self, _id):
-        if self.db.log_entries.delete_one({'_id': ObjectId(str(_id))}).deleted_count is 1:
+        if self.db.log_entries.delete_one({'_id': ObjectId(str(_id))}).deleted_count == 1:
             return True
         return False
 
     def change_log_entry_content(self, _id, new_content):
         if self.db.log_entries.update_one({'_id': ObjectId(str(_id))},
-                                     {'$set': {'content': new_content}}).modified_count is 1:
+                                     {'$set': {'content': new_content}}).modified_count == 1:
             return True
         return False
 
     def change_log_entry_timestamp(self, _id, new_timestamp):
         if self.db.log_entries.update_one({'_id': ObjectId(str(_id))},
-                                     {'$set': {'time_stamp': new_timestamp}}).modified_count is 1:
+                                     {'$set': {'time_stamp': new_timestamp}}).modified_count == 1:
             return True
         return False
 
     def change_log_entry_host(self, _id, new_host):
-        if self.db.log_entries.update_one({'_id': ObjectId(str(_id))}, {'$set': {'host': new_host}}).modified_count is 1:
+        if self.db.log_entries.update_one({'_id': ObjectId(str(_id))}, {'$set': {'host': new_host}}).modified_count == 1:
             return True
         return False
 
     def change_log_entry_source(self, _id, new_source):
-        if self.db.log_entries.update_one({'_id': ObjectId(str(_id))}, {'$set': {'source': new_source}}).modified_count is 1:
+        if self.db.log_entries.update_one({'_id': ObjectId(str(_id))}, {'$set': {'source': new_source}}).modified_count == 1:
             return True
         return False
 
     def change_log_entry_source_type(self, _id, new_source_type):
         if self.db.log_entries.update_one({'_id': ObjectId(str(_id))},
                                      {'$set': {'source_type': new_source_type}}).modified_count \
-                is 1:
+                == 1:
             return True
         return False
 

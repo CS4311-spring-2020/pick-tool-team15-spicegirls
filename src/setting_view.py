@@ -11,8 +11,8 @@ import main_window
 import shelve
 from os.path import isfile, join
 import shutil
-from Validate import Validator
-from cleansing import Cleanser
+from validator import Validator
+from cleanser import Cleanser
 from audio_transcription import AudioTranscription
 from image_transcribe import ImageTranscription
 import socket
@@ -467,9 +467,7 @@ class SettingsWindow(QMainWindow):
         self.window.show()
 
     def startDataPopulation(self):
-        # client = SplunkHandler('localhost', 8089, 'two', 'SpiceGirls', '@DimaAbdelJaber1234@')
-        client = SplunkHandler('localhost', 8089, 'pick', 'spiceteam', '007dannyd')
-        client.download_log_files()
+        self.client.download_log_files()
 
 
 if __name__ == "__main__":
