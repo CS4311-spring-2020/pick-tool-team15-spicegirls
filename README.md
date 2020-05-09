@@ -4,6 +4,7 @@
 * [Product Perspective](#product-perspective)  
 * [Scope of Product](#scope-of-product)  
 * [Github Structure](#github-structure)
+* [Installation](#installation)
 * [How to Run](#how-to-run)
 * [Collaborators](#collaborators) 
   
@@ -36,6 +37,81 @@ This repository contains 3 folders (src, doc, Libraries, Resouces, and ui).
   * The Resouces folder contains all images, icons, and Audios used in the PICK ui
   
   * The Libraries folder contains all libraries used in the code.
+  
+  
+<Installation="installation"/>
+
+## Installation
+
+Run the following commands on the terminal:
+
+### pyqt5
+   
+    sudo apt-get install python3-pyqt5
+    
+### datetime
+
+    pip3 install DateTime
+    
+### datefinder
+
+    pip3 install datefinder
+    
+### speech recognition
+
+    pip3 install SpeechRecognition
+    
+### bson
+
+    pip3 install bson
+    
+ ### mongodb
+ 
+    pip3 install pymongo
+    
+    brew tap mongodb/brew
+    
+    brew install mongodb-community@4.2
+    
+    brew services start mongodb-community@4.2
+    
+ ### PIL
+ 
+    sudo pip3 install Pillow
+    
+    pip3 install image
+    
+ ### Image
+ 
+    pip3 install image
+    
+### pytesseract
+
+    pip3 install pytesseract
+    
+### pymongo
+
+    pip3 install pymongo
+    
+### asyncio
+
+    pip3 install asyncio
+    
+### splunk
+
+    pip3 install splunklib
+    
+    pip3 install splunk-sdk
+    
+### moviepy
+
+    pip3 install moviepy
+    
+ ### pydub
+ 
+    pip3 install pydub
+    
+
 
 <How to Run="how-to-run"/>
   
@@ -53,14 +129,10 @@ Then, once you're inside pick-tool-team15-spicegirls, go to src
       
 Next, run pickStartPage.py
 
-   ##### For Linux and MacOS run: 
+   ##### Run: 
       
         python3 pickStartPage.py
        
-   
-   ##### For Windows run:
-  
-        ./pickStartPage.py
 
 
 ## Collaborators
