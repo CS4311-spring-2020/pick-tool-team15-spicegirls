@@ -38,9 +38,6 @@ This repository contains 3 folders (src, doc, Libraries, Resouces, and ui).
   
   * The Libraries folder contains all libraries used in the code.
   
-  
-<Installation="installation"/>
-
 
 ## Installation
 
