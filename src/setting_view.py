@@ -418,6 +418,7 @@ class SettingsWindow(QMainWindow):
         db['EAReport'] = self.myValidator.getEnforcementReport()
         db.close()
         self.window = LogFileConfig()
+
         self.window.show()
 
     def openMain(self):
